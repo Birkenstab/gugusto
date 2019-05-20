@@ -1,6 +1,6 @@
 package util;
 
-public class Vector {
+final public class Vector {
 
     private double x;
     private double y;
@@ -28,7 +28,7 @@ public class Vector {
     }
 
     @Override
-    public Vector clone(){
+    public Vector clone() {
         return new Vector(x, y);
     }
 
