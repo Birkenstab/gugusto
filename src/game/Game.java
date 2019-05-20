@@ -6,6 +6,7 @@ import game.object.IGameObject;
 import game.object.Player;
 import graphic.GraphicSystem;
 import input.InputSystem;
+import scene.SceneManager;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -22,7 +23,7 @@ public class Game {
     private GraphicSystem graphicSystem;
     private InputSystem inputSystem;
     private CollisionSystem collisionSystem;
-    private List<IGameObject> gameObjects;
+    private SceneManager sceneManager;
 
     public static Game getInstance(){
         if(INSTANCE == null){
@@ -38,21 +39,6 @@ public class Game {
         graphicSystem = new GraphicSystem();
         inputSystem = new InputSystem(graphicSystem.getWindow());
         collisionSystem = new CollisionSystem();
-        gameObjects = new ArrayList<>();
-
-        int minSize = 10;
-        int maxSize = 60;
-
-        int minSpeed = 200;
-        int maxSpeed = 300;
-
-        gameObjects.add(new Player());
-
-        for(int i = 0; i < 50; i++){
-            int size = (int)(Math.random() * (maxSize - minSize) + minSize);
-            int speed = (int)(Math.random() * (maxSpeed - minSpeed) + minSpeed);
-            gameObjects.add(new Circle(size, speed));
-        }
     }
 
     public void run(){
@@ -64,14 +50,8 @@ public class Game {
             lastFrame = currentFrame;
 
             inputSystem.dispatch();
-
-            for(Iterator<IGameObject> iter = gameObjects.iterator(); iter.hasNext();){
-                IGameObject object = iter.next();
-                if(object.shouldBeRemoved()) iter.remove();
-                else object.update(delta);
-            }
-
-            graphicSystem.draw(gameObjects);
+            sceneManager.update(delta);
+            sceneManager.draw(graphicSystem);
 
             long remainingWaitingTime = System.currentTimeMillis() - lastFrame;
 
@@ -90,8 +70,5 @@ public class Game {
     }
     public CollisionSystem getCollisionSystem(){
         return collisionSystem;
-    }
-    public List<IGameObject> getGameObjects(){
-        return gameObjects;
     }
 }
