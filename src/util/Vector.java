@@ -21,6 +21,12 @@ final public class Vector {
         return this;
     }
 
+    public Vector subtract(Vector v){
+        x -= v.x;
+        y -= v.y;
+        return this;
+    }
+
     public Vector multiply(double nbr){
         x *= nbr;
         y *= nbr;

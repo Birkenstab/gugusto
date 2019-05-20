@@ -1,7 +1,7 @@
 package graphic;
 
 import game.Game;
-import game.object.IGameObject;
+import game.object.GameObject;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -22,14 +22,14 @@ public class GraphicSystem implements IGraphicSystem {
     }
 
     @Override
-    public void draw(List<IGameObject> gameObjects) {
+    public void draw(List<GameObject> gameObjects) {
         do {
             Graphics2D g2d = (Graphics2D) bs.getDrawGraphics();
 
             g2d.setColor(Color.WHITE);
             g2d.fillRect(0, 0, window.getWidth(), window.getHeight());
 
-            for(IGameObject object : gameObjects) if(!object.shouldBeRemoved()) object.draw(g2d);
+            for(GameObject object : gameObjects) if(!object.shouldBeRemoved()) object.draw(g2d);
 
             g2d.dispose();
         } while(bs.contentsRestored());

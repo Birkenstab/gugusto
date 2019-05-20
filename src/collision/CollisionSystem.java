@@ -1,7 +1,7 @@
 package collision;
 
 import game.Game;
-import game.object.IGameObject;
+import game.object.GameObject;
 import util.Size;
 import util.Vector;
 
@@ -12,7 +12,7 @@ public class CollisionSystem {
 
     public CollisionSystem(){ }
 
-    public boolean isColliding(IGameObject object1, IGameObject object2){
+    public boolean isColliding(GameObject object1, GameObject object2){
         BoundingBox bb1 = object1.getBoundingBox();
         BoundingBox bb2 = object2.getBoundingBox();
         BoundingBox.Type bbt1 = bb1.getType();
@@ -29,7 +29,7 @@ public class CollisionSystem {
         return false;
     }
 
-    public int isCollidingWithScreen(IGameObject object){
+    public int isCollidingWithScreen(GameObject object){
         double nx, fx;
         double ny, fy;
         BoundingBox bb = object.getBoundingBox();
@@ -89,11 +89,11 @@ public class CollisionSystem {
         return diff < bb.getRadius();
     }
 
-    public List<IGameObject> getCollisions(IGameObject object){
-        List<IGameObject> collidedObjects = new ArrayList<>();
-        List<IGameObject> gameObjects = Game.getInstance().getGameObjects();
+    public List<GameObject> getCollisions(GameObject object){
+        List<GameObject> collidedObjects = new ArrayList<>();
+        List<GameObject> gameObjects = Game.getInstance().getScene().getGameObjects();
 
-        for(IGameObject obj : gameObjects){
+        for(GameObject obj : gameObjects){
             if(obj.equals(object)) continue;
             if(isColliding(obj, object)) collidedObjects.add(obj);
         }

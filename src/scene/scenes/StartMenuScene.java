@@ -1,6 +1,6 @@
 package scene.scenes;
 
-import game.object.IGameObject;
+import game.object.GameObject;
 import graphic.GraphicSystem;
 import scene.Scene;
 

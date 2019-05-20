@@ -1,12 +1,12 @@
 package graphic;
 
-import game.object.IGameObject;
+import game.object.GameObject;
 
 import java.util.List;
 
 public interface IGraphicSystem {
 
-    void draw(List<IGameObject> gameObjects);
+    void draw(List<GameObject> gameObjects);
 
     Window getWindow();
 

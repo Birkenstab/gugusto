@@ -1,12 +1,16 @@
 package scene.scenes;
 
+import game.level.Level;
 import graphic.GraphicSystem;
 import scene.Scene;
 
 public class LevelScene extends Scene {
 
-    public LevelScene(){
+    private Level level;
 
+    public LevelScene(Level level){
+        this.level = level;
+        gameObjects.add(level.getPlayer());
     }
 
     @Override

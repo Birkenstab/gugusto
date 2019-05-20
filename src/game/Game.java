@@ -1,16 +1,10 @@
 package game;
 
 import collision.CollisionSystem;
-import game.object.Circle;
-import game.object.IGameObject;
-import game.object.Player;
 import graphic.GraphicSystem;
 import input.InputSystem;
+import scene.Scene;
 import scene.SceneManager;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 public class Game {
 
@@ -39,6 +33,7 @@ public class Game {
         graphicSystem = new GraphicSystem();
         inputSystem = new InputSystem(graphicSystem.getWindow());
         collisionSystem = new CollisionSystem();
+        sceneManager = new SceneManager();
     }
 
     public void run(){
@@ -70,5 +65,11 @@ public class Game {
     }
     public CollisionSystem getCollisionSystem(){
         return collisionSystem;
+    }
+    public Camera getCamera(){
+        return sceneManager.getCamera();
+    }
+    public Scene getScene(){
+        return sceneManager.getScene();
     }
 }

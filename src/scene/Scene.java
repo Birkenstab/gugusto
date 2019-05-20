@@ -1,18 +1,23 @@
 package scene;
 
-import game.object.IGameObject;
+import game.object.GameObject;
 import graphic.GraphicSystem;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public abstract class Scene {
 
-    protected List<IGameObject> gameObjects;
+    protected List<GameObject> gameObjects;
+
+    protected Scene(){
+        gameObjects = new ArrayList<>();
+    }
 
     protected void update(double delta){
-        for(Iterator<IGameObject> iter = gameObjects.iterator(); iter.hasNext();){
-            IGameObject object = iter.next();
+        for(Iterator<GameObject> iter = gameObjects.iterator(); iter.hasNext();){
+            GameObject object = iter.next();
             if(object.shouldBeRemoved()) iter.remove();
             else object.update(delta);
         }
@@ -21,7 +26,7 @@ public abstract class Scene {
         graphicSystem.draw(gameObjects);
     }
 
-    public List<IGameObject> getGameObjects(){
+    public List<GameObject> getGameObjects(){
         return gameObjects;
     }
 
