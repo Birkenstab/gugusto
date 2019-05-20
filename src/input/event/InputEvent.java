@@ -2,7 +2,7 @@ package input.event;
 
 public interface InputEvent {
 
-    int getType();
+    InputEventType getType();
     boolean isConsumed();
 
 }

@@ -4,10 +4,10 @@ public class MouseEvent implements InputEvent {
 
     private int x;
     private int y;
-    private int type;
+    private InputEventType type;
     private int button;
 
-    public MouseEvent(int x, int y, int button, int type){
+    public MouseEvent(int x, int y, int button, InputEventType type){
         this.x = x;
         this.y = y;
         this.button = button;
@@ -15,7 +15,7 @@ public class MouseEvent implements InputEvent {
     }
 
     @Override
-    public int getType() {
+    public InputEventType getType() {
         return type;
     }
 

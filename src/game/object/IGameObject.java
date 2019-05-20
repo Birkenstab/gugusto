@@ -10,7 +10,7 @@ public interface IGameObject {
     void update(double delta);
 
     BoundingBox getBoundingBox();
-    void setActive(boolean active);
-    boolean isActive();
+    void remove();
+    boolean shouldBeRemoved();
 
 }

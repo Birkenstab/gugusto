@@ -72,7 +72,7 @@ public class Player extends Circle {
 
         List<IGameObject> objects = Game.getInstance().getCollisionSystem().getCollisions(this);
         for(IGameObject object : objects){
-            object.setActive(false);
+            object.remove();
         }
     }
 

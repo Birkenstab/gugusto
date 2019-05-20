@@ -2,13 +2,15 @@ package game.object;
 
 abstract class BaseGameObject implements IGameObject {
 
-    private boolean active = true;
+    private boolean shouldRemove = false;
 
-    public void setActive(boolean active){
-        this.active = active;
+    public void remove(){
+        shouldRemove = true;
     }
-    public boolean isActive(){
-        return active;
+
+    @Override
+    public boolean shouldBeRemoved(){
+        return shouldRemove;
     }
 
 }

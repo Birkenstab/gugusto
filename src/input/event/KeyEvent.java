@@ -4,16 +4,16 @@ public class KeyEvent implements InputEvent {
 
     private char key;
     private int keyCode;
-    private int type;
+    private InputEventType type;
 
-    public KeyEvent(char key, int keyCode, int type){
+    public KeyEvent(char key, int keyCode, InputEventType type){
         this.key = key;
         this.keyCode = keyCode;
         this.type = type;
     }
 
     @Override
-    public int getType() {
+    public InputEventType getType() {
         return type;
     }
 

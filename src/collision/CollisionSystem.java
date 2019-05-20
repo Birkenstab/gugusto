@@ -10,11 +10,7 @@ import java.util.List;
 
 public class CollisionSystem {
 
-    private Game game;
-
-    public CollisionSystem(Game game){
-        this.game = game;
-    }
+    public CollisionSystem(){ }
 
     public boolean isColliding(IGameObject object1, IGameObject object2){
         BoundingBox bb1 = object1.getBoundingBox();
@@ -95,8 +91,9 @@ public class CollisionSystem {
 
     public List<IGameObject> getCollisions(IGameObject object){
         List<IGameObject> collidedObjects = new ArrayList<>();
+        List<IGameObject> gameObjects = Game.getInstance().getGameObjects();
 
-        for(IGameObject obj : game.getGameObjects()){
+        for(IGameObject obj : gameObjects){
             if(obj.equals(object)) continue;
             if(isColliding(obj, object)) collidedObjects.add(obj);
         }

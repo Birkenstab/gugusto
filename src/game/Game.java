@@ -27,9 +27,7 @@ public class Game {
     public static Game getInstance(){
         if(INSTANCE == null){
             synchronized (Game.class){
-                if(INSTANCE == null){
-                    INSTANCE = new Game();
-                }
+                if(INSTANCE == null) new Game();
             }
         }
         return INSTANCE;
@@ -39,7 +37,7 @@ public class Game {
         INSTANCE = this;
         graphicSystem = new GraphicSystem();
         inputSystem = new InputSystem(graphicSystem.getWindow());
-        collisionSystem = new CollisionSystem(this);
+        collisionSystem = new CollisionSystem();
         gameObjects = new ArrayList<>();
 
         int minSize = 10;
@@ -55,11 +53,9 @@ public class Game {
             int speed = (int)(Math.random() * (maxSpeed - minSpeed) + minSpeed);
             gameObjects.add(new Circle(size, speed));
         }
-
-        loop();
     }
 
-    private void loop(){
+    public void run(){
         long lastFrame = System.currentTimeMillis();
 
         while(running){
@@ -68,13 +64,14 @@ public class Game {
             lastFrame = currentFrame;
 
             inputSystem.dispatch();
-            graphicSystem.draw(gameObjects);
 
             for(Iterator<IGameObject> iter = gameObjects.iterator(); iter.hasNext();){
                 IGameObject object = iter.next();
-                if(object.isActive()) object.update(delta);
-                else iter.remove();
+                if(object.shouldBeRemoved()) iter.remove();
+                else object.update(delta);
             }
+
+            graphicSystem.draw(gameObjects);
 
             long remainingWaitingTime = System.currentTimeMillis() - lastFrame;
 

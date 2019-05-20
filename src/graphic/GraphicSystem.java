@@ -29,7 +29,7 @@ public class GraphicSystem implements IGraphicSystem {
             g2d.setColor(Color.WHITE);
             g2d.fillRect(0, 0, window.getWidth(), window.getHeight());
 
-            for(IGameObject object : gameObjects) if(object.isActive()) object.draw(g2d);
+            for(IGameObject object : gameObjects) if(!object.shouldBeRemoved()) object.draw(g2d);
 
             g2d.dispose();
         } while(bs.contentsRestored());

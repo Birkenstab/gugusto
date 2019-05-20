@@ -1,23 +1,34 @@
 package input.event;
 
-public final class InputEventType {
+public enum InputEventType {
 
-    public static int KEY_DOWN = 1;
-    public static int KEY_UP = 1 << 2;
-    public static int KEY_PRESS = 1 << 3;
-    public static int MOUSE_DOWN= 1 << 4;
-    public static int MOUSE_UP= 1 << 5;
-    public static int MOUSE_CLICK = 1 << 6;
-    public static int MOUSE_MOVE= 1 << 7;
+    KEY_DOWN(1),
+    KEY_UP(1 << 1),
+    KEY_PRESS(1 << 2),
+    KEY(KEY_DOWN.id | KEY_UP.id | KEY_PRESS.id),
+    MOUSE_DOWN(1 << 3),
+    MOUSE_UP(1 << 4),
+    MOUSE_CLICK(1 << 5),
+    MOUSE_MOVE(1 << 6),
+    MOUSE(MOUSE_DOWN.id | MOUSE_UP.id | MOUSE_CLICK.id | MOUSE_MOVE.id);
 
-    public static boolean isKeyEvent(int type){
-        return (type & (KEY_DOWN | KEY_UP | KEY_PRESS)) != 0;
+    private int id;
+
+    InputEventType(int id){
+        this.id = id;
     }
 
-    public static boolean isMouseEvent(int type){
-        return (type & (MOUSE_CLICK | MOUSE_UP | MOUSE_DOWN | MOUSE_MOVE)) != 0;
+
+    public boolean isKeyEvent(){
+        return (id & (KEY_DOWN.id | KEY_UP.id | KEY_PRESS.id)) != 0;
     }
 
-    private InputEventType(){}
+    public boolean isMouseEvent(){
+        return (id & (MOUSE_CLICK.id | MOUSE_UP.id | MOUSE_DOWN.id | MOUSE_MOVE.id)) != 0;
+    }
+
+    public int getId(){
+        return id;
+    }
 
 }
