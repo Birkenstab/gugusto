@@ -1,6 +1,7 @@
 package game.object;
 
 import game.Game;
+import input.KeyState;
 import input.event.InputEventType;
 import input.event.KeyEvent;
 import util.Size;
@@ -14,21 +15,18 @@ public class Player extends GameObject {
 
     public Player(Vector position){
         super(position, size);
-
-        Game.getInstance().getInputSystem().addListener(InputEventType.KEY_DOWN, this::onKeyDown);
     }
-
-    private void onKeyDown(KeyEvent e){
-        int step = 5;
-        if(e.getChar() == 'w') boundingBox.getPosition().add(new Vector(0, -step));
-        else if(e.getChar() == 's') boundingBox.getPosition().add(new Vector(0, step));
-        else if(e.getChar() == 'a') boundingBox.getPosition().add(new Vector(-step, 0));
-        else if(e.getChar() == 'd') boundingBox.getPosition().add(new Vector(step, 0));
-    }
-
     @Override
     public void update(double delta){
-
+        int step = 30;
+        if (KeyState.isDown('w'))
+            boundingBox.getPosition().add(new Vector(0, - delta * step));
+        if (KeyState.isDown('s'))
+            boundingBox.getPosition().add(new Vector(0, delta * step));
+        if (KeyState.isDown('a'))
+            boundingBox.getPosition().add(new Vector(- delta * step, 0));
+        if (KeyState.isDown('d'))
+            boundingBox.getPosition().add(new Vector(delta * step, 0));
     }
 
     @Override

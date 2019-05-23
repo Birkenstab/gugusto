@@ -51,21 +51,21 @@ public class InputSystem {
     }
 
     private <T extends InputEvent> void dispatchEvent(T event, List<EventCallback<T>> callbacks){
-        for(EventCallback<T> callback : callbacks){
-            InputEventType type = event.getType();
-            if(event instanceof KeyEvent){
-                if((type.equals(InputEventType.KEY_PRESS))){
-                    KeyState.set(((KeyEvent) event).getKeyCode(), type.equals(InputEventType.KEY_DOWN));
-                }
+        InputEventType type = event.getType();
+        if(type == InputEventType.KEY_UP || type == InputEventType.KEY_DOWN){
+            KeyState.set(((KeyEvent) event).getKeyCode(), type.equals(InputEventType.KEY_DOWN));
+        }
 
+        if(type.equals(InputEventType.MOUSE_DOWN) || type.equals(InputEventType.MOUSE_UP)){
+            MouseState.set(((MouseEvent)event).getButton(), type.equals(InputEventType.MOUSE_DOWN));
+        }
+
+        for(EventCallback<T> callback : callbacks){
+            if(event instanceof KeyEvent){
                 ((EventCallback<KeyEvent>)callback).callback((KeyEvent) event);
             } else if(event instanceof MouseEvent){
                 MouseEvent mouseEvent = (MouseEvent)event;
                 MouseState.set(mouseEvent.getX(), mouseEvent.getY());
-
-                if(type.equals(InputEventType.MOUSE_DOWN) || type.equals(InputEventType.MOUSE_UP)){
-                    MouseState.set(mouseEvent.getButton(), type.equals(InputEventType.MOUSE_DOWN));
-                }
 
                 ((EventCallback<MouseEvent>)callback).callback((MouseEvent) event);
             }
