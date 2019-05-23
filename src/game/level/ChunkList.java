@@ -1,5 +1,6 @@
 package game.level;
 
+import game.object.Block;
 import game.object.GameObject;
 import util.Vector;
 
@@ -48,5 +49,17 @@ public class ChunkList {
 
     public int getHeight() {
         return height;
+    }
+
+    public List<GameObject> getBlocks(){
+        List<GameObject> blocks = new ArrayList<>();
+
+        for(List<Chunk> chunkList : chunks){
+            for(Chunk chunk : chunkList){
+                blocks.addAll(chunk.getBlocks());
+            }
+        }
+
+        return blocks;
     }
 }

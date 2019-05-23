@@ -17,7 +17,7 @@ public class KeyState {
     }
 
     public static void set(int keyCode, boolean isDown){
-        state.put(keyCode, isDown);
+        state.put(keyCode | 0x20, isDown);
     }
 
 }
