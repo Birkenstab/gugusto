@@ -1,6 +1,7 @@
 package scene.scenes;
 
 import game.level.Level;
+import game.object.FpsCounter;
 import graphic.GraphicSystem;
 import scene.Scene;
 
@@ -16,6 +17,7 @@ public class LevelScene extends Scene {
                 gameObjects.addAll(level.getChunkList().get(x, y).getGameObjects());
             }
         }
+        gameObjects.add(new FpsCounter());
     }
 
     @Override

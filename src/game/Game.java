@@ -10,6 +10,7 @@ public class Game {
 
     public static final int WIDTH = 800;
     public static final int HEIGHT = 600;
+    public static final int TARGET_FRAME_TIME = 1000 / 60;
 
     private static volatile Game INSTANCE;
 
@@ -41,18 +42,18 @@ public class Game {
 
         while(running){
             long currentFrame = System.currentTimeMillis();
-            double delta = (lastFrame - currentFrame) / 1000f;
+            double delta = (currentFrame - lastFrame) / 1000f;
             lastFrame = currentFrame;
 
             inputSystem.dispatch();
             sceneManager.update(delta);
             sceneManager.draw(graphicSystem);
 
-            long remainingWaitingTime = System.currentTimeMillis() - lastFrame;
+            long elapsedTime = System.currentTimeMillis() - lastFrame;
 
-            if(remainingWaitingTime > 0 && remainingWaitingTime < 16){
+            if(elapsedTime < TARGET_FRAME_TIME){
                 try {
-                    Thread.sleep(16 - remainingWaitingTime);
+                    Thread.sleep(TARGET_FRAME_TIME - elapsedTime);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
