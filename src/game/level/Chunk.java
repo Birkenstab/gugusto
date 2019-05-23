@@ -6,11 +6,15 @@ import java.util.List;
 
 public class Chunk {
 
-    public static final int SIZE = 32;
+    public static final int SIZE = 512;
 
     private List<GameObject> gameObjects;
 
-    List<GameObject> getGameObjects(){
+    public Chunk(List<GameObject> gameObjects) {
+        this.gameObjects = gameObjects;
+    }
+
+    public List<GameObject> getGameObjects(){
         return gameObjects;
     }
 

@@ -2,9 +2,9 @@ package scene;
 
 import game.Camera;
 import game.level.Level;
+import game.level.LevelLoader;
 import graphic.GraphicSystem;
 import scene.scenes.LevelScene;
-import scene.scenes.StartMenuScene;
 import util.Vector;
 
 public class SceneManager {
@@ -13,7 +13,7 @@ public class SceneManager {
     private Camera camera;
 
     public SceneManager(){
-        Level level = new Level("Test", null, new Vector(100, 100));
+        Level level = LevelLoader.loadTestLevel();
         currentScene = new LevelScene(level);
         camera = new Camera(new Vector());
     }

@@ -32,7 +32,7 @@ public class Camera {
     }
 
     public Vector toScreenCoordinates(Vector worldCoordinates){
-        return worldCoordinates.clone().subtract(position);
+        return worldCoordinates.clone().subtract(position).add(new Vector(0, 22)); // 22 dazuzählen, weil sonst der Ursprung in der Titelzeile vom Fenster wäre. Unter Windows evtl. anders
     }
 
 }

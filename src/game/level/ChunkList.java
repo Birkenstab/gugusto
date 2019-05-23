@@ -12,7 +12,7 @@ public class ChunkList {
     private int width;
     private int height;
 
-    public void ChunkList(List<List<Chunk>> chunks, int width, int height){
+    public ChunkList(List<List<Chunk>> chunks, int width, int height){
         this.chunks = chunks;
         this.width = width;
         this.height = height;
@@ -42,4 +42,11 @@ public class ChunkList {
         return nearby;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 }
