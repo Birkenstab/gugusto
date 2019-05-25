@@ -31,4 +31,28 @@ public abstract class GameObject {
         return shouldRemove;
     }
 
+    public double getX(){
+        return boundingBox.getPosition().getX();
+    }
+
+    public double getY(){
+        return boundingBox.getPosition().getY();
+    }
+
+    public double getWidth(){
+        if(boundingBox.getType() == BoundingBox.Type.RECTANGLE){
+            return boundingBox.getSize().getWidth();
+        }
+
+        return boundingBox.getRadius();
+    }
+
+    public double getHeight(){
+        if(boundingBox.getType() == BoundingBox.Type.RECTANGLE){
+            return boundingBox.getSize().getHeight();
+        }
+
+        return boundingBox.getRadius();
+    }
+
 }

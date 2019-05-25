@@ -1,6 +1,5 @@
 package game.level;
 
-import game.object.Block;
 import game.object.GameObject;
 import util.Vector;
 
@@ -10,11 +9,13 @@ import java.util.List;
 public class ChunkList {
 
     private List<List<Chunk>> chunks;
+    private int blockCount;
     private int width;
     private int height;
 
-    public ChunkList(List<List<Chunk>> chunks, int width, int height){
+    public ChunkList(List<List<Chunk>> chunks, int blockCount, int width, int height){
         this.chunks = chunks;
+        this.blockCount = blockCount;
         this.width = width;
         this.height = height;
     }
@@ -43,6 +44,10 @@ public class ChunkList {
         return nearby;
     }
 
+    public int getBlockCount(){
+        return blockCount;
+    }
+
     public int getWidth() {
         return width;
     }
@@ -51,15 +56,7 @@ public class ChunkList {
         return height;
     }
 
-    public List<GameObject> getBlocks(){
-        List<GameObject> blocks = new ArrayList<>();
-
-        for(List<Chunk> chunkList : chunks){
-            for(Chunk chunk : chunkList){
-                blocks.addAll(chunk.getBlocks());
-            }
-        }
-
-        return blocks;
+    public List<List<Chunk>> getChunks(){
+        return chunks;
     }
 }

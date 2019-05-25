@@ -2,16 +2,16 @@ package game.level;
 
 import java.util.Arrays;
 
-public class ByteList {
+public class DataView {
 
     private byte[] data;
     private int index = 0;
 
-    public ByteList(int size){
+    public DataView(int size){
         data = new byte[size];
     }
 
-    public ByteList(byte[] data){
+    public DataView(byte[] data){
         this.data = data;
     }
 
@@ -31,29 +31,38 @@ public class ByteList {
         data[index++] = (byte)nbr;
     }
 
-    public void writeString(String str){
-        writeUint32(str.length());
-        for(char c : str.toCharArray()) data[index++] = (byte)c;
+    public void writeStringAsCharSequence(String string){
+        for(char c : string.toCharArray()) data[index++] = (byte)c;
     }
 
-    public byte readUint8(){
-        return data[index++];
+    public void writeString(String string){
+        writeUint32(string.length());
+        for(char c : string.toCharArray()) data[index++] = (byte)c;
     }
 
-    public short readUint16(){
-        return (short)((data[index++] << 8) | data[index++]);
+    public int readUint8(){
+        return data[index++] & 0xFF;
+    }
+
+    public int readUint16(){
+        return ((data[index++] & 0xFF) << 8) | (data[index++] & 0xFF);
     }
 
     public int readUint32(){
-        int high = (data[index++] << 8) | data[index++];
-        int low= (data[index++] << 8) | data[index++];
+        int high = ((data[index++] & 0xFF) << 8) | (data[index++] & 0xFF);
+        int low= ((data[index++] & 0xFF) << 8) | (data[index++] & 0xFF);
         return (high << 16) | low;
+    }
+
+    public String readCharSequenceAsString(int length){
+        return new String(Arrays.copyOfRange(data, index, index += length));
     }
 
     public String readString(){
         int length = readUint32();
         return new String(Arrays.copyOfRange(data, index, index += length));
     }
+
 
     public byte[] getByteArray(){
         return data;

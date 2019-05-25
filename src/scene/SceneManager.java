@@ -7,15 +7,19 @@ import graphic.GraphicSystem;
 import scene.scenes.LevelScene;
 import util.Vector;
 
+import java.nio.file.Paths;
+
 public class SceneManager {
 
     private Scene currentScene;
     private Camera camera;
 
     public SceneManager(){
-        Level level = LevelLoader.loadTestLevel();
-        currentScene = new LevelScene(level);
+        LevelLoader levelLoader = new LevelLoader();
+        Level level = levelLoader.load(Paths.get("./test.gug"));
+
         camera = new Camera(new Vector());
+        currentScene = new LevelScene(level);
     }
 
     public void update(double delta){

@@ -25,7 +25,7 @@ public class FpsCounter extends GameObject {
             frames = 0;
         }
         g2d.setColor(Color.BLACK);
-        g2d.drawString("FPS: " + String.format("%2.3f",fps), (int)getBoundingBox().getPosition().getX(), (int)getBoundingBox().getPosition().getY());
+        g2d.drawString("FPS: " + String.format("%2.3f",fps), (int)getX(), (int)getY());
     }
 
     @Override

@@ -8,7 +8,7 @@ public class KeyState {
     private static Map<Integer, Boolean> state = new HashMap<>();
 
     public static boolean isDown(char key){
-        return isDown(key & ~0x20);
+        return isDown(key | 0x20);
     }
 
     public static boolean isDown(int keyCode){

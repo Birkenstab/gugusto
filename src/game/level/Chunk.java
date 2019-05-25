@@ -20,14 +20,4 @@ public class Chunk {
         return gameObjects;
     }
 
-    public List<GameObject> getBlocks(){
-        List<GameObject> blocks = new ArrayList<>();
-
-        for(GameObject block : gameObjects){
-            if(block != null) blocks.add(block);
-        }
-
-        return blocks;
-    }
-
 }
