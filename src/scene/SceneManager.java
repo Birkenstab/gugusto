@@ -5,6 +5,7 @@ import game.level.Level;
 import game.level.LevelLoader;
 import graphic.GraphicSystem;
 import scene.scenes.LevelScene;
+import util.Size;
 import util.Vector;
 
 import java.nio.file.Paths;
@@ -16,9 +17,10 @@ public class SceneManager {
 
     public SceneManager(){
         LevelLoader levelLoader = new LevelLoader();
-        Level level = levelLoader.load(Paths.get("./test.gug"));
+        //Level level = levelLoader.load(Paths.get("./test.gug"));
+        Level level = LevelLoader.loadTestLevel();
 
-        camera = new Camera(new Vector());
+        camera = new Camera(new Vector(), 16);
         currentScene = new LevelScene(level);
     }
 

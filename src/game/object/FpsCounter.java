@@ -15,7 +15,7 @@ public class FpsCounter extends GameObject {
     }
 
     @Override
-    public void draw(Graphics2D g2d) {
+    public void draw(Graphics2D g2d, Vector pos, Size size) {
         frames++;
 
         if (frames > 35) {

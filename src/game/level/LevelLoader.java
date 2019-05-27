@@ -2,6 +2,7 @@ package game.level;
 
 import game.object.Block;
 import game.object.GameObject;
+import game.object.StaticGameObject;
 import util.Vector;
 
 import java.io.*;
@@ -26,10 +27,10 @@ public class LevelLoader {
         for (int x = 0; x < width; x++) {
             chunks.add(new ArrayList<>(height));
             for (int y = 0; y < height; y++) {
-                List<GameObject> gameObjects = new ArrayList<>();
+                List<StaticGameObject> gameObjects = new ArrayList<>();
 
                 for (int i = 0; i < 10; i++) {
-                    gameObjects.add(new Block(new Vector(x * Chunk.SIZE + i * Block.SIZE, y * Chunk.SIZE + i * Block.SIZE)));
+                    gameObjects.add(new Block(new Vector(x * Chunk.SIZE + i, y * Chunk.SIZE + i)));
                 }
 
                 Chunk chunk = new Chunk(gameObjects);
@@ -102,7 +103,7 @@ public class LevelLoader {
     }
 
     private Chunk readChunk(DataView dataView){
-        List<GameObject> gameObjects = new ArrayList<>();
+        List<StaticGameObject> gameObjects = new ArrayList<>();
 
         while(true){
             int blockId = dataView.readUint8();

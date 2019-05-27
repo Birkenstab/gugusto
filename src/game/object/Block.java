@@ -6,19 +6,16 @@ import util.Vector;
 
 import java.awt.*;
 
-public class Block extends GameObject {
-    public static final int SIZE = 16;
+public class Block extends StaticGameObject {
 
     public Block(Vector position) {
-        super(position, new Size(SIZE,SIZE));
+        super(position, new Size(1,1));
     }
 
     @Override
-    public void draw(Graphics2D g2d) {
-        Vector pos = Game.getInstance().getCamera().toScreenCoordinates(boundingBox.getPosition());
-
+    public void draw(Graphics2D g2d, Vector pos, Size size) {
         g2d.setColor(Color.GREEN);
-        g2d.fillRect((int)pos.getX(), (int)pos.getY(), (int)getWidth(), (int)getHeight());
+        g2d.fillRect((int)pos.getX(), (int)pos.getY(), (int)size.getWidth(), (int)size.getHeight());
     }
 
     @Override

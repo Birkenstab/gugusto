@@ -1,6 +1,5 @@
 package game.object;
 
-import game.Game;
 import input.KeyState;
 import util.Size;
 import util.Vector;
@@ -9,14 +8,14 @@ import java.awt.*;
 
 public class Player extends GameObject {
 
-    private static final Size size = new Size(10, 10);
+    private static final Size size = new Size(1, 1);
 
     public Player(Vector position){
         super(position, size);
     }
     @Override
     public void update(double delta){
-        int step = 30;
+        int step = 10;
         if (KeyState.isDown('w'))
             boundingBox.getPosition().add(new Vector(0, - delta * step));
         if (KeyState.isDown('s'))
@@ -28,11 +27,9 @@ public class Player extends GameObject {
     }
 
     @Override
-    public void draw(Graphics2D g2d) {
-        Vector pos = Game.getInstance().getCamera().toScreenCoordinates(boundingBox.getPosition());
-
+    public void draw(Graphics2D g2d, Vector pos, Size size) {
         g2d.setColor(Color.BLACK);
-        g2d.drawRect((int)pos.getX(), (int)pos.getY(), (int)getWidth(), (int)getHeight());
+        g2d.drawRect((int)pos.getX(), (int)pos.getY(), (int)size.getWidth(), (int)size.getHeight());
     }
 
 }

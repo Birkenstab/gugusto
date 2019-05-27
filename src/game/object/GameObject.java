@@ -16,7 +16,13 @@ public abstract class GameObject {
         boundingBox = new BoundingBox(position, size);
     }
 
-    public abstract void draw(Graphics2D g2d);
+    protected abstract void draw(Graphics2D g2d, Vector position, Size size);
+
+    public final void draw(Graphics2D g2d) {
+        Vector position = Game.getInstance().getCamera().toScreenCoordinates(boundingBox.getPosition());
+        Size size = Game.getInstance().getCamera().toScreenCoordinates(boundingBox.getSize());
+        draw(g2d, position, size);
+    }
     public abstract void update(double delta);
 
     public BoundingBox getBoundingBox(){

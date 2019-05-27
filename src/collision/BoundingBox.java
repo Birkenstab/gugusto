@@ -3,6 +3,10 @@ package collision;
 import util.Size;
 import util.Vector;
 
+/**
+ * Enthält Position und Größe des GameObjects, sowie die Form
+ * Position und Größe sind die Weltkoordinaten angegeben, 1 Koordinate = 1 Block
+ */
 public class BoundingBox {
 
     public enum Type {
