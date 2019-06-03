@@ -1,6 +1,8 @@
 package collision;
 
 import game.Game;
+import game.level.Chunk;
+import game.level.ChunkList;
 import game.object.GameObject;
 import util.Size;
 import util.Vector;
@@ -8,11 +10,46 @@ import util.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CollisionSystem {
+public class CollisionUtil {
 
-    public CollisionSystem(){ }
+    private CollisionUtil(){}
 
-    public boolean isColliding(GameObject object1, GameObject object2){
+    /**
+     * Check the dynamic GameObject against every StaticGameObject in the chunks provided
+     * @param dynamicObj
+     * @param chunks
+     */
+    public static void handleStaticCollisions(GameObject dynamicObj, List<Chunk> chunks) {
+        for (Chunk chunk : chunks) {
+            for (GameObject other : chunk.getGameObjects()) {
+                if (CollisionUtil.isColliding(dynamicObj, other)) {
+                    dynamicObj.collision(other);
+                    other.collision(dynamicObj);
+                }
+            }
+        }
+    }
+
+    /**
+     * Checks for collisions between those GameObjects and calls the collision method of both collision partners if there is a collision
+     * @param objs
+     */
+    public static void handleDynamicCollisions(List<GameObject> objs) {
+        for (int i = 0; i < objs.size(); i++) {
+            for (int j = 0; j < objs.size(); j++) {
+                if (i < j) {
+                    GameObject x = objs.get(i);
+                    GameObject y = objs.get(j);
+                    if (CollisionUtil.isColliding(x, y)) {
+                        x.collision(y);
+                        y.collision(x);
+                    }
+                }
+            }
+        }
+    }
+
+    public static boolean isColliding(GameObject object1, GameObject object2){
         BoundingBox bb1 = object1.getBoundingBox();
         BoundingBox bb2 = object2.getBoundingBox();
         BoundingBox.Type bbt1 = bb1.getType();
@@ -56,7 +93,7 @@ public class CollisionSystem {
         return 0;
     }
 
-    private boolean rectToRect(BoundingBox bb1, BoundingBox bb2){
+    private static boolean rectToRect(BoundingBox bb1, BoundingBox bb2){
         Vector bbp1 = bb1.getPosition();
         Vector bbp2 = bb2.getPosition();
         Size bbs1 = bb1.getSize();
@@ -68,12 +105,12 @@ public class CollisionSystem {
                 bbp1.getY() + bbs1.getHeight() > bbp2.getY();
     }
 
-    private boolean rectToCircle(BoundingBox bb1, BoundingBox bb2){
+    private static boolean rectToCircle(BoundingBox bb1, BoundingBox bb2){
         // TODO
         return false;
     }
 
-    private boolean circleToCircle(BoundingBox bb1, BoundingBox bb2){
+    private static boolean circleToCircle(BoundingBox bb1, BoundingBox bb2){
         double diffX = bb1.getPosition().getX() - bb2.getPosition().getX();
         double diffY = bb1.getPosition().getY() - bb2.getPosition().getY();
         double diff = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
@@ -81,24 +118,12 @@ public class CollisionSystem {
         return diff < bb1.getRadius() + bb2.getRadius();
     }
 
-    public boolean isPointInCircle(Vector point, BoundingBox bb){
+    public static boolean isPointInCircle(Vector point, BoundingBox bb){
         double diffX = point.getX() - bb.getPosition().getX();
         double diffY = point.getY() - bb.getPosition().getY();
         double diff = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
 
         return diff < bb.getRadius();
-    }
-
-    public List<GameObject> getCollisions(GameObject object){
-        List<GameObject> collidedObjects = new ArrayList<>();
-        List<GameObject> gameObjects = Game.getInstance().getScene().getGameObjects();
-
-        for(GameObject obj : gameObjects){
-            if(obj.equals(object)) continue;
-            if(isColliding(obj, object)) collidedObjects.add(obj);
-        }
-
-        return collidedObjects;
     }
 
 }

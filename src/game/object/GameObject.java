@@ -45,6 +45,8 @@ public abstract class GameObject {
         return boundingBox.getPosition().getY();
     }
 
+    public void collision(GameObject other) {}
+
     public double getWidth(){
         if(boundingBox.getType() == BoundingBox.Type.RECTANGLE){
             return boundingBox.getSize().getWidth();

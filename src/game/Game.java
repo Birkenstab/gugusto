@@ -1,6 +1,5 @@
 package game;
 
-import collision.CollisionSystem;
 import graphic.GraphicSystem;
 import input.InputSystem;
 import scene.Scene;
@@ -17,7 +16,6 @@ public class Game {
     private boolean running = true;
     private GraphicSystem graphicSystem;
     private InputSystem inputSystem;
-    private CollisionSystem collisionSystem;
     private SceneManager sceneManager;
 
     public static Game getInstance(){
@@ -33,7 +31,6 @@ public class Game {
         INSTANCE = this;
         graphicSystem = new GraphicSystem();
         inputSystem = new InputSystem(graphicSystem.getWindow());
-        collisionSystem = new CollisionSystem();
         sceneManager = new SceneManager();
     }
 
@@ -63,9 +60,6 @@ public class Game {
 
     public InputSystem getInputSystem(){
         return inputSystem;
-    }
-    public CollisionSystem getCollisionSystem(){
-        return collisionSystem;
     }
     public Camera getCamera(){
         return sceneManager.getCamera();

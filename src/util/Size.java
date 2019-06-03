@@ -23,4 +23,8 @@ public class Size {
         return height;
     }
 
+    public Vector toVector() {
+        return new Vector(width, height);
+    }
+
 }

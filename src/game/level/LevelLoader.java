@@ -40,7 +40,7 @@ public class LevelLoader {
 
 
         ChunkList chunkList = new ChunkList(chunks, 200, width, height);
-        return new Level("Test", chunkList, new Vector(40, 20));
+        return new Level("Test", chunkList, new Vector(4, 2));
     }
 
     public void save(Level level, Path path){

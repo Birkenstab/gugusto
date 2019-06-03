@@ -4,7 +4,9 @@ import game.object.GameObject;
 import util.Vector;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 public class ChunkList {
 
@@ -25,21 +27,36 @@ public class ChunkList {
         return chunks.get(x).get(y);
     }
 
-    public List<Chunk> getNearby(GameObject object){
+    public List<Chunk> getNearby(Vector pos){
         List<Chunk> nearby = new ArrayList<>();
-        Vector pos = object.getBoundingBox().getPosition();
 
-        int chunkX = (int)(pos.getX() / Chunk.SIZE);
-        int chunkY = (int)(pos.getY() / Chunk.SIZE);
-        int modX = (int)(pos.getX() % Chunk.SIZE);
-        int modY = (int)(pos.getY() % Chunk.SIZE);
+        int chunkX = Chunk.getChunkNo(pos.getX());
+        int chunkY = Chunk.getChunkNo(pos.getY());
+        int modX = (int) Chunk.getPositionInChunk(pos.getX());
+        int modY = (int) Chunk.getPositionInChunk(pos.getY());
 
         nearby.add(get(chunkX, chunkY));
 
-        if(modX == 0 && chunkX != 0) nearby.add(get(chunkX - 1, chunkY));
-        if(modX == Chunk.SIZE - 1 && chunkX != width - 1) nearby.add(get(chunkX + 1, chunkY));
-        if(modY == 0 && chunkY != 0) nearby.add(get(chunkX, chunkY - 1));
-        if(modX == Chunk.SIZE - 1 && chunkX != height - 1) nearby.add(get(chunkX, chunkY + 1));
+
+        if(modX == 0) // Chunk links
+            nearby.add(get(chunkX - 1, chunkY));
+        if(modX == Chunk.SIZE - 1) // Chunk rechts
+            nearby.add(get(chunkX + 1, chunkY));
+        if(modY == 0) // Chunk oben
+            nearby.add(get(chunkX, chunkY - 1));
+        if(modY == Chunk.SIZE - 1) // Chunk unten
+            nearby.add(get(chunkX, chunkY + 1));
+
+        if(modX == 0 && modY == 0) // Chunk links oben
+            nearby.add(get(chunkX - 1, chunkY - 1));
+        if(modX == 0 && modY == Chunk.SIZE - 1) // Chunk links unten
+            nearby.add(get(chunkX - 1, chunkY + 1));
+        if(modX == Chunk.SIZE - 1 && modY == 0) // Chunk rechts oben
+            nearby.add(get(chunkX + 1, chunkY - 1));
+        if(modX == Chunk.SIZE - 1 && modY == Chunk.SIZE - 1) // Chunk rechts unten
+            nearby.add(get(chunkX + 1, chunkY + 1));
+
+        nearby.removeIf(Objects::isNull); // nicht existente Chunks löschen
 
         return nearby;
     }
