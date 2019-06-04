@@ -2,8 +2,8 @@ package scene.scenes;
 
 import collision.CollisionUtil;
 import game.level.Level;
+import game.object.DynamicGameObject;
 import game.object.FpsCounter;
-import game.object.GameObject;
 import graphic.GraphicSystem;
 import scene.Scene;
 
@@ -32,10 +32,11 @@ public class LevelScene extends Scene {
     }
 
     private void handleCollisions() {
-        List<GameObject> dynamicObjs = new ArrayList<>(level.getEnemys());
+        List<DynamicGameObject> dynamicObjs = new ArrayList<>(level.getEnemys());
         dynamicObjs.add(level.getPlayer());
 
-        for (GameObject obj : dynamicObjs) {
+        for (DynamicGameObject obj : dynamicObjs) {
+            obj.setOnGround(false);
             CollisionUtil.handleStaticCollisions(obj, level.getChunkList().getNearby(obj.getBoundingBox().getPosition()));
         }
 

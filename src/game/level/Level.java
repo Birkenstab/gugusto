@@ -1,5 +1,6 @@
 package game.level;
 
+import game.object.DynamicGameObject;
 import game.object.GameObject;
 import game.object.Player;
 import util.Vector;
@@ -11,7 +12,7 @@ public class Level {
 
     private String name;
     private ChunkList chunkList;
-    private List<GameObject> enemys;
+    private List<DynamicGameObject> enemys;
     private Vector startPosition;
     private Player player;
 
@@ -31,7 +32,7 @@ public class Level {
         return chunkList;
     }
 
-    public List<GameObject> getEnemys() {
+    public List<DynamicGameObject> getEnemys() {
         return enemys;
     }
 

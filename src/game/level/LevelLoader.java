@@ -30,7 +30,17 @@ public class LevelLoader {
                 List<StaticGameObject> gameObjects = new ArrayList<>();
 
                 for (int i = 0; i < 10; i++) {
-                    gameObjects.add(new Block(new Vector(x * Chunk.SIZE + i, y * Chunk.SIZE + i)));
+                    gameObjects.add(new Block(new Vector(x * Chunk.SIZE + i, y * Chunk.SIZE + 30)));
+                }
+
+                gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 10, y * Chunk.SIZE + 28)));
+                gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 11, y * Chunk.SIZE + 26)));
+                gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 12, y * Chunk.SIZE + 24)));
+                gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 13, y * Chunk.SIZE + 22)));
+                gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 14, y * Chunk.SIZE + 20)));
+
+                for (int i = 15; i < 25; i++) {
+                    gameObjects.add(new Block(new Vector(x * Chunk.SIZE + i, y * Chunk.SIZE + 20)));
                 }
 
                 Chunk chunk = new Chunk(gameObjects);

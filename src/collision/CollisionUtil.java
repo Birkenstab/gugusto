@@ -3,6 +3,7 @@ package collision;
 import game.Game;
 import game.level.Chunk;
 import game.level.ChunkList;
+import game.object.DynamicGameObject;
 import game.object.GameObject;
 import util.Size;
 import util.Vector;
@@ -19,7 +20,7 @@ public class CollisionUtil {
      * @param dynamicObj
      * @param chunks
      */
-    public static void handleStaticCollisions(GameObject dynamicObj, List<Chunk> chunks) {
+    public static void handleStaticCollisions(DynamicGameObject dynamicObj, List<Chunk> chunks) {
         for (Chunk chunk : chunks) {
             for (GameObject other : chunk.getGameObjects()) {
                 if (CollisionUtil.isColliding(dynamicObj, other)) {
@@ -34,7 +35,7 @@ public class CollisionUtil {
      * Checks for collisions between those GameObjects and calls the collision method of both collision partners if there is a collision
      * @param objs
      */
-    public static void handleDynamicCollisions(List<GameObject> objs) {
+    public static void handleDynamicCollisions(List<DynamicGameObject> objs) {
         for (int i = 0; i < objs.size(); i++) {
             for (int j = 0; j < objs.size(); j++) {
                 if (i < j) {
