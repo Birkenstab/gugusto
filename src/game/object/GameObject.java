@@ -1,6 +1,7 @@
 package game.object;
 
 import collision.BoundingBox;
+import game.Camera;
 import game.Game;
 import util.Size;
 import util.Vector;
@@ -16,12 +17,12 @@ public abstract class GameObject {
         boundingBox = new BoundingBox(position, size);
     }
 
-    protected abstract void draw(Graphics2D g2d, Vector position, Size size);
+    protected abstract void draw(Graphics2D g2d, Camera camera, Vector position, Size size);
 
-    public final void draw(Graphics2D g2d) {
-        Vector position = Game.getInstance().getCamera().toScreenCoordinates(boundingBox.getPosition());
-        Size size = Game.getInstance().getCamera().toScreenCoordinates(boundingBox.getSize());
-        draw(g2d, position, size);
+    public final void draw(Graphics2D g2d, Camera camera) {
+        Vector position = camera.toScreenCoordinates(boundingBox.getPosition());
+        Size size = camera.toScreenCoordinates(boundingBox.getSize());
+        draw(g2d, camera, position, size);
     }
     public abstract void update(double delta);
 

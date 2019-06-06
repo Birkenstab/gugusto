@@ -14,6 +14,8 @@ import java.awt.image.BufferStrategy;
 
 public class Window extends JFrame implements IWindow, KeyListener, MouseListener, MouseMotionListener {
 
+    public static final int TITLEBAR_HEIGHT = 22;
+
     private EventCallback<KeyEvent> keyEventEventCallback;
     private EventCallback<MouseEvent> mouseEventEventCallback;
 

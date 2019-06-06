@@ -1,53 +1,22 @@
 package scene.scenes;
 
-import collision.CollisionUtil;
+import game.Camera;
 import game.level.Level;
-import game.object.DynamicGameObject;
-import game.object.FpsCounter;
-import graphic.GraphicSystem;
+import game.level.LevelLoader;
 import scene.Scene;
-
-import java.util.ArrayList;
-import java.util.List;
+import scene.layers.LevelLayer;
+import scene.layers.TestUILayer;
+import util.Vector;
 
 public class LevelScene extends Scene {
 
-    private Level level;
+    public LevelScene(){
+        LevelLoader levelLoader = new LevelLoader();
+        Level level = LevelLoader.loadTestLevel();
+        //Level level = levelLoader.load(Paths.get("./test.gug"));
 
-    public LevelScene(Level level){
-        this.level = level;
-        gameObjects.add(level.getPlayer());
-        for (int x = 0; x < level.getChunkList().getWidth(); x++) {
-            for (int y = 0; y < level.getChunkList().getHeight(); y++) {
-                gameObjects.addAll(level.getChunkList().get(x, y).getGameObjects());
-            }
-        }
-        gameObjects.add(new FpsCounter());
-    }
-
-    @Override
-    public void update(double delta) {
-        super.update(delta);
-        handleCollisions();
-    }
-
-    private void handleCollisions() {
-        List<DynamicGameObject> dynamicObjs = new ArrayList<>(level.getEnemys());
-        dynamicObjs.add(level.getPlayer());
-
-        for (DynamicGameObject obj : dynamicObjs) {
-            obj.setOnGround(false);
-            CollisionUtil.handleStaticCollisions(obj, level.getChunkList().getNearby(obj.getBoundingBox().getPosition()));
-        }
-
-        CollisionUtil.handleDynamicCollisions(dynamicObjs);
-    }
-
-
-
-    @Override
-    public void draw(GraphicSystem graphicSystem) {
-        super.draw(graphicSystem);
+        addLayer(new LevelLayer(level));
+        addLayer(new TestUILayer());
     }
 
 }

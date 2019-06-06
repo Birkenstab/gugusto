@@ -1,7 +1,12 @@
 package scene;
 
+import game.Camera;
 import game.object.GameObject;
 import graphic.GraphicSystem;
+import input.event.EventCallback;
+import input.event.InputEvent;
+import input.event.KeyEvent;
+import input.event.MouseEvent;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -9,25 +14,30 @@ import java.util.List;
 
 public abstract class Scene {
 
-    protected List<GameObject> gameObjects;
+    protected List<Layer> layers;
 
     protected Scene(){
-        gameObjects = new ArrayList<>();
+        layers = new ArrayList<>();
     }
 
     protected void update(double delta){
-        for(Iterator<GameObject> iter = gameObjects.iterator(); iter.hasNext();){
-            GameObject object = iter.next();
-            if(object.shouldBeRemoved()) iter.remove();
-            else object.update(delta);
-        }
-    }
-    protected void draw(GraphicSystem graphicSystem){
-        graphicSystem.draw(gameObjects);
+        for(Layer layer : layers) layer.update(delta);
     }
 
-    public List<GameObject> getGameObjects(){
-        return gameObjects;
+    protected void draw(GraphicSystem graphicSystem){
+        graphicSystem.draw(layers);
+    }
+
+    public void dispatchEvents(List<InputEvent> events){
+        for(InputEvent event : events){
+            for(int i = layers.size() - 1; i >= 0; i--){
+                if(layers.get(i).dispatchEvent(event)) break;
+            }
+        }
+    }
+
+    protected void addLayer(Layer layer){
+        layers.add(layer);
     }
 
 }

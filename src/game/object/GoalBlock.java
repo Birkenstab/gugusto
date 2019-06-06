@@ -1,5 +1,6 @@
 package game.object;
 
+import game.Camera;
 import util.Size;
 import util.Vector;
 
@@ -12,7 +13,7 @@ public class GoalBlock extends StaticGameObject {
     }
 
     @Override
-    protected void draw(Graphics2D g2d, Vector position, Size size) {
+    protected void draw(Graphics2D g2d, Camera camera, Vector position, Size size) {
         g2d.setColor(Color.GRAY);
         g2d.drawRect((int)position.getX(), (int)position.getY(), (int)size.getWidth(), (int)size.getHeight());
         // Todo nur vorrübergehend zum Testen sichtbar

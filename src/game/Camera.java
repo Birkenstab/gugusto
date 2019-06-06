@@ -1,6 +1,6 @@
 package game;
 
-import input.event.InputEventType;
+import graphic.Window;
 import util.Size;
 import util.Vector;
 
@@ -14,16 +14,16 @@ public class Camera {
     public Camera(Vector position, double scaling){
         this.position = position;
         this.scaling = scaling;
-
-        Game.getInstance().getInputSystem().addListener(InputEventType.KEY_DOWN, this::onKeyDown);
     }
 
-    private void onKeyDown(input.event.KeyEvent e){
-        int step = 5;
+    public boolean onKeyDown(input.event.KeyEvent e){
+        int step = 1;
         if(e.getKeyCode() == KeyEvent.VK_UP) move(new Vector(0, -step));
         else if(e.getKeyCode() == KeyEvent.VK_DOWN) move(new Vector(0, step));
         else if(e.getKeyCode() == KeyEvent.VK_LEFT) move(new Vector(-step, 0));
         else if(e.getKeyCode() == KeyEvent.VK_RIGHT) move(new Vector(step, 0));
+
+        return false;
     }
 
     public void set(Vector position){
@@ -35,7 +35,7 @@ public class Camera {
     }
 
     public Vector toScreenCoordinates(Vector worldCoordinates){
-        return worldCoordinates.clone().subtract(position).multiply(scaling).add(new Vector(0, 22)); // 22 dazuzählen, weil sonst der Ursprung in der Titelzeile vom Fenster wäre. Unter Windows evtl. anders
+        return worldCoordinates.clone().subtract(position).multiply(scaling).add(new Vector(0, Window.TITLEBAR_HEIGHT)); // 22 dazuzählen, weil sonst der Ursprung in der Titelzeile vom Fenster wäre. Unter Windows evtl. anders
     }
 
     public Size toScreenCoordinates(Size size) {

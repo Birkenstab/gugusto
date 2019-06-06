@@ -1,5 +1,7 @@
 package input.event;
 
+import util.Vector;
+
 public class MouseEvent implements InputEvent {
 
     private int x;

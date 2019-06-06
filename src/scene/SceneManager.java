@@ -16,12 +16,7 @@ public class SceneManager {
     private Camera camera;
 
     public SceneManager(){
-        LevelLoader levelLoader = new LevelLoader();
-        //Level level = levelLoader.load(Paths.get("./test.gug"));
-        Level level = LevelLoader.loadTestLevel();
-
-        camera = new Camera(new Vector(), 16);
-        currentScene = new LevelScene(level);
+        currentScene = new LevelScene();
     }
 
     public void update(double delta){
