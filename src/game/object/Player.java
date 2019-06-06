@@ -5,8 +5,6 @@ import util.Size;
 import util.Vector;
 
 import java.awt.*;
-import java.util.stream.DoubleStream;
-import java.util.stream.Stream;
 
 public class Player extends DynamicGameObject {
 
@@ -42,5 +40,8 @@ public class Player extends DynamicGameObject {
     @Override
     public void collision(GameObject other) {
         super.collision(other);
+        if (other instanceof GoalBlock) {
+            System.out.println("Jo du hast das Ziel erreicht!");
+        }
     }
 }

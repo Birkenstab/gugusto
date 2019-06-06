@@ -24,7 +24,7 @@ public abstract class DynamicGameObject extends GameObject {
     @Override
     public void collision(GameObject other) {
         super.collision(other);
-        if (other instanceof StaticGameObject) {
+        if (other instanceof Block) {
             Vector pos1 = boundingBox.getPosition();
             Vector pos2 = other.getBoundingBox().getPosition();
             Size size1 = boundingBox.getSize();

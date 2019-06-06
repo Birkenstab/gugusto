@@ -2,6 +2,7 @@ package game.level;
 
 import game.object.Block;
 import game.object.GameObject;
+import game.object.GoalBlock;
 import game.object.StaticGameObject;
 import util.Vector;
 
@@ -21,7 +22,7 @@ public class LevelLoader {
 
     public static Level loadTestLevel() {
         int height = 2;
-        int width = 10;
+        int width = 2;
         List<List<Chunk>> chunks = new ArrayList<>();
 
         for (int x = 0; x < width; x++) {
@@ -33,14 +34,25 @@ public class LevelLoader {
                     gameObjects.add(new Block(new Vector(x * Chunk.SIZE + i, y * Chunk.SIZE + 30)));
                 }
 
+                gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 10, y * Chunk.SIZE + 29)));
                 gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 10, y * Chunk.SIZE + 28)));
+                gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 10, y * Chunk.SIZE + 27)));
                 gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 11, y * Chunk.SIZE + 26)));
+                gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 11, y * Chunk.SIZE + 25)));
                 gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 12, y * Chunk.SIZE + 24)));
+                gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 12, y * Chunk.SIZE + 23)));
                 gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 13, y * Chunk.SIZE + 22)));
+                gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 13, y * Chunk.SIZE + 21)));
                 gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 14, y * Chunk.SIZE + 20)));
 
                 for (int i = 15; i < 25; i++) {
                     gameObjects.add(new Block(new Vector(x * Chunk.SIZE + i, y * Chunk.SIZE + 20)));
+                }
+
+                if (x == width - 1) {
+                    for (int i = 0; i < Chunk.SIZE; i++) {
+                        gameObjects.add(new GoalBlock(new Vector(x * Chunk.SIZE + 15, y * Chunk.SIZE + i)));
+                    }
                 }
 
                 Chunk chunk = new Chunk(gameObjects);
