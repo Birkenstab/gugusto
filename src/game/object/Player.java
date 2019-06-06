@@ -27,7 +27,7 @@ public class Player extends DynamicGameObject {
             boundingBox.getPosition().add(new Vector(delta * step, 0));
         if (KeyState.isDown(32)) { // Space
             if (isOnGround())
-                getVelocity().setY(-1000 * delta);
+                getVelocity().setY(-18);
         }
     }
 
