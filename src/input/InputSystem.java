@@ -1,22 +1,19 @@
 package input;
 
+import game.Game;
 import graphic.Window;
 import input.event.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class InputSystem {
 
     private List<InputEvent> events;
-    private Map<InputEventType, List<EventCallback<InputEvent>>> listeners;
     private Window window;
 
     public InputSystem(Window window){
         events = new ArrayList<>();
-        listeners = new HashMap<>();
         this.window = window;
 
         init();
@@ -25,14 +22,6 @@ public class InputSystem {
     private void init(){
         window.setMouseListener(event -> events.add(event));
         window.setKeyListener(event -> events.add(event));
-
-        listeners.put(InputEventType.KEY_DOWN, new ArrayList<>());
-        listeners.put(InputEventType.KEY_UP, new ArrayList<>());
-        listeners.put(InputEventType.KEY_PRESS, new ArrayList<>());
-        listeners.put(InputEventType.MOUSE_DOWN, new ArrayList<>());
-        listeners.put(InputEventType.MOUSE_UP, new ArrayList<>());
-        listeners.put(InputEventType.MOUSE_CLICK, new ArrayList<>());
-        listeners.put(InputEventType.MOUSE_MOVE, new ArrayList<>());
     }
 
     public void dispatch(){
@@ -40,17 +29,14 @@ public class InputSystem {
         events = new ArrayList<>();
 
         for(InputEvent event : _events){
-            if(event.getType().isKeyEvent()) dispatchKeyEvent((KeyEvent) event);
-            else if(event.getType().isMouseEvent()) dispatchMouseEvent((MouseEvent) event);
+            if(event.getType().isKeyEvent()) dispatchEvent(event);
+            else if(event.getType().isMouseEvent()) dispatchEvent(event);
         }
+
+        Game.getInstance().getSceneManager().getScene().dispatchEvents(_events);
     }
 
-    public <T extends InputEvent> void addListener(InputEventType type, EventCallback<T> callback){
-        List<EventCallback<InputEvent>> list = listeners.get(type);
-        if(list != null) list.add((EventCallback<InputEvent>)callback);
-    }
-
-    private <T extends InputEvent> void dispatchEvent(T event, List<EventCallback<T>> callbacks){
+    private <T extends InputEvent> void dispatchEvent(T event){
         InputEventType type = event.getType();
         if(type == InputEventType.KEY_UP || type == InputEventType.KEY_DOWN){
             KeyState.set(((KeyEvent) event).getKeyCode(), type.equals(InputEventType.KEY_DOWN));
@@ -60,37 +46,7 @@ public class InputSystem {
             MouseState.set(((MouseEvent)event).getButton(), type.equals(InputEventType.MOUSE_DOWN));
         }
 
-        for(EventCallback<T> callback : callbacks){
-            if(event instanceof KeyEvent){
-                ((EventCallback<KeyEvent>)callback).callback((KeyEvent) event);
-            } else if(event instanceof MouseEvent){
-                MouseEvent mouseEvent = (MouseEvent)event;
-                MouseState.set(mouseEvent.getX(), mouseEvent.getY());
-
-                ((EventCallback<MouseEvent>)callback).callback((MouseEvent) event);
-            }
-        }
+        if(type.isMouseEvent()) MouseState.set(((MouseEvent)event).getX(), ((MouseEvent)event).getY());
     }
 
-    private void dispatchKeyEvent(KeyEvent event){
-        if(event.getType().equals(InputEventType.KEY_DOWN)){
-            dispatchEvent(event, listeners.get(InputEventType.KEY_DOWN));
-        } else if(event.getType().equals(InputEventType.KEY_UP)){
-            dispatchEvent(event, listeners.get(InputEventType.KEY_UP));
-        } else if(event.getType().equals(InputEventType.KEY_PRESS)){
-            dispatchEvent(event, listeners.get(InputEventType.KEY_PRESS));
-        }
-    }
-
-    private void dispatchMouseEvent(MouseEvent event){
-        if(event.getType().equals(InputEventType.MOUSE_DOWN)){
-            dispatchEvent(event, listeners.get(InputEventType.MOUSE_DOWN));
-        } else if(event.getType().equals(InputEventType.MOUSE_UP)){
-            dispatchEvent(event, listeners.get(InputEventType.MOUSE_UP));
-        } else if(event.getType().equals(InputEventType.MOUSE_CLICK)){
-            dispatchEvent(event, listeners.get(InputEventType.MOUSE_CLICK));
-        } else if(event.getType().equals(InputEventType.MOUSE_MOVE)){
-            dispatchEvent(event, listeners.get(InputEventType.MOUSE_MOVE));
-        }
-    }
 }

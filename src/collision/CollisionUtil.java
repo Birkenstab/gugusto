@@ -22,7 +22,7 @@ public class CollisionUtil {
      */
     public static void handleStaticCollisions(DynamicGameObject dynamicObj, List<Chunk> chunks) {
         for (Chunk chunk : chunks) {
-            for (GameObject other : chunk.getGameObjects()) {
+            for (GameObject other : chunk.getBlocks()) {
                 if (CollisionUtil.isColliding(dynamicObj, other)) {
                     dynamicObj.collision(other);
                     other.collision(dynamicObj);
@@ -119,12 +119,27 @@ public class CollisionUtil {
         return diff < bb1.getRadius() + bb2.getRadius();
     }
 
+    public static boolean contains(Vector point, BoundingBox bb){
+        if(bb.getType() == BoundingBox.Type.RECTANGLE) return isPointInRect(point, bb);
+        else return isPointInCircle(point, bb);
+    }
+
     public static boolean isPointInCircle(Vector point, BoundingBox bb){
         double diffX = point.getX() - bb.getPosition().getX();
         double diffY = point.getY() - bb.getPosition().getY();
         double diff = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
 
         return diff < bb.getRadius();
+    }
+
+    public static boolean isPointInRect(Vector point, BoundingBox bb){
+        Vector position = bb.getPosition();
+        Size size = bb.getSize();
+
+        return point.getX() >= position.getX() &&
+                point.getX() <= position.getX() + size.getWidth() &&
+                point.getY() >= position.getY() &&
+                point.getY() <= position.getY() + size.getHeight();
     }
 
 }

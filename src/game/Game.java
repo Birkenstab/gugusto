@@ -1,9 +1,10 @@
 package game;
 
+import game.object.blocks.*;
 import graphic.GraphicSystem;
 import input.InputSystem;
-import scene.Scene;
 import scene.SceneManager;
+import util.Vector;
 
 public class Game {
 
@@ -58,13 +59,7 @@ public class Game {
         }
     }
 
-    public InputSystem getInputSystem(){
-        return inputSystem;
-    }
-    public Camera getCamera(){
-        return sceneManager.getCamera();
-    }
-    public Scene getScene(){
-        return sceneManager.getScene();
+    public SceneManager getSceneManager(){
+        return sceneManager;
     }
 }

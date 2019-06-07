@@ -1,5 +1,6 @@
 package game.object;
 
+import game.object.blocks.Block;
 import util.Size;
 import util.Vector;
 
@@ -24,7 +25,8 @@ public abstract class DynamicGameObject extends GameObject {
     @Override
     public void collision(GameObject other) {
         super.collision(other);
-        if (other instanceof StaticGameObject) {
+
+        if (other instanceof Block && ((Block) other).isSolid()) {
             Vector pos1 = boundingBox.getPosition();
             Vector pos2 = other.getBoundingBox().getPosition();
             Size size1 = boundingBox.getSize();
@@ -64,6 +66,9 @@ public abstract class DynamicGameObject extends GameObject {
 
     public Vector getVelocity() {
         return velocity;
+    }
+    protected void setVelocity(Vector velocity){
+        this.velocity = velocity;
     }
 
     public boolean isOnGround() {

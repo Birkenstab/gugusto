@@ -14,6 +14,8 @@ import java.awt.image.BufferStrategy;
 
 public class Window extends JFrame implements IWindow, KeyListener, MouseListener, MouseMotionListener {
 
+    public static final int TITLEBAR_HEIGHT = 22;
+
     private EventCallback<KeyEvent> keyEventEventCallback;
     private EventCallback<MouseEvent> mouseEventEventCallback;
 
@@ -89,11 +91,15 @@ public class Window extends JFrame implements IWindow, KeyListener, MouseListene
     }
 
     @Override
+    public void mouseDragged(java.awt.event.MouseEvent e) {
+        MouseEvent event = new MouseEvent(e.getX(), e.getY(), e.getButton(), InputEventType.MOUSE_MOVE);
+        if(mouseEventEventCallback != null) mouseEventEventCallback.callback(event);
+    }
+
+    @Override
     public void mouseEntered(java.awt.event.MouseEvent e) {}
 
     @Override
     public void mouseExited(java.awt.event.MouseEvent e) {}
 
-    @Override
-    public void mouseDragged(java.awt.event.MouseEvent e) {}
 }

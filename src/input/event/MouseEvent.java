@@ -1,6 +1,12 @@
 package input.event;
 
+import util.Vector;
+
 public class MouseEvent implements InputEvent {
+
+    public static final int BUTTON1 = java.awt.event.MouseEvent.BUTTON1;
+    public static final int BUTTON2 = java.awt.event.MouseEvent.BUTTON2;
+    public static final int BUTTON3 = java.awt.event.MouseEvent.BUTTON3;
 
     private int x;
     private int y;
