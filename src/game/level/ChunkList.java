@@ -1,10 +1,9 @@
 package game.level;
 
-import game.object.GameObject;
+import game.object.blocks.Block;
 import util.Vector;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -59,6 +58,33 @@ public class ChunkList {
         nearby.removeIf(Objects::isNull); // nicht existente Chunks löschen
 
         return nearby;
+    }
+
+    public boolean addBlock(Block block, Vector chunkPosition){
+        Chunk chunk = get((int)chunkPosition.getX(), (int)chunkPosition.getY());
+
+        if(chunk != null && chunk.addBlock(block)){
+            blockCount++;
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public Block removeBlock(Vector position, Vector chunkPosition){
+        Chunk chunk = get((int)chunkPosition.getX(), (int)chunkPosition.getY());
+
+        if(chunk != null){
+            Block block = chunk.removeBlock(position);
+
+            if(block != null){
+                blockCount--;
+                return block;
+            }
+        }
+
+        return null;
     }
 
     public int getBlockCount(){

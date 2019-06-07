@@ -19,13 +19,14 @@ public class Action {
         this.level = level;
     }
 
-    public void primaryAction(Vector position, Chunk chunk, List<GameObject> gameObjects){
+    public void primaryAction(Vector position, Vector chunkPosition, List<GameObject> gameObjects){
         GrassBlock block = new GrassBlock(position);
-        if(chunk.addBlock(block)) gameObjects.add(block);
+
+        if(level.getChunkList().addBlock(block, chunkPosition)) gameObjects.add(block);
     }
 
-    public void secondaryAction(Vector position, Chunk chunk, List<GameObject> gameObjects){
-        Block block = chunk.removeBlock(position);
+    public void secondaryAction(Vector position, Vector chunkPosition, List<GameObject> gameObjects){
+        Block block = level.getChunkList().removeBlock(position, chunkPosition);
         if(block != null) gameObjects.remove(block);
     }
 

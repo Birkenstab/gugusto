@@ -50,12 +50,10 @@ public class MapEditorLayer extends Layer {
 
     private void setBlock(Vector position){
         if(position.getX() > -1 && position.getY() > -1){
-            Chunk chunk = level.getChunkList().get((int)position.getX() / Chunk.SIZE, (int)position.getY() / Chunk.SIZE);
+            Vector chunkPosition = position.clone().divide(Chunk.SIZE);
 
-            if(chunk != null){
-                if(MouseState.isDown(MouseEvent.BUTTON1)) action.primaryAction(position, chunk, gameObjects);
-                else if(MouseState.isDown(MouseEvent.BUTTON3)) action.secondaryAction(position, chunk, gameObjects);
-            }
+            if(MouseState.isDown(MouseEvent.BUTTON1)) action.primaryAction(position, chunkPosition, gameObjects);
+            else if(MouseState.isDown(MouseEvent.BUTTON3)) action.secondaryAction(position, chunkPosition, gameObjects);
         }
     }
 
