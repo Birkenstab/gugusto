@@ -1,13 +1,11 @@
-package scene.scenes;
+package scene.scenes.startmenu;
 
-import game.object.GameObject;
-import graphic.GraphicSystem;
 import scene.Scene;
 
 public class StartMenuScene extends Scene {
 
     public StartMenuScene(){
-
+        addLayer(new StartMenuLayer());
     }
 
 }

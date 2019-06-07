@@ -33,7 +33,7 @@ public class InputSystem {
             else if(event.getType().isMouseEvent()) dispatchEvent(event);
         }
 
-        Game.getInstance().getScene().dispatchEvents(_events);
+        Game.getInstance().getSceneManager().getScene().dispatchEvents(_events);
     }
 
     private <T extends InputEvent> void dispatchEvent(T event){

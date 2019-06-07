@@ -33,9 +33,26 @@ final public class Vector {
         return this;
     }
 
+    public Vector divide(double nbr){
+        x /= nbr;
+        y /= nbr;
+        return this;
+    }
+
+    public Vector divide(Vector v){
+        x /= v.x;
+        y /= v.y;
+        return this;
+    }
+
     @Override
     public Vector clone() {
         return new Vector(x, y);
+    }
+
+    public void set(Vector vector){
+        x = vector.x;
+        y = vector.y;
     }
 
     public void set(double x, double y){
@@ -57,6 +74,10 @@ final public class Vector {
 
     public double getY(){
         return y;
+    }
+
+    public boolean equals(Vector vector){
+        return x == vector.x && y == vector.y;
     }
 
     @Override

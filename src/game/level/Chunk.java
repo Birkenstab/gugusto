@@ -1,10 +1,9 @@
 package game.level;
 
-import game.object.Block;
-import game.object.GameObject;
-import game.object.StaticGameObject;
+import game.object.blocks.Block;
+import util.Vector;
 
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Chunk {
@@ -33,14 +32,36 @@ public class Chunk {
         return mod + Chunk.SIZE;
     }
 
-    private List<StaticGameObject> gameObjects;
+    private List<Block> blocks;
 
-    public Chunk(List<StaticGameObject> gameObjects) {
-        this.gameObjects = gameObjects;
+    public Chunk(List<Block> blocks) {
+        this.blocks = blocks;
     }
 
-    public List<StaticGameObject> getGameObjects(){
-        return gameObjects;
+    public List<Block> getBlocks(){
+        return blocks;
+    }
+
+    public boolean addBlock(Block newBlock){
+        for(Block block : blocks){
+            if(block.getBoundingBox().getPosition().equals(newBlock.getBoundingBox().getPosition())) return false;
+        }
+        blocks.add(newBlock);
+
+        return true;
+    }
+
+    public Block removeBlock(Vector position){
+        for(Iterator<Block> iter = blocks.iterator(); iter.hasNext();){
+            Block block = iter.next();
+
+            if(block.getBoundingBox().getPosition().equals(position)){
+                iter.remove();
+                return block;
+            }
+        }
+
+        return null;
     }
 
 }

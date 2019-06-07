@@ -3,10 +3,7 @@ package scene;
 import game.Camera;
 import game.object.GameObject;
 import graphic.GraphicSystem;
-import input.event.EventCallback;
-import input.event.InputEvent;
-import input.event.KeyEvent;
-import input.event.MouseEvent;
+import input.event.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,7 +11,7 @@ import java.util.List;
 
 public abstract class Scene {
 
-    protected List<Layer> layers;
+    private List<Layer> layers;
 
     protected Scene(){
         layers = new ArrayList<>();

@@ -1,5 +1,6 @@
 package game.level;
 
+import game.Game;
 import game.object.DynamicGameObject;
 import game.object.GameObject;
 import game.object.Player;
@@ -21,7 +22,7 @@ public class Level {
         this.chunkList = chunkList;
         this.startPosition = startPosition;
         enemys = new ArrayList<>();
-        player = new Player(startPosition);
+        player = new Player(startPosition.clone());
     }
 
     public String getName() {
@@ -43,4 +44,10 @@ public class Level {
     public Vector getStartPosition(){
         return startPosition;
     }
+
+    public Vector getCameraStartPosition(double scale){
+        Vector window = new Vector(Game.WIDTH, Game.HEIGHT);
+        return startPosition.clone().subtract(window.divide(new Vector(scale * 2.5, scale * 2)));
+    }
+
 }

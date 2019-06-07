@@ -1,22 +1,14 @@
 package scene;
 
-import game.Camera;
-import game.level.Level;
-import game.level.LevelLoader;
 import graphic.GraphicSystem;
-import scene.scenes.LevelScene;
-import util.Size;
-import util.Vector;
-
-import java.nio.file.Paths;
+import scene.scenes.startmenu.StartMenuScene;
 
 public class SceneManager {
 
     private Scene currentScene;
-    private Camera camera;
 
     public SceneManager(){
-        currentScene = new LevelScene();
+        currentScene = new StartMenuScene();
     }
 
     public void update(double delta){
@@ -28,16 +20,11 @@ public class SceneManager {
     }
 
     public void setScene(Scene scene){
-        camera.set(new Vector());
         currentScene = scene;
     }
 
     public Scene getScene(){
         return currentScene;
-    }
-
-    public Camera getCamera(){
-        return camera;
     }
 
 }

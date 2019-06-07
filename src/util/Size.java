@@ -27,4 +27,9 @@ public class Size {
         return new Vector(width, height);
     }
 
+    @Override
+    public String toString(){
+        return String.format("Width: %.4f, Height: %.4f", width, height);
+    }
+
 }

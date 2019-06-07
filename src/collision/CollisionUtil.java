@@ -22,7 +22,7 @@ public class CollisionUtil {
      */
     public static void handleStaticCollisions(DynamicGameObject dynamicObj, List<Chunk> chunks) {
         for (Chunk chunk : chunks) {
-            for (GameObject other : chunk.getGameObjects()) {
+            for (GameObject other : chunk.getBlocks()) {
                 if (CollisionUtil.isColliding(dynamicObj, other)) {
                     dynamicObj.collision(other);
                     other.collision(dynamicObj);

@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 
 public class Camera {
 
+    private static final Vector titlebarOffset = new Vector(0, Window.TITLEBAR_HEIGHT);
+
     private Vector position;
     private double scaling;
 
@@ -40,6 +42,28 @@ public class Camera {
 
     public Size toScreenCoordinates(Size size) {
         return new Size(size.getWidth() * scaling, size.getHeight() * scaling);
+    }
+
+    public Vector toEventCoordinates(Vector screenCoordinates){
+        return screenCoordinates.clone().add(getScaledPosition()).subtract(titlebarOffset);
+    }
+
+    public Vector toWorldCoordinates(Vector eventCoordinates){
+        int x = (int) Math.floor(eventCoordinates.getX() / scaling);
+        int y = (int) Math.floor(eventCoordinates.getY() / scaling);
+        return new Vector(x, y);
+    }
+
+    public Vector getPosition(){
+        return position;
+    }
+
+    public Vector getScaledPosition(){
+        return position.clone().multiply(scaling);
+    }
+
+    public double getScaling(){
+        return scaling;
     }
 
 }

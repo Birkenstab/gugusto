@@ -8,12 +8,10 @@ import java.nio.file.Paths;
 public class LevelLoaderTest {
 
     public static void main(String[] args){
-        LevelLoader loader = new LevelLoader();
-
         Level level1 = LevelLoader.loadTestLevel();
-        loader.save(level1, Paths.get("./test.gug"));
+        LevelLoader.save(level1, Paths.get("./test.gug"));
 
-        Level level = loader.load(Paths.get("./test.gug"));
+        Level level = LevelLoader.load(Paths.get("./test.gug"));
         System.out.println(level.getChunkList().getBlockCount());
     }
 

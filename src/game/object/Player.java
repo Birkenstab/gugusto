@@ -1,6 +1,7 @@
 package game.object;
 
 import game.Camera;
+import game.object.blocks.GoalBlock;
 import input.KeyState;
 import util.Size;
 import util.Vector;
@@ -28,6 +29,7 @@ public class Player extends DynamicGameObject {
     public Player(Vector position){
         super(position, size);
     }
+
     @Override
     public void update(double delta){
         super.update(delta);
@@ -42,16 +44,14 @@ public class Player extends DynamicGameObject {
         if (KeyState.isDown('d'))
             boundingBox.getPosition().add(new Vector(delta * step, 0));
         if (KeyState.isDown(32)) { // Space
-            if (isOnGround())
-                getVelocity().setY(-18);
+            if (isOnGround()) getVelocity().setY(-18);
         }
     }
 
     @Override
-    public void draw(Graphics2D g2d, Camera camera, Vector pos, Size size) {
-        //g2d.setColor(Color.BLACK);
-        //g2d.fillRect((int)pos.getX(), (int)pos.getY(), (int)size.getWidth(), (int)size.getHeight());
-        g2d.drawImage(playerImage, (int)pos.getX(), (int)pos.getY(), (int)size.getWidth(), (int)size.getHeight(), null);
+    public void draw(Graphics2D g2d, Camera camera) {
+        super.draw(g2d, camera);
+        g2d.drawImage(playerImage, getX(), getY(), getWidth(), getHeight(), null);
     }
 
     @Override
@@ -61,4 +61,10 @@ public class Player extends DynamicGameObject {
             System.out.println("Jo du hast das Ziel erreicht!");
         }
     }
+
+    public void reset(){
+        setOnGround(true);
+        setVelocity(new Vector());
+    }
+
 }

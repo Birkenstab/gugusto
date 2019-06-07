@@ -1,9 +1,9 @@
 package game.level;
 
-import game.object.Block;
-import game.object.GameObject;
-import game.object.GoalBlock;
-import game.object.StaticGameObject;
+import game.object.blocks.Block;
+import game.object.blocks.BlockFactory;
+import game.object.blocks.GoalBlock;
+import game.object.blocks.GrassBlock;
 import util.Vector;
 
 import java.io.*;
@@ -12,7 +12,9 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LevelLoader {
+public final class LevelLoader {
+
+    private LevelLoader(){}
 
     private static final String FF_IDENTIFIER = "GUG";
     private static final short FF_MAJOR_VERSION = 0;
@@ -28,44 +30,44 @@ public class LevelLoader {
         for (int x = 0; x < width; x++) {
             chunks.add(new ArrayList<>(height));
             for (int y = 0; y < height; y++) {
-                List<StaticGameObject> gameObjects = new ArrayList<>();
+                List<Block> blocks = new ArrayList<>();
 
                 for (int i = 0; i < 10; i++) {
-                    gameObjects.add(new Block(new Vector(x * Chunk.SIZE + i, y * Chunk.SIZE + 30)));
+                    blocks.add(new GrassBlock(new Vector(x * Chunk.SIZE + i, y * Chunk.SIZE + 30)));
                 }
 
-                gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 10, y * Chunk.SIZE + 29)));
-                gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 10, y * Chunk.SIZE + 28)));
-                gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 10, y * Chunk.SIZE + 27)));
-                gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 11, y * Chunk.SIZE + 26)));
-                gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 11, y * Chunk.SIZE + 25)));
-                gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 12, y * Chunk.SIZE + 24)));
-                gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 12, y * Chunk.SIZE + 23)));
-                gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 13, y * Chunk.SIZE + 22)));
-                gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 13, y * Chunk.SIZE + 21)));
-                gameObjects.add(new Block(new Vector(x * Chunk.SIZE + 14, y * Chunk.SIZE + 20)));
+                blocks.add(new GrassBlock(new Vector(x * Chunk.SIZE + 10, y * Chunk.SIZE + 29)));
+                blocks.add(new GrassBlock(new Vector(x * Chunk.SIZE + 10, y * Chunk.SIZE + 28)));
+                blocks.add(new GrassBlock(new Vector(x * Chunk.SIZE + 10, y * Chunk.SIZE + 27)));
+                blocks.add(new GrassBlock(new Vector(x * Chunk.SIZE + 11, y * Chunk.SIZE + 26)));
+                blocks.add(new GrassBlock(new Vector(x * Chunk.SIZE + 11, y * Chunk.SIZE + 25)));
+                blocks.add(new GrassBlock(new Vector(x * Chunk.SIZE + 12, y * Chunk.SIZE + 24)));
+                blocks.add(new GrassBlock(new Vector(x * Chunk.SIZE + 12, y * Chunk.SIZE + 23)));
+                blocks.add(new GrassBlock(new Vector(x * Chunk.SIZE + 13, y * Chunk.SIZE + 22)));
+                blocks.add(new GrassBlock(new Vector(x * Chunk.SIZE + 13, y * Chunk.SIZE + 21)));
+                blocks.add(new GrassBlock(new Vector(x * Chunk.SIZE + 14, y * Chunk.SIZE + 20)));
 
                 for (int i = 15; i < 25; i++) {
-                    gameObjects.add(new Block(new Vector(x * Chunk.SIZE + i, y * Chunk.SIZE + 20)));
+                    blocks.add(new GrassBlock(new Vector(x * Chunk.SIZE + i, y * Chunk.SIZE + 20)));
                 }
 
                 if (x == width - 1) {
                     for (int i = 0; i < Chunk.SIZE; i++) {
-                        gameObjects.add(new GoalBlock(new Vector(x * Chunk.SIZE + 15, y * Chunk.SIZE + i)));
+                        blocks.add(new GoalBlock(new Vector(x * Chunk.SIZE + 15, y * Chunk.SIZE + i)));
                     }
                 }
 
-                Chunk chunk = new Chunk(gameObjects);
+                Chunk chunk = new Chunk(blocks);
                 chunks.get(x).add(chunk);
             }
         }
 
 
         ChunkList chunkList = new ChunkList(chunks, 200, width, height);
-        return new Level("Test", chunkList, new Vector(4, 2));
+        return new Level("Test", chunkList, new Vector(4, 25));
     }
 
-    public void save(Level level, Path path){
+    public static void save(Level level, Path path){
         int size = getRequiredFileSize(level);
         DataView dataView = new DataView(size);
 
@@ -82,20 +84,20 @@ public class LevelLoader {
         writeToFile(dataView.getByteArray(), path);
     }
 
-    private void saveChunks(DataView dataView, ChunkList chunkList){
+    private static void saveChunks(DataView dataView, ChunkList chunkList){
         for(List<Chunk> list : chunkList.getChunks()){
             for(Chunk chunk : list){
-                for(GameObject object : chunk.getGameObjects()){
-                    dataView.writeUint8((byte)1);// Change as soon as ID's are implemented
-                    dataView.writeUint32((int)object.getBoundingBox().getPosition().getX());
-                    dataView.writeUint32((int)object.getBoundingBox().getPosition().getY());
+                for(Block block : chunk.getBlocks()){
+                    dataView.writeUint8((byte)block.getId());// Change as soon as ID's are implemented
+                    dataView.writeUint32((int)block.getBoundingBox().getPosition().getX());
+                    dataView.writeUint32((int)block.getBoundingBox().getPosition().getY());
                 }
                 dataView.writeUint8((byte)FF_CHUNK_SEPARATOR);
             }
         }
     }
 
-    public Level load(Path path){
+    public static Level load(Path path){
         DataView dataView = readFromFile(path);
         if(dataView == null || !isGugustoFile(dataView)) return null;
 
@@ -106,7 +108,7 @@ public class LevelLoader {
         return new Level(name, chunkList, startPosition);
     }
 
-    private ChunkList readChunks(DataView dataView){
+    private static ChunkList readChunks(DataView dataView){
         List<List<Chunk>> chunks = new ArrayList<>();
 
         int width = dataView.readUint32();
@@ -124,21 +126,22 @@ public class LevelLoader {
         return new ChunkList(chunks, blockCount, width, height);
     }
 
-    private Chunk readChunk(DataView dataView){
-        List<StaticGameObject> gameObjects = new ArrayList<>();
+    private static Chunk readChunk(DataView dataView){
+        List<Block> blocks = new ArrayList<>();
 
         while(true){
             int blockId = dataView.readUint8();
 
             if(blockId == FF_CHUNK_SEPARATOR){
-                return new Chunk(gameObjects);
+                return new Chunk(blocks);
             } else {
-                gameObjects.add(new Block(new Vector(dataView.readUint32(), dataView.readUint32())));
+                Vector position = new Vector(dataView.readUint32(), dataView.readUint32());
+                blocks.add(BlockFactory.createBlock(blockId, position));
             }
         }
     }
 
-    private boolean isGugustoFile(DataView dataView){
+    private static boolean isGugustoFile(DataView dataView){
         String identifier = dataView.readCharSequenceAsString(FF_IDENTIFIER.length());
         int version = dataView.readUint32();
 
@@ -153,7 +156,7 @@ public class LevelLoader {
         return true;
     }
 
-    private int getRequiredFileSize(Level level){
+    private static int getRequiredFileSize(Level level){
         int size = 0;
 
         size += FF_IDENTIFIER.length() + 4;// Identifier and version
@@ -168,7 +171,7 @@ public class LevelLoader {
         return size;
     }
 
-    private void writeToFile(byte[] data, Path path){
+    private static void writeToFile(byte[] data, Path path){
         try {
             Files.write(path, data);
         } catch (IOException e) {
@@ -176,7 +179,7 @@ public class LevelLoader {
         }
     }
 
-    private DataView readFromFile(Path path){
+    private static DataView readFromFile(Path path){
         try {
             return new DataView(Files.readAllBytes(path));
         } catch (IOException e) {
