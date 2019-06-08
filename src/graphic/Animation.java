@@ -32,7 +32,7 @@ public class Animation {
             case 'a' :
 
                 if (previous_key == 'a' && index < 16) { return links[index++]; }
-               // else index = 0; previous_key = 'a'; return links[index];
+                else index = 0; previous_key = 'a'; return links[index];
 
 
 
