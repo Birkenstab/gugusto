@@ -6,39 +6,45 @@ import java.io.File;
 
 public class Animation {
 
-    private static File[] rechts = new File[16];
-    private static File[] links = new File[16];
-    private static char previous_key = '0';
-    private static int index =0;
 
-    public Animation() {
+    private String path;
+    private int length;
+    private char key;
+    private File[] gallery;
+    private int index =0;
+    private int counter;
+
+    public Animation(String path, int length, boolean delayed, char key) {
+        this.path = path;
+        this.length = length;
+        this.key=key;
+        this.gallery = new File[length];
         init();
     }
 
 
-   private void init() {
-       for (int i = 1; i <=16 ; i++) {
-           rechts[i-1] =  new File(".\\Gugusto Graphics\\A_run\\run"+i+".png");
-           links[i-1] = new File((".\\Gugusto Graphics\\A_backwards\\backwards"+(17-i)+".png"));
-       }
-
-   }
-   public File update(char key){
-        switch (key) {
-            case 'd' :
-                if (previous_key == 'd' && index < 16) { return rechts[index++]; }
-                else index = 0; previous_key = 'd'; return rechts[index];
-
-            case 'a' :
-
-                if (previous_key == 'a' && index < 16) { return links[index++]; }
-                else index = 0; previous_key = 'a'; return links[index];
-
-
-
-            default:
-                return new File(".\\Gugusto Graphics\\char_tmp.png");
-
+    private void init() {
+        for (int i = 1; i <=length ; i++) {
+            gallery[i-1] =  new File(path+i+".png");
         }
-   }
+    }
+
+
+    public File update(char prev){
+
+        if (prev == key && index < length) {  return gallery[index++]; }
+        else  index = 0; return gallery[index];
+
+    }
+
+    public File update(char prev,int delay){
+
+        if(counter == delay ){
+            if (index < length) {
+                return gallery[index++];
+            } else index = 0; counter=0;return gallery[index];
+        }
+        else counter++; return gallery[index];
+
+    }
 }
