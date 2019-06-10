@@ -13,7 +13,7 @@ public class GrassBlock extends TextureBlock {
     private static Image grassTexture = null;
 
     static {
-        File file = new File(".\\Gugusto Graphics\\128x128 Spring\\Grass.png");
+        File file = new File("./Gugusto Graphics/128x128 Spring/Grass.png");
 
         try {
             grassTexture = ImageIO.read(file);

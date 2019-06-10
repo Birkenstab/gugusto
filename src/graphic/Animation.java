@@ -18,8 +18,8 @@ public class Animation {
 
    private void init() {
        for (int i = 1; i <=16 ; i++) {
-           rechts[i-1] =  new File(".\\Gugusto Graphics\\A_run\\run"+i+".png");
-           links[i-1] = new File((".\\Gugusto Graphics\\A_backwards\\backwards"+(17-i)+".png"));
+           rechts[i-1] =  new File("./Gugusto Graphics/A_run/run"+i+".png");
+           links[i-1] = new File(("./Gugusto Graphics/A_backwards/backwards"+(17-i)+".png"));
        }
 
    }
@@ -37,7 +37,7 @@ public class Animation {
 
 
             default:
-                return new File(".\\Gugusto Graphics\\char_tmp.png");
+                return new File("./Gugusto Graphics/char_tmp.png");
 
         }
    }

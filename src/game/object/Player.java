@@ -20,7 +20,7 @@ public class Player extends DynamicGameObject {
     private static Animation run = new Animation();
 
     static {
-        File file = new File(".\\Gugusto Graphics\\char_tmp.png");
+        File file = new File("./Gugusto Graphics/char_tmp.png");
 
         try {
             playerImage = ImageIO.read(file);

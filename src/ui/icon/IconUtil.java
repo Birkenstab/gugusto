@@ -16,7 +16,7 @@ final class IconUtil {
     private static Map<Icon, HoverIcon> icons = new HashMap<>();
 
     static {
-        File file = new File(".\\Gugusto Graphics\\icons.png");
+        File file = new File("./Gugusto Graphics/icons.png");
         try {
             iconSpriteSheet = ImageIO.read(file);
         } catch (IOException e) {
