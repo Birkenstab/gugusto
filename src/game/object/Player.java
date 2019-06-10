@@ -50,10 +50,10 @@ public class Player extends DynamicGameObject {
         { ;boundingBox.getPosition().add(new Vector(- delta * step, 0));  animation('d',backwards);}
         else if (KeyState.isDown('d'))
         {  boundingBox.getPosition().add(new Vector(delta * step, 0));  animation('a',run);}
-        else if (KeyState.isDown(32)) { // Space
+        else  animation('0',idle,200);
+        if (KeyState.isDown(32)) { // Space
             if (isOnGround()) getVelocity().setY(-18);
         }
-        else  animation('0',idle,200);
     }
 
     private void animation(char key,Animation animation){
