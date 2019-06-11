@@ -50,8 +50,8 @@ public class Player extends DynamicGameObject {
     }
 
     public boolean onKeyUp(KeyEvent event){
-        if(Direction.get(event.getChar()) == walkDirection) walkDirection = Direction.NONE;
-        else if(event.getKeyCode() == 32) spaceDown = false;
+        if(event.getKeyCode() == 32) spaceDown = false;
+        else if(Direction.get(event.getChar()) == walkDirection) walkDirection = Direction.NONE;
 
         return false;
     }
@@ -76,7 +76,7 @@ public class Player extends DynamicGameObject {
             animation('0',idle,200);
         }
 
-        if (spaceDown && isOnGround()) getVelocity().setY(-18);
+        if(spaceDown && isOnGround()) getVelocity().setY(-18);
     }
 
     private void animation(char key,Animation animation){
