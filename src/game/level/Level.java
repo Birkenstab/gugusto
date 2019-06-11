@@ -2,8 +2,7 @@ package game.level;
 
 import game.Game;
 import game.object.DynamicGameObject;
-import game.object.GameObject;
-import game.object.Player;
+import game.object.player.Player;
 import util.Vector;
 
 import java.util.ArrayList;

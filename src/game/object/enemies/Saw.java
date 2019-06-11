@@ -7,14 +7,13 @@ import util.Vector;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class Saw extends Enemy {
 
-    private static final double ROTATION_SPEED = 6;
+    private static final int ROTATION_SPEED = 2000;
     private static BufferedImage texture = null;
 
     private RotationAnimation animation;
@@ -35,8 +34,9 @@ public class Saw extends Enemy {
 
     public Saw(Vector position, int size) {
         super(position, new Size(size, size));
-        animation = new RotationAnimation(texture, ROTATION_SPEED, RotationAnimation.Anchor.CENTER);
         setMovable(false);
+        animation = new RotationAnimation(texture, ROTATION_SPEED, RotationAnimation.Anchor.CENTER);
+        animation.start();
     }
 
     @Override

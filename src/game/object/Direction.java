@@ -6,7 +6,9 @@ public enum Direction {
     LEFT,
     RIGHT,
     UP,
-    DOWN;
+    DOWN,
+    HORIZONTAL,
+    VERTICAL;
 
     public static Direction get(char c){
         if(c == 'a') return LEFT;
