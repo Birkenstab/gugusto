@@ -1,4 +1,4 @@
-package ui.components;
+package ui.components.button;
 
 import game.Camera;
 import util.Size;

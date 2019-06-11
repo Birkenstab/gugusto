@@ -4,7 +4,6 @@ import game.Camera;
 import game.Game;
 import game.level.Chunk;
 import game.level.Level;
-import game.object.blocks.GrassBlock;
 import graphic.Window;
 import input.MouseState;
 import input.event.InputEventType;
@@ -18,12 +17,12 @@ import java.util.List;
 public class MapEditorLayer extends Layer {
 
     private Level level;
-    private Action action;
+    private MapEditorAction mapEditorAction;
     private Camera camera;
 
-    public MapEditorLayer(Level level, Action action){
+    public MapEditorLayer(Level level, MapEditorAction mapEditorAction){
         this.level = level;
-        this.action = action;
+        this.mapEditorAction = mapEditorAction;
         camera = new Camera(level.getCameraStartPosition(32), 32);
         addListener(InputEventType.KEY_DOWN, camera::onKeyDown);
 
@@ -52,8 +51,8 @@ public class MapEditorLayer extends Layer {
         if(position.getX() > -1 && position.getY() > -1){
             Vector chunkPosition = position.clone().divide(Chunk.SIZE);
 
-            if(MouseState.isDown(MouseEvent.BUTTON1)) action.primaryAction(position, chunkPosition, gameObjects);
-            else if(MouseState.isDown(MouseEvent.BUTTON3)) action.secondaryAction(position, chunkPosition, gameObjects);
+            if(MouseState.isDown(MouseEvent.BUTTON1)) mapEditorAction.primaryAction(position, chunkPosition, gameObjects);
+            else if(MouseState.isDown(MouseEvent.BUTTON3)) mapEditorAction.secondaryAction(position, chunkPosition, gameObjects);
         }
     }
 

@@ -4,27 +4,36 @@ import game.Game;
 import scene.UILayer;
 import scene.scenes.level.LevelScene;
 import scene.scenes.mapeditor.MapEditorScene;
-import ui.components.IconButton;
+import ui.components.button.TextButton;
+import ui.components.button.TextButtonFactory;
 import ui.icon.Icon;
 import util.Vector;
+
+import java.awt.*;
 
 public class StartMenuLayer extends UILayer {
 
     public StartMenuLayer(){
-        int buttonCenterY = (Game.HEIGHT - Icon.SIZE) / 2;
-        int centerX = Game.WIDTH / 2;
-        int buttonMargin = 10;
+        int buttonCenterX = (Game.WIDTH - 200) / 2;
+        int centerY = Game.HEIGHT / 2;
 
-        Vector playButtonPosition = new Vector(centerX - Icon.DEFAULT_DRAW_SIZE - buttonMargin, buttonCenterY);
-        Vector mapEditorButtonPosition = new Vector(centerX + buttonMargin, buttonCenterY);
-        IconButton playButton = new IconButton(playButtonPosition, Icon.ARROW_HEAD_RIGHT);
-        IconButton mapEditorButton = new IconButton(mapEditorButtonPosition, Icon.SETTINGS);
+        TextButtonFactory tbf = new TextButtonFactory(200, new Vector(0, 20), 18);
+
+        Vector playButtonPosition = new Vector(buttonCenterX, centerY - 140);
+        Vector mapEditorButtonPosition = new Vector(buttonCenterX, centerY - 40);
+        Vector exitButtonPosition = new Vector(buttonCenterX, centerY + 60);
+
+        TextButton playButton = tbf.create(playButtonPosition, "Play");
+        TextButton mapEditorButton = tbf.create(mapEditorButtonPosition, "Map Editor");
+        TextButton exitButton = tbf.create(exitButtonPosition, "Exit");
 
         playButton.setClickListener(b -> Game.getInstance().getSceneManager().setScene(new LevelScene()));
         mapEditorButton.setClickListener(b -> Game.getInstance().getSceneManager().setScene(new MapEditorScene()));
+        exitButton.setClickListener(b -> System.exit(0));
 
         addUIComponent(playButton);
         addUIComponent(mapEditorButton);
+        addUIComponent(exitButton);
     }
 
 }

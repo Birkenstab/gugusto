@@ -1,6 +1,7 @@
-package ui.components;
+package ui.components.button;
 
 import input.event.MouseEvent;
+import ui.components.UIComponent;
 import util.Size;
 import util.Vector;
 

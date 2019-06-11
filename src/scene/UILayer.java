@@ -6,8 +6,6 @@ import input.event.InputEventType;
 import input.event.KeyEvent;
 import input.event.MouseEvent;
 
-import ui.components.Button;
-import ui.components.Panel;
 import ui.components.UIComponent;
 import util.Vector;
 

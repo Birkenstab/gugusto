@@ -33,6 +33,12 @@ final public class Vector {
         return this;
     }
 
+    public Vector multiply(Vector v){
+        x *= v.x;
+        y *= v.y;
+        return this;
+    }
+
     public Vector divide(double nbr){
         x /= nbr;
         y /= nbr;
@@ -50,14 +56,16 @@ final public class Vector {
         return new Vector(x, y);
     }
 
-    public void set(Vector vector){
+    public Vector set(Vector vector){
         x = vector.x;
         y = vector.y;
+        return this;
     }
 
-    public void set(double x, double y){
+    public Vector set(double x, double y){
         this.x = x;
         this.y = y;
+        return this;
     }
 
     public void setX(double x){

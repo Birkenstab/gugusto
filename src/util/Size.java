@@ -15,6 +15,24 @@ public class Size {
         this.height = height;
     }
 
+    public Size(Vector v){
+        width = v.getX();
+        height = v.getY();
+    }
+
+    public void set(double width, double height){
+        this.width = width;
+        this.height = height;
+    }
+
+    public void setWidth(double width){
+        this.width = width;
+    }
+
+    public void setHeight(double height){
+        this.height = height;
+    }
+
     public double getWidth(){
         return width;
     }

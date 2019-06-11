@@ -1,6 +1,5 @@
 package scene.scenes.level;
 
-import collision.BoundingBox;
 import collision.CollisionUtil;
 import game.Camera;
 import game.Game;
@@ -18,18 +17,18 @@ import java.util.List;
 public class LevelLayer extends Layer {
 
     private Level level;
-    private Action action;
+    private LevelAction levelAction;
     private Camera camera;
 
-    public LevelLayer(Level level, Action action){
+    public LevelLayer(Level level, LevelAction levelAction){
         this.level = level;
-        this.action = action;
+        this.levelAction = levelAction;
 
         camera = new Camera(level.getCameraStartPosition(32), 32);
 
-        action.setCamera(camera);
-        addListener(InputEventType.KEY_DOWN, camera::onKeyDown);
+        levelAction.setCamera(camera);
         addGameObjects();
+        bindListeners();
     }
 
     private void addGameObjects(){
@@ -38,6 +37,12 @@ public class LevelLayer extends Layer {
         for(List<Chunk> chunks : level.getChunkList().getChunks()){
             for(Chunk chunk : chunks) gameObjects.addAll(chunk.getBlocks());
         }
+    }
+
+    private void bindListeners(){
+        addListener(InputEventType.KEY_DOWN, camera::onKeyDown);
+        addListener(InputEventType.KEY_DOWN, level.getPlayer()::onKeyDown);
+        addListener(InputEventType.KEY_UP, level.getPlayer()::onKeyUp);
     }
 
     @Override

@@ -11,13 +11,13 @@ public class MapEditorScene extends Scene {
     private MapEditorLayer mapEditorLayer;
     private MapEditorUILayer mapEditorUILayer;
     private Level level;
-    private Action action;
+    private MapEditorAction mapEditorAction;
 
     public MapEditorScene(){
         level = LevelLoader.load(Paths.get("./test.gug"));
-        action = new Action(level);
-        mapEditorLayer = new MapEditorLayer(level, action);
-        mapEditorUILayer = new MapEditorUILayer(action);
+        mapEditorAction = new MapEditorAction(level);
+        mapEditorLayer = new MapEditorLayer(level, mapEditorAction);
+        mapEditorUILayer = new MapEditorUILayer(mapEditorAction);
 
         addLayer(mapEditorLayer);
         addLayer(mapEditorUILayer);

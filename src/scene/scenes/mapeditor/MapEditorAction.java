@@ -11,11 +11,11 @@ import util.Vector;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class Action {
+public class MapEditorAction {
 
     private Level level;
 
-    public Action(Level level){
+    public MapEditorAction(Level level){
         this.level = level;
     }
 

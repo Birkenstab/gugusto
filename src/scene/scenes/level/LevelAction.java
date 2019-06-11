@@ -3,12 +3,12 @@ package scene.scenes.level;
 import game.Camera;
 import game.level.Level;
 
-public class Action {
+public class LevelAction {
 
     private Level level;
     private Camera camera;
 
-    public Action(Level level){
+    public LevelAction(Level level){
         this.level = level;
     }
 

@@ -41,6 +41,7 @@ public abstract class GameObject {
     }
 
     // These methods should only be used in drawing stuff
+    // ----------------------------------------------------------------------------------
     protected int getX(){
         return (int)scaledBoundingBox.getPosition().getX();
     }
@@ -56,6 +57,7 @@ public abstract class GameObject {
     protected int getHeight(){
         return (int)scaledBoundingBox.getSize().getHeight();
     }
+    // ----------------------------------------------------------------------------------
 
     public void collision(GameObject other) {}
 

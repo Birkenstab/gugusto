@@ -4,6 +4,7 @@ import game.Camera;
 import game.object.blocks.GoalBlock;
 import graphic.Animation;
 import input.KeyState;
+import input.event.KeyEvent;
 import util.Size;
 import util.Vector;
 
@@ -21,6 +22,8 @@ public class Player extends DynamicGameObject {
     private  Animation run = new Animation(".\\Gugusto Graphics\\A_run\\run", 18,false,'a');
     private  Animation backwards = new Animation(".\\Gugusto Graphics\\A_backwards\\backwards", 18,false,'d');
     private  Animation idle = new Animation( ".\\Gugusto Graphics\\A_blink\\blink", 11,true,'0');
+    private Direction walkDirection = Direction.NONE;
+    private boolean spaceDown = false;
 
 
     static {
@@ -37,23 +40,43 @@ public class Player extends DynamicGameObject {
         super(position, size);
     }
 
+    public boolean onKeyDown(KeyEvent event){
+        Direction direction = Direction.get(event.getChar());
+
+        if(direction != Direction.NONE) walkDirection = direction;
+        else if(event.getKeyCode() == 32) spaceDown = true;
+
+        return false;
+    }
+
+    public boolean onKeyUp(KeyEvent event){
+        if(Direction.get(event.getChar()) == walkDirection) walkDirection = Direction.NONE;
+        else if(event.getKeyCode() == 32) spaceDown = false;
+
+        return false;
+    }
+
     @Override
     public void update(double delta){
         super.update(delta);
 
         int step = 5;
-        if (KeyState.isDown('w'))
-        { boundingBox.getPosition().add(new Vector(0, - delta * step));}
-        else if (KeyState.isDown('s'))
-        { boundingBox.getPosition().add(new Vector(0, delta * step));  }
-        else if (KeyState.isDown('a'))
-        { ;boundingBox.getPosition().add(new Vector(- delta * step, 0));  animation('d',backwards);}
-        else if (KeyState.isDown('d'))
-        {  boundingBox.getPosition().add(new Vector(delta * step, 0));  animation('a',run);}
-        else  animation('0',idle,200);
-        if (KeyState.isDown(32)) { // Space
-            if (isOnGround()) getVelocity().setY(-18);
+
+        if(walkDirection == Direction.UP){
+            boundingBox.getPosition().add(new Vector(0, - delta * step));
+        } else if(walkDirection == Direction.DOWN){
+            boundingBox.getPosition().add(new Vector(0, delta * step));
+        } else if(walkDirection == Direction.LEFT){
+            boundingBox.getPosition().add(new Vector(- delta * step, 0));
+            animation('d',backwards);
+        } else if(walkDirection == Direction.RIGHT){
+            boundingBox.getPosition().add(new Vector(delta * step, 0));
+            animation('a',run);
+        } else {
+            animation('0',idle,200);
         }
+
+        if (spaceDown && isOnGround()) getVelocity().setY(-18);
     }
 
     private void animation(char key,Animation animation){

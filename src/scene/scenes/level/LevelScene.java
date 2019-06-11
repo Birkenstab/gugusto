@@ -8,14 +8,14 @@ import java.nio.file.Paths;
 
 public class LevelScene extends Scene {
 
-    private Action action;
+    private LevelAction levelAction;
 
     public LevelScene(){
         //Level level = LevelLoader.loadTestLevel();
         Level level = LevelLoader.load(Paths.get("./test.gug"));
-        action = new Action(level);
-        addLayer(new LevelLayer(level, action));
-        addLayer(new LevelUILayer(action));
+        levelAction = new LevelAction(level);
+        addLayer(new LevelLayer(level, levelAction));
+        addLayer(new LevelUILayer(levelAction));
     }
 
 }
