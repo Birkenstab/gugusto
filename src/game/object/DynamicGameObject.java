@@ -11,6 +11,7 @@ public abstract class DynamicGameObject extends GameObject {
 
     private Vector velocity = new Vector();
     private boolean onGround = false;
+    private boolean movable = true;
 
     public DynamicGameObject(Vector position, Size size) {
         super(position, size);
@@ -24,9 +25,7 @@ public abstract class DynamicGameObject extends GameObject {
 
     @Override
     public void collision(GameObject other) {
-        super.collision(other);
-
-        if (other instanceof Block && ((Block) other).isSolid()) {
+        if (other instanceof Block && ((Block) other).isSolid() && movable) {
             Vector pos1 = boundingBox.getPosition();
             Vector pos2 = other.getBoundingBox().getPosition();
             Size size1 = boundingBox.getSize();
@@ -78,4 +77,9 @@ public abstract class DynamicGameObject extends GameObject {
     public void setOnGround(boolean onGround) {
         this.onGround = onGround;
     }
+
+    public void setMovable(boolean movable){
+        this.movable = movable;
+    }
+
 }

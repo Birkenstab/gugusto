@@ -6,6 +6,8 @@ import game.Game;
 import game.level.Chunk;
 import game.level.Level;
 import game.object.DynamicGameObject;
+import game.object.enemies.Enemy;
+import game.object.enemies.Saw;
 import input.event.InputEventType;
 import scene.Layer;
 import util.Size;
@@ -32,11 +34,14 @@ public class LevelLayer extends Layer {
     }
 
     private void addGameObjects(){
+        level.getEnemys().add(new Saw(new Vector(0, 29)));
+        gameObjects.addAll(level.getEnemys());
         gameObjects.add(level.getPlayer());
 
         for(List<Chunk> chunks : level.getChunkList().getChunks()){
             for(Chunk chunk : chunks) gameObjects.addAll(chunk.getBlocks());
         }
+
     }
 
     private void bindListeners(){
@@ -50,6 +55,8 @@ public class LevelLayer extends Layer {
         super.update(delta);
         handleCollisions();
         updateCamera();
+
+        if(!level.getPlayer().isAlive()) levelAction.resetLevel();
     }
 
     private void handleCollisions() {

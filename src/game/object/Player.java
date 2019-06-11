@@ -2,6 +2,7 @@ package game.object;
 
 import game.Camera;
 import game.object.blocks.GoalBlock;
+import game.object.enemies.Saw;
 import graphic.Animation;
 import input.KeyState;
 import input.event.KeyEvent;
@@ -24,7 +25,7 @@ public class Player extends DynamicGameObject {
     private  Animation idle = new Animation( ".\\Gugusto Graphics\\A_blink\\blink", 11,true,'0');
     private Direction walkDirection = Direction.NONE;
     private boolean spaceDown = false;
-
+    private boolean alive = true;
 
     static {
         File file = new File(".\\Gugusto Graphics\\char_tmp.png");
@@ -62,11 +63,7 @@ public class Player extends DynamicGameObject {
 
         int step = 5;
 
-        if(walkDirection == Direction.UP){
-            boundingBox.getPosition().add(new Vector(0, - delta * step));
-        } else if(walkDirection == Direction.DOWN){
-            boundingBox.getPosition().add(new Vector(0, delta * step));
-        } else if(walkDirection == Direction.LEFT){
+        if(walkDirection == Direction.LEFT){
             boundingBox.getPosition().add(new Vector(- delta * step, 0));
             animation('d',backwards);
         } else if(walkDirection == Direction.RIGHT){
@@ -108,12 +105,20 @@ public class Player extends DynamicGameObject {
         super.collision(other);
         if (other instanceof GoalBlock) {
             System.out.println("Jo du hast das Ziel erreicht!");
+        } else if(other instanceof Saw){
+            System.out.println("Sääääääääääääääääge");
+            alive = false;
         }
     }
 
     public void reset(){
         setOnGround(true);
         setVelocity(new Vector());
+        alive = true;
+    }
+
+    public boolean isAlive(){
+        return alive;
     }
 
 }

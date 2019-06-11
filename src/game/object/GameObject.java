@@ -2,7 +2,6 @@ package game.object;
 
 import collision.BoundingBox;
 import game.Camera;
-import game.Game;
 import util.Size;
 import util.Vector;
 
@@ -59,6 +58,6 @@ public abstract class GameObject {
     }
     // ----------------------------------------------------------------------------------
 
-    public void collision(GameObject other) {}
+    public void collision(GameObject other){}
 
 }
