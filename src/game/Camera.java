@@ -31,10 +31,7 @@ public class Camera {
     }
 
     public Vector toWorldCoordinates(Vector screenCoordinates){
-        Vector tmp = screenCoordinates.clone().add(getScaledPosition());
-        tmp.setX(Math.floor(tmp.getX() / scaling));
-        tmp.setY(Math.floor(tmp.getY() / scaling));
-        return tmp;
+        return screenCoordinates.clone().add(getScaledPosition()).divide(scaling);
     }
 
     public Vector getPosition(){

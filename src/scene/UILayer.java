@@ -3,10 +3,7 @@ package scene;
 import game.Camera;
 import game.object.GameObject;
 import graphic.Window;
-import input.event.InputEvent;
-import input.event.InputEventType;
-import input.event.KeyEvent;
-import input.event.MouseEvent;
+import input.event.*;
 
 import ui.components.UIComponent;
 import util.Vector;
@@ -17,14 +14,19 @@ import java.util.List;
 public class UILayer extends Layer {
 
     public UILayer(){
-        addListener(InputEventType.MOUSE_DOWN, this::onMouseEvent);
-        addListener(InputEventType.MOUSE_UP, this::onMouseEvent);
-        addListener(InputEventType.MOUSE_CLICK, this::onMouseEvent);
-        addListener(InputEventType.MOUSE_MOVE, this::onMouseMove);
-        addListener(InputEventType.MOUSE_SCROLL, this::onMouseEvent);
-        addListener(InputEventType.KEY_DOWN, this::onKeyEvent);
-        addListener(InputEventType.KEY_UP, this::onKeyEvent);
-        addListener(InputEventType.KEY_PRESS, this::onKeyEvent);
+        super.addListener(InputEventType.MOUSE_DOWN, this::onMouseEvent);
+        super.addListener(InputEventType.MOUSE_UP, this::onMouseEvent);
+        super.addListener(InputEventType.MOUSE_CLICK, this::onMouseEvent);
+        super.addListener(InputEventType.MOUSE_MOVE, this::onMouseMove);
+        super.addListener(InputEventType.MOUSE_SCROLL, this::onMouseEvent);
+        super.addListener(InputEventType.KEY_DOWN, this::onKeyEvent);
+        super.addListener(InputEventType.KEY_UP, this::onKeyEvent);
+        super.addListener(InputEventType.KEY_PRESS, this::onKeyEvent);
+    }
+
+    @Override
+    protected <T extends InputEvent> void addListener(InputEventType type, EventCallback<T> callback){
+        throw new Error("You are not allowed to add a listener to a UILayer. Please move the listener inside your component.");
     }
 
     @Override

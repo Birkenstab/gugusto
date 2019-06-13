@@ -51,6 +51,12 @@ final public class Vector {
         return this;
     }
 
+    public Vector floor(){
+        x = Math.floor(x);
+        y = Math.floor(y);
+        return this;
+    }
+
     @Override
     public Vector clone() {
         return new Vector(x, y);

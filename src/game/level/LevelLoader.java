@@ -4,6 +4,8 @@ import game.object.blocks.Block;
 import game.object.blocks.BlockFactory;
 import game.object.blocks.GoalBlock;
 import game.object.blocks.GrassBlock;
+import game.object.enemies.Enemy;
+import game.object.enemies.EnemyFactory;
 import util.Vector;
 
 import java.io.*;
@@ -64,7 +66,7 @@ public final class LevelLoader {
 
 
         ChunkList chunkList = new ChunkList(chunks, 200, width, height);
-        return new Level("Test", chunkList, new Vector(4, 25));
+        return new Level("Test", chunkList, new ArrayList<>(), new Vector(4, 25));
     }
 
     public static void save(Level level, Path path){
@@ -80,6 +82,8 @@ public final class LevelLoader {
         dataView.writeUint32(level.getChunkList().getHeight());
         dataView.writeUint32(level.getChunkList().getBlockCount());
         saveChunks(dataView, level.getChunkList());
+        dataView.writeUint32(level.getEnemies().size());
+        saveEnemys(dataView, level.getEnemies());
 
         writeToFile(dataView.getByteArray(), path);
     }
@@ -97,6 +101,14 @@ public final class LevelLoader {
         }
     }
 
+    private static void saveEnemys(DataView dataView, List<Enemy> enemies){
+        for(Enemy enemy : enemies){
+            dataView.writeUint8((byte)enemy.getId());
+            dataView.writeUint32((int)enemy.getBoundingBox().getPosition().getX());
+            dataView.writeUint32((int)enemy.getBoundingBox().getPosition().getY());
+        }
+    }
+
     public static Level load(Path path){
         DataView dataView = readFromFile(path);
         if(dataView == null || !isGugustoFile(dataView)) return null;
@@ -104,8 +116,9 @@ public final class LevelLoader {
         String name = dataView.readString();
         Vector startPosition = new Vector(dataView.readUint32(), dataView.readUint32());
         ChunkList chunkList = readChunks(dataView);
+        List<Enemy> enemies = readEnemies(dataView);
 
-        return new Level(name, chunkList, startPosition);
+        return new Level(name, chunkList, enemies, startPosition);
     }
 
     private static ChunkList readChunks(DataView dataView){
@@ -136,9 +149,22 @@ public final class LevelLoader {
                 return new Chunk(blocks);
             } else {
                 Vector position = new Vector(dataView.readUint32(), dataView.readUint32());
-                blocks.add(BlockFactory.createBlock(blockId, position));
+                blocks.add(BlockFactory.create(blockId, position));
             }
         }
+    }
+
+    private static List<Enemy> readEnemies(DataView dataView){
+        int enemyCount = dataView.readUint32();
+        List<Enemy> enemies = new ArrayList<>();
+
+        for(int i = 0; i < enemyCount; i++){
+            int id = dataView.readUint8();
+            Enemy enemy = EnemyFactory.create(id, new Vector(dataView.readUint32(), dataView.readUint32()));
+            enemies.add(enemy);
+        }
+
+        return enemies;
     }
 
     private static boolean isGugustoFile(DataView dataView){
@@ -166,7 +192,7 @@ public final class LevelLoader {
         size += 4; // Block count
         size += (1 + 4 + 4) * level.getChunkList().getBlockCount();// Block position and id
         size += level.getChunkList().getWidth() * level.getChunkList().getHeight();// Chunk separator 0xff
-        size += (1 + 4 + 4) * level.getEnemys().size();// Enemy Position and id
+        size += (1 + 4 + 4) * level.getEnemies().size();// Enemy Position and id
 
         return size;
     }

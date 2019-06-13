@@ -75,9 +75,7 @@ public class TextButton extends Button {
     }
 
     @Override
-    public void draw(Graphics2D g2d, Camera camera){
-        super.draw(g2d, camera);
-
+    public void draw(Graphics2D g2d){
         drawBackground(g2d);
         drawText(g2d);
     }

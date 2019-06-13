@@ -7,7 +7,6 @@ import game.level.Chunk;
 import game.level.Level;
 import game.object.DynamicGameObject;
 import game.object.blocks.Coin;
-import game.object.enemies.Enemy;
 import game.object.enemies.Saw;
 import input.event.InputEventType;
 import scene.Layer;
@@ -35,10 +34,8 @@ public class LevelLayer extends Layer {
     }
 
     private void addGameObjects(){
-        level.getEnemys().add(new Saw(new Vector(0, 29)));
-        gameObjects.addAll(level.getEnemys());
+        gameObjects.addAll(level.getEnemies());
         gameObjects.add(level.getPlayer());
-        level.getChunkList().getChunks().get(0).get(0).addBlock(new Coin(new Vector(2, 26)));
 
         for(List<Chunk> chunks : level.getChunkList().getChunks()){
             for(Chunk chunk : chunks) gameObjects.addAll(chunk.getBlocks());
@@ -61,7 +58,7 @@ public class LevelLayer extends Layer {
     }
 
     private void handleCollisions() {
-        List<DynamicGameObject> dynamicObjs = new ArrayList<>(level.getEnemys());
+        List<DynamicGameObject> dynamicObjs = new ArrayList<>(level.getEnemies());
         dynamicObjs.add(level.getPlayer());
 
         for (DynamicGameObject obj : dynamicObjs) {

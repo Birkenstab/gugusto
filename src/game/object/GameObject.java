@@ -3,13 +3,14 @@ package game.object;
 import collision.BoundingBox;
 import game.Camera;
 import game.Game;
-import graphic.Window;
 import util.Size;
 import util.Vector;
 
 import java.awt.*;
 
 public abstract class GameObject {
+
+    public enum Type { Block, Enemy }
 
     private static final int insetX = (int)Game.WINDOW.getTopLeftInsets().getX();
     private static final int insetY = (int)Game.WINDOW.getTopLeftInsets().getY();
@@ -34,6 +35,10 @@ public abstract class GameObject {
 
     public BoundingBox getBoundingBox(){
         return boundingBox;
+    }
+
+    public BoundingBox getScaledBoundingBox(){
+        return scaledBoundingBox;
     }
 
     public void remove(){

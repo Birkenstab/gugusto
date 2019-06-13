@@ -45,28 +45,29 @@ public class MapEditorLayer extends Layer {
 
     private boolean onMouseMove(MouseEvent event){
         if(MouseState.isDown(MouseEvent.BUTTON1) || MouseState.isDown(MouseEvent.BUTTON3)){
-            setBlock(camera.toWorldCoordinates(event.asVector()));
+            setBlock(event.asVector());
         }
 
         return false;
     }
 
     private boolean onMouseDown(MouseEvent event){
-        setBlock(camera.toWorldCoordinates(event.asVector()));
+        setBlock(event.asVector());
 
         return false;
     }
 
     private void setBlock(Vector position){
-        if(position.getX() > -1 && position.getY() > -1){
-            Vector chunkPosition = position.clone().divide(Chunk.SIZE);
+        position = camera.toWorldCoordinates(position);
 
-            if(MouseState.isDown(MouseEvent.BUTTON1)) mapEditorAction.primaryAction(position, chunkPosition, gameObjects);
-            else if(MouseState.isDown(MouseEvent.BUTTON3)) mapEditorAction.secondaryAction(position, chunkPosition, gameObjects);
+        if(position.getX() >= 0 && position.getY() >= 0){
+            if(MouseState.isDown(MouseEvent.BUTTON1)) mapEditorAction.primaryAction(position, gameObjects);
+            else if(MouseState.isDown(MouseEvent.BUTTON3)) mapEditorAction.secondaryAction(position, gameObjects);
         }
     }
 
     private void addGameObjects(){
+        gameObjects.addAll(level.getEnemies());
         gameObjects.add(level.getPlayer());
 
         for(List<Chunk> chunks : level.getChunkList().getChunks()){

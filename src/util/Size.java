@@ -25,6 +25,11 @@ public class Size {
         this.height = height;
     }
 
+    public void set(Size size){
+        width = size.width;
+        height = size.height;
+    }
+
     public void setWidth(double width){
         this.width = width;
     }

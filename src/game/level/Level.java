@@ -1,7 +1,7 @@
 package game.level;
 
 import game.Game;
-import game.object.DynamicGameObject;
+import game.object.enemies.Enemy;
 import game.object.player.Player;
 import util.Vector;
 
@@ -12,15 +12,15 @@ public class Level {
 
     private String name;
     private ChunkList chunkList;
-    private List<DynamicGameObject> enemys;
+    private List<Enemy> enemies;
     private Vector startPosition;
     private Player player;
 
-    public Level(String name, ChunkList chunkList, Vector startPosition){
+    public Level(String name, ChunkList chunkList, List<Enemy> enemies, Vector startPosition){
         this.name = name;
         this.chunkList = chunkList;
+        this.enemies = enemies;
         this.startPosition = startPosition;
-        enemys = new ArrayList<>();
         player = new Player(startPosition.clone());
     }
 
@@ -32,8 +32,8 @@ public class Level {
         return chunkList;
     }
 
-    public List<DynamicGameObject> getEnemys() {
-        return enemys;
+    public List<Enemy> getEnemies() {
+        return enemies;
     }
 
     public Player getPlayer() {

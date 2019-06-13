@@ -11,20 +11,20 @@ import java.io.IOException;
 
 public class Coin extends AnimationBlock {
 
-    private static BufferedImage coinTexture = null;
+    public static BufferedImage texture = null;
 
     static {
         File file = new File(".\\Gugusto Graphics\\coin.png");
 
         try {
-            coinTexture = ImageIO.read(file);
+            texture = ImageIO.read(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private static SpriteAnimation createAnimation(){
-        BufferedImage[] frames = SpriteSheet.extract(coinTexture, 16, 1, 128, 128);
+        BufferedImage[] frames = SpriteSheet.extract(texture, 16, 1, 128, 128);
         return new SpriteAnimation(frames, 1000);
     }
 

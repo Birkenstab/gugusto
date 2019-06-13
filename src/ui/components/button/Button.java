@@ -18,8 +18,9 @@ public abstract class Button extends UIComponent {
         addListener(InputEventType.MOUSE_DOWN, this::onMouseClick);
     }
 
-    public void click(){
+    public boolean click(){
         if(clickListener != null) clickListener.onClick(this);
+        return clickListener != null;
     }
 
     @Override
@@ -33,8 +34,8 @@ public abstract class Button extends UIComponent {
     }
 
     private boolean onMouseClick(MouseEvent e){
-        click();
-        return clickListener != null;
+        if(e.getButton() == MouseEvent.BUTTON1) return click();
+        return false;
     }
 
     public void setHover(boolean hover){

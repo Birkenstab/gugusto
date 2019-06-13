@@ -34,7 +34,7 @@ public abstract class Menu extends Panel {
     private List<TextButton> menuItems;
 
     protected Menu() {
-        super(new Vector(), new Size());
+        super(new Vector(), new Size(), Color.GRAY);
 
         closeButton = new IconButton(new Vector(), closeButtonSize, Icon.CLOSE);
         closeButton.setClickListener(e -> setVisible(false));

@@ -13,6 +13,7 @@ public class LevelLoaderTest {
 
         Level level = LevelLoader.load(Paths.get("./test.gug"));
         System.out.println(level.getChunkList().getBlockCount());
+        System.out.println(level.getEnemies().size());
     }
 
 }

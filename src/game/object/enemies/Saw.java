@@ -14,7 +14,7 @@ import java.io.IOException;
 public class Saw extends Enemy {
 
     private static final int ROTATION_SPEED = 2000;
-    private static BufferedImage texture = null;
+    public static BufferedImage texture = null;
 
     private RotationAnimation animation;
 
@@ -33,7 +33,7 @@ public class Saw extends Enemy {
     }
 
     public Saw(Vector position, int size) {
-        super(position, new Size(size, size));
+        super(EnemyType.SAW, position, new Size(size, size));
         setMovable(false);
         animation = new RotationAnimation(texture, ROTATION_SPEED, RotationAnimation.Anchor.CENTER);
         animation.start();

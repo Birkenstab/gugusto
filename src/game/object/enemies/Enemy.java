@@ -7,14 +7,34 @@ import util.Vector;
 
 public abstract class Enemy extends DynamicGameObject {
 
-    public Enemy(Vector position, Size size) {
+    private EnemyType type;
+
+    public Enemy(EnemyType type, Vector position, Size size) {
         super(position, size);
+        this.type = type;
+
+        checkForVectorConstructor();
+    }
+
+    private void checkForVectorConstructor(){
+        try {
+            getClass().getConstructor(Vector.class);
+        } catch (NoSuchMethodException e) {
+            System.err.println("Every Enemy subclass has to have an constructor matching Enemy*(Vector vector).");
+            e.printStackTrace();
+            System.exit(-1);
+        }
     }
 
     @Override
-    public void update(double delta){
+    public void update(double delta){}
 
+    public EnemyType getBlockType(){
+        return type;
     }
 
+    public int getId(){
+        return type.getId();
+    }
 
 }

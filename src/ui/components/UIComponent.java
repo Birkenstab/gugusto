@@ -1,22 +1,26 @@
 package ui.components;
 
+import collision.BoundingBox;
 import collision.CollisionUtil;
 import game.Camera;
 import game.object.GameObject;
-import input.InputSystem;
 import input.event.*;
 import util.Size;
 import util.Vector;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class UIComponent extends GameObject {
 
     private List<List<EventCallback<InputEvent>>> listeners;
-    private boolean visible = true;
+    protected boolean visible = true;
     private boolean mouseOver = false;
+
+    protected Rectangle2D clipArea;
+    protected BoundingBox clipBoundingBox;
 
     protected List<UIComponent> components;
 
@@ -30,9 +34,15 @@ public abstract class UIComponent extends GameObject {
     @Override
     public void update(double delta) {}
 
+    public void draw(Graphics2D g2d) {}
+
     @Override
-    public void draw(Graphics2D g2d, Camera camera) {
+    public final void draw(Graphics2D g2d, Camera camera) {
         super.draw(g2d, camera);
+
+        if(clipArea != null) g2d.setClip(clipArea);
+        draw(g2d);
+        g2d.setClip(null);
     }
 
     public void onMouseEnter(MouseEvent e){}
@@ -55,7 +65,12 @@ public abstract class UIComponent extends GameObject {
     }
 
     public boolean contains(Vector point){
-        return visible && CollisionUtil.contains(point, boundingBox);
+        if(visible){
+            if(clipArea != null && !CollisionUtil.contains(point, clipBoundingBox)) return false;
+            return CollisionUtil.contains(point, boundingBox);
+        }
+
+        return false;
     }
 
     public void setVisible(boolean visible){
@@ -83,7 +98,16 @@ public abstract class UIComponent extends GameObject {
     }
 
     public List<UIComponent> getComponents(){
-        return components;
+        List<UIComponent> comps = new ArrayList<>(components);
+        for(UIComponent component : components) comps.addAll(component.getComponents());
+        return comps;
+    }
+
+    public void setPosition(Vector position){
+        Vector offset = position.clone().subtract(boundingBox.getPosition());
+        boundingBox.getPosition().set(position);
+
+        for(UIComponent component : components) component.getBoundingBox().getPosition().add(offset);
     }
 
 }

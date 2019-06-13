@@ -6,11 +6,11 @@ public final class BlockFactory {
 
     private BlockFactory(){}
 
-    public static Block createBlock(int id, Vector position){
-        return createBlock(BlockType.get(id), position);
+    public static Block create(int id, Vector position){
+        return create(BlockType.get(id), position);
     }
 
-    public static Block createBlock(BlockType type, Vector position){
+    public static Block create(BlockType type, Vector position){
         switch (type){
             case NONE: return null;
             case GRASS: return new GrassBlock(position);

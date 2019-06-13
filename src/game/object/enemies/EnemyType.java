@@ -1,0 +1,33 @@
+package game.object.enemies;
+
+
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
+
+public enum EnemyType {
+
+    NONE(0),
+    SAW(1);
+
+    private static final Map<Integer, EnemyType> map = new HashMap<>();
+
+    static {
+        for(EnemyType type : EnumSet.allOf(EnemyType.class)) map.put(type.id, type);
+    }
+
+    private int id;
+
+    EnemyType(int id){
+        this.id = id;
+    }
+
+    public int getId(){
+        return id;
+    }
+
+    public static EnemyType get(int id){
+        return map.get(id);
+    }
+
+}

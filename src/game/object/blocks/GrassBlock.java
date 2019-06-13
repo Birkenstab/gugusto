@@ -5,25 +5,26 @@ import util.Vector;
 import javax.imageio.ImageIO;
 import javax.swing.text.DefaultEditorKit;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class GrassBlock extends TextureBlock {
 
-    private static Image grassTexture = null;
+    public static BufferedImage texture = null;
 
     static {
         File file = new File(".\\Gugusto Graphics\\128x128 Spring\\Grass.png");
 
         try {
-            grassTexture = ImageIO.read(file);
+            texture = ImageIO.read(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public GrassBlock(Vector position) {
-        super(BlockType.GRASS, position, grassTexture);
+        super(BlockType.GRASS, position, texture);
     }
 
 }

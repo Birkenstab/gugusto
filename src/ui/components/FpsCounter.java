@@ -22,9 +22,7 @@ public class FpsCounter extends UIComponent {
     }
 
     @Override
-    public void draw(Graphics2D g2d, Camera camera) {
-        super.draw(g2d, camera);
-
+    public void draw(Graphics2D g2d){
         frames++;
 
         long current = System.currentTimeMillis();

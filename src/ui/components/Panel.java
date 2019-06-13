@@ -1,37 +1,60 @@
 package ui.components;
 
-import game.Camera;
+import input.event.EventCallback;
+import input.event.InputEvent;
 import input.event.InputEventType;
 import input.event.MouseEvent;
 import util.Size;
 import util.Vector;
 
 import java.awt.*;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Panel extends Container {
+public class Panel extends UIComponent {
 
-    private Color color;
+    private Map<InputEventType, Boolean> hasNoListener;
+
+    protected Color color;
 
     public Panel(Vector position, Size size) {
-        this(position, size, Color.GRAY);
+        this(position, size, null);
     }
 
     public Panel(Vector position, Size size, Color color) {
         super(position, size);
         this.color = color;
 
-        addListener(InputEventType.MOUSE_MOVE, e -> true);
-        addListener(InputEventType.MOUSE_DOWN, e -> true);
-        addListener(InputEventType.MOUSE_UP, e -> true);
-        addListener(InputEventType.MOUSE_CLICK, e -> true);
+        hasNoListener = new HashMap<>();
+        for(InputEventType type : EnumSet.allOf(InputEventType.class)){
+            hasNoListener.put(type, true);
+            super.addListener(type, e -> {
+                if(e.getType() == InputEventType.MOUSE_DOWN || e.getType() == InputEventType.MOUSE_UP){
+                    if(((MouseEvent)e).getButton() == MouseEvent.BUTTON2) return false;
+                }
+
+                return hasNoListener.get(e.getType());
+            });
+        }
     }
 
     @Override
-    public void draw(Graphics2D g2d, Camera camera){
-        super.draw(g2d, camera);
+    protected <T extends InputEvent> void addListener(InputEventType type, EventCallback<T> callback){
+        super.addListener(type, callback);
+        hasNoListener.put(type, false);
+    }
 
-        g2d.setColor(color);
-        g2d.fillRect(getX(), getY(), getWidth(), getHeight());
+    @Override
+    public void draw(Graphics2D g2d){
+        if(color != null){
+            g2d.setColor(color);
+            g2d.fillRect(getX(), getY(), getWidth(), getHeight());
+        }
+    }
+
+    protected void setFilter(InputEventType type, boolean enable){
+        hasNoListener.put(type, enable);
     }
 
 }

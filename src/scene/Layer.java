@@ -6,6 +6,7 @@ import input.InputSystem;
 import input.event.EventCallback;
 import input.event.InputEvent;
 import input.event.InputEventType;
+import scene.scenes.mapeditor.MapEditorUILayer;
 import util.Vector;
 
 import java.awt.*;
@@ -48,7 +49,9 @@ public abstract class Layer {
         List<EventCallback<InputEvent>> callbacks = listeners.get(event.getType().getId());
 
         for(EventCallback<InputEvent> callback : callbacks){
-            if(callback.callback(event)) return true;
+            if(callback.callback(event)){
+                return true;
+            }
         }
 
         return false;

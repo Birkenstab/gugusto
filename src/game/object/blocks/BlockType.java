@@ -15,7 +15,7 @@ public enum BlockType {
 
     static {
         for(BlockType type : EnumSet.allOf(BlockType.class)) map.put(type.id, type);
-    };
+    }
 
     private int id;
 
