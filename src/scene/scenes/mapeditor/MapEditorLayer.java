@@ -6,7 +6,9 @@ import game.level.Chunk;
 import game.level.Level;
 import graphic.Window;
 import input.MouseState;
+import input.event.EventCallback;
 import input.event.InputEventType;
+import input.event.KeyEvent;
 import input.event.MouseEvent;
 import scene.Layer;
 import util.Vector;
@@ -18,31 +20,39 @@ public class MapEditorLayer extends Layer {
 
     private Level level;
     private MapEditorAction mapEditorAction;
-    private Camera camera;
+    private MapEditorCamera camera;
+    private boolean showGrid = true;
 
     public MapEditorLayer(Level level, MapEditorAction mapEditorAction){
         this.level = level;
         this.mapEditorAction = mapEditorAction;
-        camera = new Camera(level.getCameraStartPosition(32), 32);
-        addListener(InputEventType.KEY_DOWN, camera::onKeyDown);
+        camera = new MapEditorCamera(level.getCameraStartPosition(32), 32);
 
         addGameObjects();
         addListener(InputEventType.MOUSE_MOVE, this::onMouseMove);
         addListener(InputEventType.MOUSE_DOWN, this::onMouseDown);
+        addListener(InputEventType.KEY_DOWN, (EventCallback<KeyEvent>) e -> {
+            if(e.getChar() == 'g') showGrid = !showGrid;
+            return e.getChar() == 'g';
+        });
+
+        addListener(InputEventType.KEY_DOWN, camera::onKeyDown);
+        addListener(InputEventType.MOUSE_DOWN, camera::onMouseDown);
+        addListener(InputEventType.MOUSE_UP, camera::onMouseUp);
+        addListener(InputEventType.MOUSE_MOVE, camera::onMouseMove);
+        addListener(InputEventType.MOUSE_SCROLL, camera::onMouseScroll);
     }
 
     private boolean onMouseMove(MouseEvent event){
         if(MouseState.isDown(MouseEvent.BUTTON1) || MouseState.isDown(MouseEvent.BUTTON3)){
-            Vector eventCoordinates = camera.toEventCoordinates(new Vector(event.getX(), event.getY()));
-            setBlock(camera.toWorldCoordinates(eventCoordinates));
+            setBlock(camera.toWorldCoordinates(event.asVector()));
         }
 
         return false;
     }
 
     private boolean onMouseDown(MouseEvent event){
-        Vector eventCoordinates = camera.toEventCoordinates(new Vector(event.getX(), event.getY()));
-        setBlock(camera.toWorldCoordinates(eventCoordinates));
+        setBlock(camera.toWorldCoordinates(event.asVector()));
 
         return false;
     }
@@ -69,45 +79,25 @@ public class MapEditorLayer extends Layer {
         super.draw(g2d);
 
         g2d.setColor(Color.BLACK);
-        drawGrid(g2d);
+        if(showGrid) drawGrid(g2d);
     }
 
     private void drawGrid(Graphics2D g2d){
         int gridSize = (int)camera.getScaling();
-        Vector o = getGridOffset();
-        int oX = (int)o.getX();
-        int oY = (int)o.getY();
 
-        for(int x = 0; x < Game.WIDTH; x += gridSize){
-            g2d.drawLine(x + oX, oY, x + oX, Game.HEIGHT + oY);
+        Vector pos = new Vector(-camera.getScaledPosition().getX(), -camera.getScaledPosition().getY()).add(Game.WINDOW.getTopLeftInsets());
+        int mapHeight = (int)(level.getChunkList().getHeight() * Chunk.SIZE * camera.getScaling());
+        int mapWidth = (int)(level.getChunkList().getWidth() * Chunk.SIZE * camera.getScaling());
 
-            for(int y = 0; y < Game.HEIGHT; y += gridSize){
-                g2d.drawLine(oX, y + oY, Game.WIDTH + oX, y + oY);
+        for(int x = 0; x < mapWidth + gridSize; x += gridSize){
+            Vector vPos = pos.clone().add(new Vector(x, 0));
+            g2d.drawLine((int)vPos.getX(), (int)vPos.getY(), (int)(vPos.getX()), (int)(vPos.getY() + mapHeight));
+
+            for(int y = 0; y < mapHeight + gridSize; y += gridSize){
+                Vector xPos = pos.clone().add(new Vector(0, y));
+                g2d.drawLine((int)xPos.getX(), (int)xPos.getY(), (int)(xPos.getX() + mapWidth), (int)xPos.getY());
             }
         }
-    }
-
-    private Vector getGridOffset(){
-        Vector offset = new Vector(0, 1);
-        Vector pos = camera.getPosition();
-        double scaling = camera.getScaling();
-        double titlebar = Window.TITLEBAR_HEIGHT / scaling;
-
-        if(pos.getX() < 0){
-            offset.setX(-pos.getX() * scaling);
-        } else {
-            double scrollX = level.getChunkList().getWidth() * Chunk.SIZE - Game.WIDTH / scaling - pos.getX();
-            if(scrollX < 0) offset.setX(scrollX * scaling);
-        }
-
-        if(pos.getY() + titlebar < 0){
-            offset.setY(-(pos.getY() - titlebar) * scaling - 1);
-        } else {
-            double scrollY = level.getChunkList().getHeight() * Chunk.SIZE - Game.HEIGHT / scaling - pos.getY() + titlebar;
-            if(scrollY < 0) offset.setY((scrollY + titlebar) * scaling - 1);
-        }
-
-        return offset;
     }
 
     @Override

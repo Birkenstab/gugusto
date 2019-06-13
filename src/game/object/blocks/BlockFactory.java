@@ -15,6 +15,7 @@ public final class BlockFactory {
             case NONE: return null;
             case GRASS: return new GrassBlock(position);
             case GOAL: return new GoalBlock(position);
+            case COIN: return new Coin(position);
         }
 
         return null;

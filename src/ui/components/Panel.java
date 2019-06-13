@@ -1,23 +1,29 @@
 package ui.components;
 
 import game.Camera;
+import input.event.InputEventType;
 import input.event.MouseEvent;
 import util.Size;
 import util.Vector;
 
 import java.awt.*;
 
-public class Panel extends UIComponent {
+public class Panel extends Container {
 
     private Color color;
 
     public Panel(Vector position, Size size) {
-        super(position, size);
+        this(position, size, Color.GRAY);
     }
 
     public Panel(Vector position, Size size, Color color) {
         super(position, size);
         this.color = color;
+
+        addListener(InputEventType.MOUSE_MOVE, e -> true);
+        addListener(InputEventType.MOUSE_DOWN, e -> true);
+        addListener(InputEventType.MOUSE_UP, e -> true);
+        addListener(InputEventType.MOUSE_CLICK, e -> true);
     }
 
     @Override
@@ -26,26 +32,6 @@ public class Panel extends UIComponent {
 
         g2d.setColor(color);
         g2d.fillRect(getX(), getY(), getWidth(), getHeight());
-    }
-
-    @Override
-    public boolean onMouseMove(MouseEvent e){
-        return true;
-    }
-
-    @Override
-    public boolean onMouseDown(MouseEvent e){
-        return true;
-    }
-
-    @Override
-    public boolean onMouseUp(MouseEvent e){
-        return true;
-    }
-
-    @Override
-    public boolean onMouseClick(MouseEvent e){
-        return true;
     }
 
 }

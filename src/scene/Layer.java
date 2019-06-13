@@ -2,6 +2,7 @@ package scene;
 
 import game.Camera;
 import game.object.GameObject;
+import input.InputSystem;
 import input.event.EventCallback;
 import input.event.InputEvent;
 import input.event.InputEventType;
@@ -21,7 +22,7 @@ public abstract class Layer {
     protected Layer(){
         gameObjects = new ArrayList<>();
         listeners = new ArrayList<>();
-        for(int i = 0; i < 7; i++) listeners.add(new ArrayList<>());
+        for(int i = 0; i < InputEventType.values().length; i++) listeners.add(new ArrayList<>());
     }
 
     protected void update(double delta){

@@ -3,8 +3,8 @@ package ui.components;
 import collision.CollisionUtil;
 import game.Camera;
 import game.object.GameObject;
-import input.event.KeyEvent;
-import input.event.MouseEvent;
+import input.InputSystem;
+import input.event.*;
 import util.Size;
 import util.Vector;
 
@@ -14,13 +14,17 @@ import java.util.List;
 
 public abstract class UIComponent extends GameObject {
 
-    private List<UIComponent> components;
-    private boolean mouseOver = false;
+    private List<List<EventCallback<InputEvent>>> listeners;
     private boolean visible = true;
+    private boolean mouseOver = false;
+
+    protected List<UIComponent> components;
 
     public UIComponent(Vector position, Size size) {
         super(position, size);
         components = new ArrayList<>();
+        listeners = new ArrayList<>();
+        for(int i = 0; i < InputEventType.values().length; i++) listeners.add(new ArrayList<>());
     }
 
     @Override
@@ -31,36 +35,23 @@ public abstract class UIComponent extends GameObject {
         super.draw(g2d, camera);
     }
 
-    public void onMouseEnter(MouseEvent event){}
+    public void onMouseEnter(MouseEvent e){}
+    public void onMouseLeave(MouseEvent e){}
 
-    public void onMouseLeave(MouseEvent event){ }
-
-    public boolean onMouseMove(MouseEvent event){
-        return false;
+    protected <T extends InputEvent> void addListener(InputEventType type, EventCallback<T> callback){
+        List<EventCallback<InputEvent>> list = listeners.get(type.getId());
+        if(list != null) list.add((EventCallback<InputEvent>)callback);
     }
 
-    public boolean onMouseDown(MouseEvent event){
-        return false;
-    }
+    public boolean dispatchEvent(InputEvent event){
+        List<EventCallback<InputEvent>> callbacks = listeners.get(event.getType().getId());
+        boolean consumed = false;
 
-    public boolean onMouseUp(MouseEvent event){
-        return false;
-    }
+        for(EventCallback<InputEvent> callback : callbacks){
+            if(callback.callback(event)) consumed = true;
+        }
 
-    public boolean onMouseClick(MouseEvent event){
-        return false;
-    }
-
-    public boolean onKeyDown(KeyEvent event){
-        return false;
-    }
-
-    public boolean onKeyUp(KeyEvent event){
-        return false;
-    }
-
-    public boolean onKeyPress(KeyEvent event){
-        return false;
+        return consumed;
     }
 
     public boolean contains(Vector point){

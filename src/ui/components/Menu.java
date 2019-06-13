@@ -1,6 +1,7 @@
 package ui.components;
 
 import game.Game;
+import input.event.InputEventType;
 import input.event.KeyEvent;
 import ui.components.button.Button;
 import ui.components.button.IconButton;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public abstract class Menu extends UIComponent {
+public abstract class Menu extends Panel {
 
     private static final int headerHeight = 50;
     private static final int closeButtonSize = 30;
@@ -38,6 +39,10 @@ public abstract class Menu extends UIComponent {
         closeButton = new IconButton(new Vector(), closeButtonSize, Icon.CLOSE);
         closeButton.setClickListener(e -> setVisible(false));
         menuItems = new ArrayList<>();
+
+        addListener(InputEventType.KEY_DOWN, this::onKeyDown);
+        addListener(InputEventType.KEY_UP, e -> isVisible());
+        addListener(InputEventType.KEY_PRESS, e -> isVisible());
     }
 
     protected void addMenuEntry(String label, Button.OnClickListener listener){
@@ -52,7 +57,6 @@ public abstract class Menu extends UIComponent {
         closeButton.getBoundingBox().getPosition().set(menuWidth - closeButtonSize - 10, 10);
         closeButton.getBoundingBox().getPosition().add(boundingBox.getPosition());
 
-        addUIComponent(new Panel(boundingBox.getPosition(), boundingBox.getSize(), Color.GRAY));
         addUIComponent(closeButton);
 
         for(int i = 0; i < menuItems.size(); i++){
@@ -72,23 +76,12 @@ public abstract class Menu extends UIComponent {
         boundingBox.getPosition().set(x, y);
     }
 
-    @Override
     public boolean onKeyDown(KeyEvent e){
-        if(e.getKeyCode() == java.awt.event.KeyEvent.VK_ESCAPE){
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
             setVisible(!isVisible());
             return true;
         }
 
-        return isVisible();
-    }
-
-    @Override
-    public boolean onKeyUp(KeyEvent e){
-        return isVisible();
-    }
-
-    @Override
-    public boolean onKeyPress(KeyEvent e){
         return isVisible();
     }
 

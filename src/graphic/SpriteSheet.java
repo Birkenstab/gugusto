@@ -4,9 +4,9 @@ import game.object.Direction;
 
 import java.awt.image.BufferedImage;
 
-public final class Spritesheet {
+public final class SpriteSheet {
 
-    private Spritesheet(){}
+    private SpriteSheet(){}
 
     public static BufferedImage[] extract(BufferedImage image, int nX, int nY, int width, int height){
         return extract(image, nX, nY, width, height, 0, 0);

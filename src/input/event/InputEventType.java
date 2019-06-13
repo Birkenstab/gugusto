@@ -8,7 +8,8 @@ public enum InputEventType {
     MOUSE_DOWN(3),
     MOUSE_UP(4),
     MOUSE_CLICK(5),
-    MOUSE_MOVE(6);
+    MOUSE_MOVE(6),
+    MOUSE_SCROLL(7);
 
     private int id;
 

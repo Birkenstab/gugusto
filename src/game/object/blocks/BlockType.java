@@ -8,7 +8,8 @@ public enum BlockType {
 
     NONE(0),
     GRASS(1),
-    GOAL(2);
+    GOAL(2),
+    COIN(3);
 
     private static final Map<Integer, BlockType> map = new HashMap<>();
 

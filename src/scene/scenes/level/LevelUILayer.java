@@ -23,7 +23,7 @@ public class LevelUILayer extends UILayer {
 
 
         addUIComponent(new LevelMenu(levelAction));
-        addUIComponent(new FpsCounter(new Vector(Game.WIDTH - FpsCounter.WIDTH - 10, 10)));
+        addUIComponent(new FpsCounter(new Vector(Game.INNER_WIDTH - FpsCounter.WIDTH - 10, 10)));
     }
 
 }

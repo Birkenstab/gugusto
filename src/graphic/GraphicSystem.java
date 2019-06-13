@@ -14,12 +14,8 @@ public class GraphicSystem {
     private Window window;
     private BufferStrategy bs;
 
-    public GraphicSystem(){
-        init();
-    }
-
-    private void init() {
-        window = new Window(Game.WIDTH, Game.HEIGHT);
+    public GraphicSystem(Window window){
+        this.window = window;
         bs = window.getBufferStrategy();
     }
 

@@ -4,13 +4,13 @@ import game.Camera;
 import game.object.Direction;
 import game.object.DynamicGameObject;
 import game.object.GameObject;
+import game.object.blocks.Coin;
 import game.object.blocks.GoalBlock;
 import game.object.enemies.Saw;
 import input.event.KeyEvent;
 import util.Size;
 import util.Vector;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class Player extends DynamicGameObject {
 
@@ -93,6 +93,8 @@ public class Player extends DynamicGameObject {
         } else if(other instanceof Saw){
             System.out.println("Sääääääääääääääääge");
             alive = false;
+        } else if(other instanceof Coin){
+            other.remove();
         }
     }
 

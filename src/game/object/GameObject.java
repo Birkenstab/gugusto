@@ -2,12 +2,17 @@ package game.object;
 
 import collision.BoundingBox;
 import game.Camera;
+import game.Game;
+import graphic.Window;
 import util.Size;
 import util.Vector;
 
 import java.awt.*;
 
 public abstract class GameObject {
+
+    private static final int insetX = (int)Game.WINDOW.getTopLeftInsets().getX();
+    private static final int insetY = (int)Game.WINDOW.getTopLeftInsets().getY();
 
     private boolean shouldRemove = false;
     private BoundingBox scaledBoundingBox;
@@ -42,11 +47,11 @@ public abstract class GameObject {
     // These methods should only be used in drawing stuff
     // ----------------------------------------------------------------------------------
     protected int getX(){
-        return (int)scaledBoundingBox.getPosition().getX();
+        return (int)(scaledBoundingBox.getPosition().getX() + insetX);
     }
 
     protected int getY(){
-        return (int)scaledBoundingBox.getPosition().getY();
+        return (int)(scaledBoundingBox.getPosition().getY() + insetY);
     }
 
     protected int getWidth(){

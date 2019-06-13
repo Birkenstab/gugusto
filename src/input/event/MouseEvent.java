@@ -10,6 +10,7 @@ public class MouseEvent implements InputEvent {
 
     private int x;
     private int y;
+    private int unitsToScroll;
     private InputEventType type;
     private int button;
 
@@ -18,6 +19,14 @@ public class MouseEvent implements InputEvent {
         this.y = y;
         this.button = button;
         this.type = type;
+    }
+
+    public MouseEvent(int x, int y, int unitsToScroll){
+        this.x = x;
+        this.y = y;
+        this.unitsToScroll = unitsToScroll;
+        button = BUTTON2;
+        type = InputEventType.MOUSE_SCROLL;
     }
 
     @Override
@@ -40,6 +49,14 @@ public class MouseEvent implements InputEvent {
 
     public int getButton(){
         return button;
+    }
+
+    public int getUnitsToScroll(){
+        return unitsToScroll;
+    }
+
+    public Vector asVector(){
+        return new Vector(x, y);
     }
 
 }

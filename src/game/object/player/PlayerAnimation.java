@@ -1,7 +1,7 @@
 package game.object.player;
 
 import game.object.Direction;
-import graphic.Spritesheet;
+import graphic.SpriteSheet;
 import graphic.animation.SpriteAnimation;
 
 import javax.imageio.ImageIO;
@@ -45,12 +45,12 @@ class PlayerAnimation {
     }
 
     private void initializeAnimations(){
-        BufferedImage[] jumpfall = Spritesheet.extract(jumpFallImage, 2, 1, 76, 78);
+        BufferedImage[] jumpfall = SpriteSheet.extract(jumpFallImage, 2, 1, 76, 78);
         jumpImage = jumpfall[0];
         fallImage = jumpfall[1];
-        idleAnimation = new SpriteAnimation(Spritesheet.extract(idleImage, 11, 1, 72, 74), 1000);
+        idleAnimation = new SpriteAnimation(SpriteSheet.extract(idleImage, 11, 1, 72, 74), 1000);
         idleAnimation.setAfterLoopSleepTime(1500);
-        walkAnimation = new SpriteAnimation(Spritesheet.extract(walkImage, 6, 1, 76, 76), 1000);
+        walkAnimation = new SpriteAnimation(SpriteSheet.extract(walkImage, 6, 1, 76, 76), 1000);
         currentAnimation = idleAnimation;
     }
 

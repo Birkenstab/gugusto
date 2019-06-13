@@ -5,12 +5,16 @@ import util.Vector;
 
 import java.awt.*;
 
-public class TextureBlock extends Block {
+public abstract class TextureBlock extends Block {
 
     private Image texture;
 
-    public TextureBlock(BlockType type, Vector position, Image texture) {
-        super(type, position);
+    TextureBlock(BlockType type, Vector position, Image texture) {
+        this(type, position, texture, true);
+    }
+
+    TextureBlock(BlockType type, Vector position, Image texture, boolean isSolid) {
+        super(type, position, isSolid);
         this.texture = texture;
     }
 

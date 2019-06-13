@@ -1,5 +1,6 @@
 package ui.components.button;
 
+import input.event.InputEventType;
 import input.event.MouseEvent;
 import ui.components.UIComponent;
 import util.Size;
@@ -12,6 +13,9 @@ public abstract class Button extends UIComponent {
 
     public Button(Vector position, Size size) {
         super(position, size);
+
+        addListener(InputEventType.MOUSE_MOVE, e -> true);
+        addListener(InputEventType.MOUSE_DOWN, this::onMouseClick);
     }
 
     public void click(){
@@ -28,19 +32,9 @@ public abstract class Button extends UIComponent {
         setHover(false);
     }
 
-    @Override
-    public boolean onMouseMove(MouseEvent e){
-        return true;
-    }
-
-    @Override
-    public boolean onMouseClick(MouseEvent e){
-        if(clickListener != null) {
-            clickListener.onClick(this);
-            return true;
-        }
-
-        return false;
+    private boolean onMouseClick(MouseEvent e){
+        click();
+        return clickListener != null;
     }
 
     public void setHover(boolean hover){

@@ -1,16 +1,20 @@
 package game;
 
-import game.object.blocks.*;
 import graphic.GraphicSystem;
+import graphic.Window;
 import input.InputSystem;
 import scene.SceneManager;
-import util.Vector;
 
 public class Game {
 
     public static final int WIDTH = 800;
     public static final int HEIGHT = 600;
     public static final int TARGET_FRAME_TIME = 1000 / 60;
+
+    public static Window WINDOW = new Window(Game.WIDTH, Game.HEIGHT);
+
+    public static int INNER_WIDTH = (int)(WIDTH - WINDOW.getTotalInset().getX());
+    public static int INNER_HEIGHT = (int)(HEIGHT - WINDOW.getTotalInset().getY());
 
     private static volatile Game INSTANCE;
 
@@ -25,12 +29,13 @@ public class Game {
                 if(INSTANCE == null) new Game();
             }
         }
+
         return INSTANCE;
     }
 
     private Game(){
         INSTANCE = this;
-        graphicSystem = new GraphicSystem();
+        graphicSystem = new GraphicSystem(WINDOW);
         inputSystem = new InputSystem(graphicSystem.getWindow());
         sceneManager = new SceneManager();
     }
