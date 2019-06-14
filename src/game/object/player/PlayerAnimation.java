@@ -2,6 +2,8 @@ package game.object.player;
 
 import game.object.Direction;
 import graphic.SpriteSheet;
+import graphic.Texture;
+import graphic.TextureLoader;
 import graphic.animation.SpriteAnimation;
 
 import javax.imageio.ImageIO;
@@ -12,27 +14,12 @@ import java.io.IOException;
 
 class PlayerAnimation {
 
-    private static BufferedImage idleImage;
-    private static BufferedImage jumpFallImage;
-    private static BufferedImage walkImage;
-
-    private SpriteAnimation currentAnimation;
-
-    static {
-        File idleFile = new File(".\\Gugusto Graphics\\idle.png");
-        File jumpFallFile = new File(".\\Gugusto Graphics\\jumpfall.png");
-        File walkFile = new File(".\\Gugusto Graphics\\walk.png");
-
-        try {
-            idleImage = ImageIO.read(idleFile);
-            jumpFallImage = ImageIO.read(jumpFallFile);
-            walkImage = ImageIO.read(walkFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    private static final BufferedImage idleImage = TextureLoader.get(Texture.PLAYER_IDLE);
+    private static final BufferedImage jumpFallImage = TextureLoader.get(Texture.PLAYER_JUMP_FALL);
+    private static final BufferedImage walkImage = TextureLoader.get(Texture.PLAYER_WALK);
 
     private PlayerState state;
+    private SpriteAnimation currentAnimation;
     private SpriteAnimation idleAnimation;
     private SpriteAnimation walkAnimation;
     private BufferedImage jumpImage;

@@ -1,5 +1,7 @@
 package game.object.blocks;
 
+import graphic.Texture;
+import graphic.TextureLoader;
 import util.Vector;
 
 import javax.imageio.ImageIO;
@@ -11,17 +13,7 @@ import java.io.IOException;
 
 public class GrassBlock extends TextureBlock {
 
-    public static BufferedImage texture = null;
-
-    static {
-        File file = new File(".\\Gugusto Graphics\\128x128 Spring\\Grass.png");
-
-        try {
-            texture = ImageIO.read(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    private static final BufferedImage texture = TextureLoader.get(Texture.BLOCK_GRASS);
 
     public GrassBlock(Vector position) {
         super(BlockType.GRASS, position, texture);

@@ -1,6 +1,8 @@
 package game.object.enemies;
 
 import game.Camera;
+import graphic.Texture;
+import graphic.TextureLoader;
 import graphic.animation.RotationAnimation;
 import util.Size;
 import util.Vector;
@@ -13,20 +15,10 @@ import java.io.IOException;
 
 public class Saw extends Enemy {
 
+    private static final BufferedImage texture = TextureLoader.get(Texture.ENEMY_SAW);
     private static final int ROTATION_SPEED = 2000;
-    public static BufferedImage texture = null;
 
     private RotationAnimation animation;
-
-    static {
-        File file = new File(".\\Gugusto Graphics\\Enemies\\Saw Enemie.png");
-
-        try {
-            texture = ImageIO.read(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public Saw(Vector position){
         this(position, 2);
@@ -35,6 +27,7 @@ public class Saw extends Enemy {
     public Saw(Vector position, int size) {
         super(EnemyType.SAW, position, new Size(size, size));
         setMovable(false);
+
         animation = new RotationAnimation(texture, ROTATION_SPEED, RotationAnimation.Anchor.CENTER);
         animation.start();
     }

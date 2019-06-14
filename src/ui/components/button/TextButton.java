@@ -1,6 +1,8 @@
 package ui.components.button;
 
 import game.Camera;
+import graphic.Texture;
+import graphic.TextureLoader;
 import util.Size;
 import util.Vector;
 
@@ -36,21 +38,14 @@ public class TextButton extends Button {
 
     //TODO: Asset loader
     static {
-        File file = new File("./Gugusto Graphics/button_sections.png");
+        BufferedImage buttonSections = TextureLoader.get(Texture.BUTTON_SECTIONS);
+        sectionLeft = buttonSections.getSubimage(0, 0, SECTION_WIDTH, SECTION_HEIGHT);
+        sectionMiddle = buttonSections.getSubimage(SECTION_WIDTH, 0, SECTION_WIDTH, SECTION_HEIGHT);
+        sectionRight = buttonSections.getSubimage(SECTION_WIDTH * 2, 0, SECTION_WIDTH, SECTION_HEIGHT);
 
-        try {
-            BufferedImage buttonSections = ImageIO.read(file);
-
-            sectionLeft = buttonSections.getSubimage(0, 0, SECTION_WIDTH, SECTION_HEIGHT);
-            sectionMiddle = buttonSections.getSubimage(SECTION_WIDTH, 0, SECTION_WIDTH, SECTION_HEIGHT);
-            sectionRight = buttonSections.getSubimage(SECTION_WIDTH * 2, 0, SECTION_WIDTH, SECTION_HEIGHT);
-
-            sectionHoverLeft = buttonSections.getSubimage(0, SECTION_HEIGHT, SECTION_WIDTH, SECTION_HEIGHT);
-            sectionHoverMiddle = buttonSections.getSubimage(SECTION_WIDTH, SECTION_HEIGHT, SECTION_WIDTH, SECTION_HEIGHT);
-            sectionHoverRight = buttonSections.getSubimage(SECTION_WIDTH * 2, SECTION_HEIGHT, SECTION_WIDTH, SECTION_HEIGHT);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sectionHoverLeft = buttonSections.getSubimage(0, SECTION_HEIGHT, SECTION_WIDTH, SECTION_HEIGHT);
+        sectionHoverMiddle = buttonSections.getSubimage(SECTION_WIDTH, SECTION_HEIGHT, SECTION_WIDTH, SECTION_HEIGHT);
+        sectionHoverRight = buttonSections.getSubimage(SECTION_WIDTH * 2, SECTION_HEIGHT, SECTION_WIDTH, SECTION_HEIGHT);
     }
 
     private static Size calcSize(String text, Vector padding, Font font){

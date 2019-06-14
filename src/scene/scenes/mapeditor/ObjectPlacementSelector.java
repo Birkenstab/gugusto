@@ -6,6 +6,8 @@ import game.object.blocks.Coin;
 import game.object.blocks.GrassBlock;
 import game.object.enemies.EnemyType;
 import game.object.enemies.Saw;
+import graphic.Texture;
+import graphic.TextureLoader;
 import input.event.EventCallback;
 import input.event.InputEventType;
 import input.event.KeyEvent;
@@ -56,8 +58,8 @@ public class ObjectPlacementSelector extends TabPanel {
     }
 
     private ScrollPanel buildBlockSelection(){
-        ImageButton grassButton = new ImageButton(new Vector(), new Size(32, 32), GrassBlock.texture);
-        ImageButton coinButton = new ImageButton(new Vector(50, 0), new Size(32, 32), Coin.texture.getSubimage(0, 0, 128, 128));
+        ImageButton grassButton = new ImageButton(new Vector(), new Size(32, 32), TextureLoader.get(Texture.BLOCK_GRASS));
+        ImageButton coinButton = new ImageButton(new Vector(50, 0), new Size(32, 32), TextureLoader.get(Texture.BLOCK_COIN).getSubimage(0, 0, 128, 128));
 
         grassButton.setClickListener(b -> setSelection(BlockType.GRASS.getId(), Type.Block));
         coinButton.setClickListener(b -> setSelection(BlockType.COIN.getId(), Type.Block));
@@ -71,7 +73,7 @@ public class ObjectPlacementSelector extends TabPanel {
     }
 
     private ScrollPanel buildEnemySelection(){
-        ImageButton sawButton = new ImageButton(new Vector(), new Size(32, 32), Saw.texture);
+        ImageButton sawButton = new ImageButton(new Vector(), new Size(32, 32), TextureLoader.get(Texture.ENEMY_SAW));
 
         sawButton.setClickListener(b -> setSelection(EnemyType.SAW.getId(), Type.Enemy));
 

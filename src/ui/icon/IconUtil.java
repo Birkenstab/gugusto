@@ -1,5 +1,7 @@
 package ui.icon;
 
+import graphic.Texture;
+import graphic.TextureLoader;
 import util.Vector;
 
 import javax.imageio.ImageIO;
@@ -12,17 +14,8 @@ import java.util.Map;
 
 final class IconUtil {
 
-    private static BufferedImage iconSpriteSheet;
+    private static final BufferedImage texture = TextureLoader.get(Texture.ICONS);
     private static Map<Icon, HoverIcon> icons = new HashMap<>();
-
-    static {
-        File file = new File(".\\Gugusto Graphics\\icons.png");
-        try {
-            iconSpriteSheet = ImageIO.read(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    };
 
     private IconUtil(){}
 
@@ -41,7 +34,7 @@ final class IconUtil {
     }
 
     private static Image subImage(Vector position){
-        return iconSpriteSheet.getSubimage((int)position.getX(), (int)position.getY(), Icon.SIZE, Icon.SIZE);
+        return texture.getSubimage((int)position.getX(), (int)position.getY(), Icon.SIZE, Icon.SIZE);
     }
 
 }
