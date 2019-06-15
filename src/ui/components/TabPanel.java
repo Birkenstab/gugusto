@@ -61,7 +61,7 @@ public class TabPanel extends Panel {
     }
 
     public void setTab(int index){
-        if(index < pages.size()){
+        if(index < pages.size() && index > -1){
             if(tabIndex != -1) pages.get(tabIndex).setVisible(false);
             pages.get(index).setVisible(true);
             tabIndex = index;
@@ -74,8 +74,8 @@ public class TabPanel extends Panel {
     public void setVisible(boolean visible){
         this.visible = visible;
 
-        header.setVisible(visible);
-        pages.get(tabIndex).setVisible(visible);
+        if(header != null) header.setVisible(visible);
+        if(tabIndex != -1) pages.get(tabIndex).setVisible(visible);
     }
 
 }

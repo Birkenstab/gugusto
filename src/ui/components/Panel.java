@@ -28,15 +28,19 @@ public class Panel extends UIComponent {
 
         hasNoListener = new HashMap<>();
         for(InputEventType type : EnumSet.allOf(InputEventType.class)){
-            hasNoListener.put(type, true);
-            super.addListener(type, e -> {
-                if(e.getType() == InputEventType.MOUSE_DOWN || e.getType() == InputEventType.MOUSE_UP){
-                    if(((MouseEvent)e).getButton() == MouseEvent.BUTTON2) return false;
-                }
-
-                return hasNoListener.get(e.getType());
-            });
+            if(type.isMouseEvent()){
+                hasNoListener.put(type, true);
+                super.addListener(type, e -> preventMouseDefault((MouseEvent)e));
+            }
         }
+    }
+
+    private boolean preventMouseDefault(MouseEvent event){
+        if(event.getType() == InputEventType.MOUSE_DOWN || event.getType() == InputEventType.MOUSE_UP){
+            if(event.getButton() == MouseEvent.BUTTON2) return false;
+        }
+
+        return hasNoListener.get(event.getType());
     }
 
     @Override
