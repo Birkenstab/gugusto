@@ -6,7 +6,7 @@ import de.thu.gpro.gugusto.input.event.InputEventType;
 import de.thu.gpro.gugusto.input.event.KeyEvent;
 import de.thu.gpro.gugusto.game.Game;
 import de.thu.gpro.gugusto.input.event.MouseEvent;
-import de.thu.gprog.gugusto.input.event.*;
+import de.thu.gpro.gugusto.input.event.*;
 
 import java.util.ArrayList;
 import java.util.List;

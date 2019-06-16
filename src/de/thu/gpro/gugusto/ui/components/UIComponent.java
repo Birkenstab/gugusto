@@ -10,7 +10,7 @@ import de.thu.gpro.gugusto.input.event.InputEventType;
 import de.thu.gpro.gugusto.input.event.MouseEvent;
 import de.thu.gpro.gugusto.util.Size;
 import de.thu.gpro.gugusto.util.Vector;
-import de.thu.gprog.gugusto.input.event.*;
+import de.thu.gpro.gugusto.input.event.*;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;

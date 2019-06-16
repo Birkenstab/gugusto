@@ -2,7 +2,7 @@ package de.thu.gpro.gugusto.scene;
 
 import de.thu.gpro.gugusto.graphic.GraphicSystem;
 import de.thu.gpro.gugusto.input.event.InputEvent;
-import de.thu.gprog.gugusto.input.event.*;
+import de.thu.gpro.gugusto.input.event.*;
 
 import java.util.ArrayList;
 import java.util.List;

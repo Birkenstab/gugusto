@@ -2,7 +2,7 @@ package de.thu.gpro.gugusto.scene;
 
 import de.thu.gpro.gugusto.input.event.*;
 import de.thu.gpro.gugusto.game.object.GameObject;
-import de.thu.gprog.gugusto.input.event.*;
+import de.thu.gpro.gugusto.input.event.*;
 
 import de.thu.gpro.gugusto.ui.components.UIComponent;
 import de.thu.gpro.gugusto.util.Vector;
