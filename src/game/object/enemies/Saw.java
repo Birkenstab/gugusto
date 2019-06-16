@@ -1,6 +1,8 @@
 package game.object.enemies;
 
 import game.Camera;
+import game.object.DynamicGameObject;
+import game.object.GameObject;
 import graphic.Texture;
 import graphic.TextureLoader;
 import graphic.animation.RotationAnimation;
@@ -27,6 +29,7 @@ public class Saw extends Enemy {
     public Saw(Vector position, int size) {
         super(EnemyType.SAW, position, new Size(size, size));
         setMovable(false);
+        setGravity(false);
 
         animation = new RotationAnimation(texture, ROTATION_SPEED, RotationAnimation.Anchor.CENTER);
         animation.start();
@@ -44,4 +47,11 @@ public class Saw extends Enemy {
         animation.update(delta);
     }
 
+    @Override
+    public void collision(GameObject other) {
+        super.collision(other);
+        if (other instanceof DynamicGameObject && !(other instanceof Saw)) {
+            ((DynamicGameObject) other).kill();
+        }
+    }
 }

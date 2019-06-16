@@ -4,6 +4,7 @@ import game.object.GameObject;
 import game.object.blocks.BlockType;
 import game.object.blocks.Coin;
 import game.object.blocks.GrassBlock;
+import game.object.enemies.Enemy;
 import game.object.enemies.EnemyType;
 import game.object.enemies.Saw;
 import graphic.Texture;
@@ -21,6 +22,7 @@ import util.Size;
 import util.Vector;
 
 import java.awt.*;
+import java.util.EnumSet;
 
 public class ObjectPlacementSelector extends TabPanel {
 
@@ -58,27 +60,34 @@ public class ObjectPlacementSelector extends TabPanel {
     }
 
     private ScrollPanel buildBlockSelection(){
-        ImageButton grassButton = new ImageButton(new Vector(), new Size(32, 32), TextureLoader.get(Texture.BLOCK_GRASS));
-        ImageButton coinButton = new ImageButton(new Vector(50, 0), new Size(32, 32), TextureLoader.get(Texture.BLOCK_COIN).getSubimage(0, 0, 128, 128));
-
-        grassButton.setClickListener(b -> setSelection(BlockType.GRASS.getId(), Type.Block));
-        coinButton.setClickListener(b -> setSelection(BlockType.COIN.getId(), Type.Block));
-
         ScrollPanel scrollPanel = new ScrollPanel(new Vector(), new Size(200, 200), 2);
-        scrollPanel.addUIComponent(grassButton);
-        scrollPanel.addUIComponent(coinButton);
+
+        EnumSet<BlockType> types = EnumSet.complementOf(EnumSet.of(BlockType.NONE)); // Alle außer NONE
+        int i = 0;
+        for (BlockType blockType : types) {
+            ImageButton button = new ImageButton(new Vector((i % 4) * 50, (i / 4) * 50), new Size(32, 32), MapEditorObjectIconProvider.getBlockIcon(blockType));
+            button.setClickListener(b -> setSelection(blockType.getId(), Type.Block));
+            scrollPanel.addUIComponent(button);
+            i++;
+        }
+
         scrollPanel.build();
 
         return scrollPanel;
     }
 
     private ScrollPanel buildEnemySelection(){
-        ImageButton sawButton = new ImageButton(new Vector(), new Size(32, 32), TextureLoader.get(Texture.ENEMY_SAW));
-
-        sawButton.setClickListener(b -> setSelection(EnemyType.SAW.getId(), Type.Enemy));
-
         ScrollPanel scrollPanel = new ScrollPanel(new Vector(), new Size(200, 200), 2);
-        scrollPanel.addUIComponent(sawButton);
+
+        EnumSet<EnemyType> types = EnumSet.complementOf(EnumSet.of(EnemyType.NONE)); // Alle außer NONE
+        int i = 0;
+        for (EnemyType enemyType : types) {
+            ImageButton button = new ImageButton(new Vector((i % 4) * 50, (i / 4) * 50), new Size(32, 32), MapEditorObjectIconProvider.getEnemyIcon(enemyType));
+            button.setClickListener(b -> setSelection(enemyType.getId(), Type.Enemy));
+            scrollPanel.addUIComponent(button);
+            i++;
+        }
+
         scrollPanel.build();
 
         return scrollPanel;

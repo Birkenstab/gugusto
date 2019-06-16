@@ -90,18 +90,14 @@ public class Player extends DynamicGameObject {
         super.collision(other);
         if (other instanceof GoalBlock) {
             System.out.println("Jo du hast das Ziel erreicht!");
-        } else if(other instanceof Saw){
-            System.out.println("Sääääääääääääääääge");
-            alive = false;
-        } else if(other instanceof Coin){
+        } else if(other instanceof Coin) {
             other.remove();
         }
     }
 
-    public void reset(){
-        setOnGround(true);
-        setVelocity(new Vector());
-        alive = true;
+    @Override
+    public void kill() {
+        alive = false;
     }
 
     public boolean isAlive(){

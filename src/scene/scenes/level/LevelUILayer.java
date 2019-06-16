@@ -3,6 +3,7 @@ package scene.scenes.level;
 import game.Game;
 import scene.UILayer;
 import scene.scenes.startmenu.StartMenuScene;
+import ui.components.DebugInfoText;
 import ui.components.FpsCounter;
 import ui.components.Menu;
 import ui.components.UIComponent;
@@ -21,9 +22,9 @@ public class LevelUILayer extends UILayer {
     public LevelUILayer(LevelAction levelAction){
         this.levelAction = levelAction;
 
-
         addUIComponent(new LevelMenu(levelAction));
         addUIComponent(new FpsCounter(new Vector(Game.INNER_WIDTH - FpsCounter.WIDTH - 10, 10)));
+        addUIComponent(new DebugInfoText(new Vector(10, 10)));
     }
 
 }

@@ -10,6 +10,7 @@ import ui.icon.Icon;
 import util.Vector;
 
 import java.awt.*;
+import java.nio.file.Paths;
 
 public class StartMenuLayer extends UILayer {
 
@@ -27,7 +28,7 @@ public class StartMenuLayer extends UILayer {
         TextButton mapEditorButton = tbf.create(mapEditorButtonPosition, "Map Editor");
         TextButton exitButton = tbf.create(exitButtonPosition, "Exit");
 
-        playButton.setClickListener(b -> Game.getInstance().getSceneManager().setScene(new LevelScene()));
+        playButton.setClickListener(b -> Game.getInstance().getSceneManager().setScene(new LevelScene(Paths.get("./test.gug"))));
         mapEditorButton.setClickListener(b -> Game.getInstance().getSceneManager().setScene(new MapEditorScene()));
         exitButton.setClickListener(b -> System.exit(0));
 

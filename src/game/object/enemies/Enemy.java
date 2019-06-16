@@ -26,9 +26,6 @@ public abstract class Enemy extends DynamicGameObject {
         }
     }
 
-    @Override
-    public void update(double delta){}
-
     public EnemyType getBlockType(){
         return type;
     }

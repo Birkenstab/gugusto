@@ -7,8 +7,8 @@ import scene.SceneManager;
 
 public class Game {
 
-    public static final int WIDTH = 800;
-    public static final int HEIGHT = 600;
+    public static final int WIDTH = 1280;
+    public static final int HEIGHT = 720;
     public static final int TARGET_FRAME_TIME = 1000 / 60;
 
     public static Window WINDOW = new Window(Game.WIDTH, Game.HEIGHT);

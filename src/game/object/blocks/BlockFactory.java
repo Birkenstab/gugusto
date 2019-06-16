@@ -18,7 +18,7 @@ public final class BlockFactory {
             case COIN: return new Coin(position);
         }
 
-        return null;
+        throw new Error("\nSir, I'm afraid to inform you that I do not know the block '" + type + "' and therefore cannot create an instance of it\nIm sorry!\n\nSincerely BlockFactory\n");
     }
 
 }

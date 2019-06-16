@@ -1,101 +1,66 @@
 package scene.scenes.level;
 
-import collision.CollisionUtil;
 import game.Camera;
-import game.Game;
-import game.level.Chunk;
 import game.level.Level;
-import game.object.DynamicGameObject;
-import game.object.blocks.Coin;
-import game.object.enemies.Saw;
+import game.level.LevelLoader;
 import input.event.InputEventType;
+import input.event.KeyEvent;
 import scene.Layer;
-import util.Size;
-import util.Vector;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.*;
+import java.nio.file.Path;
+
 
 public class LevelLayer extends Layer {
 
-    private Level level;
+    private Path currentLevelPath;
+    private LevelLogic logic;
     private LevelAction levelAction;
-    private Camera camera;
 
-    public LevelLayer(Level level, LevelAction levelAction){
-        this.level = level;
+    public LevelLayer(Path level, LevelAction levelAction) {
+        currentLevelPath = level;
         this.levelAction = levelAction;
 
-        camera = new Camera(level.getCameraStartPosition(32), 32);
-
-        levelAction.setCamera(camera);
-        addGameObjects();
+        loadLevel();
         bindListeners();
     }
 
-    private void addGameObjects(){
-        gameObjects.addAll(level.getEnemies());
-        gameObjects.add(level.getPlayer());
-
-        for(List<Chunk> chunks : level.getChunkList().getChunks()){
-            for(Chunk chunk : chunks) gameObjects.addAll(chunk.getBlocks());
-        }
-
+    public void restartLevel() {
+        loadLevel();
     }
 
-    private void bindListeners(){
-        addListener(InputEventType.KEY_DOWN, level.getPlayer()::onKeyDown);
-        addListener(InputEventType.KEY_UP, level.getPlayer()::onKeyUp);
+    public void pause() {
+        logic.pause();
+    }
+
+    public void resume() {
+        logic.resume();
+    }
+
+    private void loadLevel() {
+        Level level = LevelLoader.load(currentLevelPath);
+        this.logic = new LevelLogic(level, levelAction);
+    }
+
+    private void bindListeners() {
+        addListener(InputEventType.KEY_DOWN, (KeyEvent event) -> logic.onKeyDown(event));
+        addListener(InputEventType.KEY_UP, (KeyEvent event) -> logic.onKeyUp(event));
     }
 
     @Override
     public void update(double delta) {
-        super.update(delta);
-        handleCollisions();
-        updateCamera();
-
-        if(!level.getPlayer().isAlive()) levelAction.resetLevel();
-    }
-
-    private void handleCollisions() {
-        List<DynamicGameObject> dynamicObjs = new ArrayList<>(level.getEnemies());
-        dynamicObjs.add(level.getPlayer());
-
-        for (DynamicGameObject obj : dynamicObjs) {
-            obj.setOnGround(false);
-            CollisionUtil.handleStaticCollisions(obj, level.getChunkList().getNearby(obj.getBoundingBox().getPosition()));
-        }
-
-        CollisionUtil.handleDynamicCollisions(dynamicObjs);
-    }
-
-    private void updateCamera(){
-        Vector playerPos = camera.toScreenCoordinates(level.getPlayer().getBoundingBox().getPosition());
-        Size playerSize = camera.toScreenCoordinates(level.getPlayer().getBoundingBox().getSize());
-        Vector diff = playerPos.subtract(camera.getPosition());
-        Vector border = new Vector(100, 200);
-        Vector offset = new Vector();
-
-        if(diff.getX() < border.getX()){
-            offset.setX(diff.getX() - border.getX());
-        } else {
-            double offsetX = Game.WIDTH - diff.getX() - playerSize.getWidth();
-            if(offsetX < border.getX()) offset.setX(border.getX() - offsetX);
-        }
-
-        if(diff.getY() < border.getY()){
-            offset.setY(diff.getY() - border.getY());
-        } else {
-            double offsetY = Game.HEIGHT - diff.getY() - playerSize.getHeight();
-            if(offsetY < border.getY()) offset.setY(border.getY() - offsetY);
-        }
-
-        camera.move(offset.divide(camera.getScaling()));
+        logic.update(delta);
     }
 
     @Override
-    protected Camera getCamera(){
-        return camera;
+    public void draw(Graphics2D g2d) {
+        logic.draw(g2d);
+    }
+
+
+    @Override
+    protected Camera getCamera() {
+        return logic.getCamera();
     }
 
 }

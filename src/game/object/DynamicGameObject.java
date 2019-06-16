@@ -12,6 +12,7 @@ public abstract class DynamicGameObject extends GameObject {
     private Vector velocity = new Vector();
     private boolean onGround = false;
     private boolean movable = true;
+    private boolean gravity = true;
 
     public DynamicGameObject(Vector position, Size size) {
         super(position, size);
@@ -19,8 +20,10 @@ public abstract class DynamicGameObject extends GameObject {
 
     @Override
     public void update(double delta) {
-        velocity.add(new Vector(0, GRAVITY * delta));
-        boundingBox.getPosition().add(velocity.clone().multiply(delta));
+        if (gravity) {
+            velocity.add(new Vector(0, GRAVITY * delta));
+            boundingBox.getPosition().add(velocity.clone().multiply(delta));
+        }
     }
 
     @Override
@@ -63,6 +66,10 @@ public abstract class DynamicGameObject extends GameObject {
         }
     }
 
+    public void kill() {
+        remove();
+    }
+
     public Vector getVelocity() {
         return velocity;
     }
@@ -82,4 +89,7 @@ public abstract class DynamicGameObject extends GameObject {
         this.movable = movable;
     }
 
+    public void setGravity(boolean gravity) {
+        this.gravity = gravity;
+    }
 }

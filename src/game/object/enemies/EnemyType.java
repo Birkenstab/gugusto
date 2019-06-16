@@ -8,7 +8,8 @@ import java.util.Map;
 public enum EnemyType {
 
     NONE(0),
-    SAW(1);
+    SAW(1),
+    GUSTAV(2);
 
     private static final Map<Integer, EnemyType> map = new HashMap<>();
 

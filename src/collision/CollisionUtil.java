@@ -50,9 +50,13 @@ public class CollisionUtil {
         }
     }
 
-    public static boolean isColliding(GameObject object1, GameObject object2){
+    public static boolean isColliding(GameObject object1, GameObject object2) {
         BoundingBox bb1 = object1.getBoundingBox();
         BoundingBox bb2 = object2.getBoundingBox();
+        return isColliding(bb1, bb2);
+    }
+
+    public static boolean isColliding(BoundingBox bb1, BoundingBox bb2){
         BoundingBox.Type bbt1 = bb1.getType();
         BoundingBox.Type bbt2 = bb2.getType();
 

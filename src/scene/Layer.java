@@ -27,7 +27,7 @@ public abstract class Layer {
         for(int i = 0; i < InputEventType.values().length; i++) listeners.add(new ArrayList<>());
     }
 
-    protected void update(double delta){
+    protected void update(double delta){ // TODO Standard-Impl kann vermutlich gelöscht werden
         for(Iterator<GameObject> iter = gameObjects.iterator(); iter.hasNext();){
             GameObject object = iter.next();
             if(object.shouldBeRemoved()) iter.remove();

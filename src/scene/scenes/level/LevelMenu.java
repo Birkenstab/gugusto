@@ -14,7 +14,7 @@ public class LevelMenu extends Menu {
         this.levelAction = levelAction;
 
         addMenuEntry("Reset Level", e -> {
-            levelAction.resetLevel();
+            levelAction.restartLevel();
             setVisible(false);
         });
         addMenuEntry("Back to Main Menu", e -> Game.getInstance().getSceneManager().setScene(new StartMenuScene()));
@@ -22,4 +22,13 @@ public class LevelMenu extends Menu {
         build();
     }
 
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) {
+            levelAction.pause();
+        } else {
+            levelAction.resume();
+        }
+    }
 }
