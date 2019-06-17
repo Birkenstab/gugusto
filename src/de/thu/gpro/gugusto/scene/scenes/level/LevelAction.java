@@ -4,14 +4,15 @@ import de.thu.gpro.gugusto.scene.UILayer;
 
 public class LevelAction {
     private LevelLayer levelLayer;
-    private UILayer uiLayer;
+    private LevelUILayer uiLayer;
 
     public void restartLevel() {
+        uiLayer.restartLevel();
         levelLayer.restartLevel();
     }
 
-    public void endLevel() {
-
+    public void endLevelByDeath() {
+        uiLayer.showDeathScreen();
     }
 
     public void pause() {
@@ -27,7 +28,7 @@ public class LevelAction {
         this.levelLayer = levelLayer;
     }
 
-    public void setUiLayer(UILayer uiLayer) {
+    public void setUiLayer(LevelUILayer uiLayer) {
         this.uiLayer = uiLayer;
     }
 }

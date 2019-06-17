@@ -24,6 +24,7 @@ public class LevelLogic {
     private Level level;
     private Camera camera;
     private boolean running = true;
+    private boolean gameEnded = false;
     private double updateTimeSum = 0;
     private int updateTimeCount = 0;
     private List<DynamicGameObject> inactiveDynamicGameObjects = new ArrayList<>();
@@ -65,7 +66,10 @@ public class LevelLogic {
             handleCollisions();
             updateCamera();
             handleOutOfWorld();
-            if (!level.getPlayer().isAlive()) levelAction.restartLevel();
+            if (!gameEnded && !level.getPlayer().isAlive()) {
+                gameEnded = true;
+                levelAction.endLevelByDeath();
+            }
         }
         debugInfo();
         updateTimeSum += (System.nanoTime() - time) / 1e3;
