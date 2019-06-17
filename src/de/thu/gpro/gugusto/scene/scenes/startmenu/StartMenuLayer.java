@@ -13,8 +13,8 @@ import java.nio.file.Paths;
 public class StartMenuLayer extends UILayer {
 
     public StartMenuLayer(){
-        int buttonCenterX = (Game.WIDTH - 200) / 2;
-        int centerY = Game.HEIGHT / 2;
+        int buttonCenterX = (Game.INNER_WIDTH - 200) / 2;
+        int centerY = Game.INNER_HEIGHT / 2;
 
         TextButtonFactory tbf = new TextButtonFactory(200, new Vector(0, 20), 18);
 

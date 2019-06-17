@@ -44,7 +44,7 @@ public class Level {
     }
 
     public Vector getCameraStartPosition(double scale){
-        Vector window = new Vector(Game.WIDTH, Game.HEIGHT);
+        Vector window = new Vector(Game.INNER_WIDTH, Game.INNER_HEIGHT);
         return startPosition.clone().subtract(window.divide(new Vector(scale * 2.5, scale * 2)));
     }
 

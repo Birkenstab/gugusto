@@ -71,8 +71,8 @@ public abstract class Menu extends Panel {
     private void updatePositionAndSize(){
         boundingBox.getSize().set(menuWidth, menuItems.size() * menuItemHeight + headerHeight);
 
-        double x = (Game.WIDTH - boundingBox.getSize().getWidth()) / 2;
-        double y = (Game.HEIGHT - boundingBox.getSize().getHeight()) / 2;
+        double x = (Game.INNER_WIDTH - boundingBox.getSize().getWidth()) / 2;
+        double y = (Game.INNER_HEIGHT - boundingBox.getSize().getHeight()) / 2;
         boundingBox.getPosition().set(x, y);
     }
 

@@ -131,7 +131,7 @@ public class LevelLogic {
     }
 
     private void handleActivations() {
-        BoundingBox screenBoundingBox = new BoundingBox(camera.getPosition(), new Size(Game.WIDTH / camera.getScaling(),  Game.HEIGHT / camera.getScaling()));
+        BoundingBox screenBoundingBox = new BoundingBox(camera.getPosition(), new Size(Game.INNER_WIDTH / camera.getScaling(),  Game.INNER_HEIGHT / camera.getScaling()));
         for (Iterator<DynamicGameObject> iterator = inactiveDynamicGameObjects.iterator(); iterator.hasNext(); ) {
             DynamicGameObject obj = iterator.next();
             if (CollisionUtil.isColliding(obj.getBoundingBox(), screenBoundingBox)) { // Ist auf dem Bildschirm sichtbar
@@ -165,14 +165,14 @@ public class LevelLogic {
         if(diff.getX() < border.getX()){
             offset.setX(diff.getX() - border.getX());
         } else {
-            double offsetX = Game.WIDTH - diff.getX() - playerSize.getWidth();
+            double offsetX = Game.INNER_WIDTH - diff.getX() - playerSize.getWidth();
             if(offsetX < border.getX()) offset.setX(border.getX() - offsetX);
         }
 
         if(diff.getY() < border.getY()){
             offset.setY(diff.getY() - border.getY());
         } else {
-            double offsetY = Game.HEIGHT - diff.getY() - playerSize.getHeight();
+            double offsetY = Game.INNER_HEIGHT - diff.getY() - playerSize.getHeight();
             if(offsetY < border.getY()) offset.setY(border.getY() - offsetY);
         }
 
@@ -194,7 +194,7 @@ public class LevelLogic {
     private List<Chunk> getVisibleChunks() {
         List<Chunk> list = new ArrayList<>();
         Vector topLeft = camera.toWorldCoordinates(new Vector(0, 0));
-        Vector bottomRight = camera.toWorldCoordinates(new Vector(Game.WIDTH, Game.HEIGHT));
+        Vector bottomRight = camera.toWorldCoordinates(new Vector(Game.INNER_WIDTH, Game.INNER_HEIGHT));
 
         int x1 = Chunk.getChunkNo(topLeft.getX());
         int x2 = Chunk.getChunkNo(bottomRight.getX());

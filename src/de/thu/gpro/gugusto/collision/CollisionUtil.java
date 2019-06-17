@@ -95,8 +95,8 @@ public class CollisionUtil {
             return 0;
         }
 
-        if(nx < 0 || fx > Game.WIDTH) return -1;
-        if(ny < 0 || fy > Game.HEIGHT) return 1;
+        if(nx < 0 || fx > Game.INNER_WIDTH) return -1;
+        if(ny < 0 || fy > Game.INNER_HEIGHT) return 1;
 
         return 0;
     }

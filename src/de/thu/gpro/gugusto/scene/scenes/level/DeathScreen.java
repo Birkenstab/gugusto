@@ -16,7 +16,7 @@ public class DeathScreen extends Panel {
 
     // Todo Beschreibungstext dass Space = Restart; Hauptmenü-Knopf
     public DeathScreen(LevelAction levelAction) {
-        super(new Vector(), new Size(Game.WIDTH, Game.HEIGHT));
+        super(new Vector(), new Size(Game.INNER_WIDTH, Game.INNER_HEIGHT));
         addUIComponent(deathLabel);
 
         addListener(InputEventType.KEY_DOWN, (KeyEvent event) -> {

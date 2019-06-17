@@ -1,7 +1,5 @@
 package de.thu.gpro.gugusto.scene.scenes.level;
 
-import de.thu.gpro.gugusto.scene.UILayer;
-
 public class LevelAction {
     private LevelLayer levelLayer;
     private LevelUILayer uiLayer;

@@ -31,7 +31,7 @@ public class DeathLabel extends UIComponent {
         Size size = calcSize(label, font);
         boundingBox.getSize().set(size);
 
-        setPosition(new Vector((Game.WIDTH - size.getWidth()) / 2, (Game.HEIGHT - size.getHeight()) / 2));
+        setPosition(new Vector((Game.INNER_WIDTH - size.getWidth()) / 2, (Game.INNER_HEIGHT - size.getHeight()) / 2));
     }
 
     public void resetAnimation() {
