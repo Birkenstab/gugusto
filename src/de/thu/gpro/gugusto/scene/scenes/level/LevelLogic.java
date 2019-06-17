@@ -9,6 +9,7 @@ import de.thu.gpro.gugusto.game.level.Level;
 import de.thu.gpro.gugusto.game.object.DynamicGameObject;
 import de.thu.gpro.gugusto.game.object.GameObject;
 import de.thu.gpro.gugusto.game.object.blocks.Block;
+import de.thu.gpro.gugusto.input.KeyState;
 import de.thu.gpro.gugusto.input.event.KeyEvent;
 import de.thu.gpro.gugusto.util.Size;
 import de.thu.gpro.gugusto.util.Vector;
@@ -47,6 +48,8 @@ public class LevelLogic {
     }
 
     public void update(double delta) {
+        if (KeyState.isDown('y')) // TODO Nur zum Debugging
+            delta /= 10;
         double time = System.nanoTime();
         if (running) {
             handleActivations();
