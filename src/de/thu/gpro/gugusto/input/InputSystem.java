@@ -6,18 +6,17 @@ import de.thu.gpro.gugusto.input.event.InputEventType;
 import de.thu.gpro.gugusto.input.event.KeyEvent;
 import de.thu.gpro.gugusto.game.Game;
 import de.thu.gpro.gugusto.input.event.MouseEvent;
-import de.thu.gpro.gugusto.input.event.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class InputSystem {
 
-    private List<InputEvent> events;
+    private Queue<InputEvent> events;
     private Window window;
 
     public InputSystem(Window window){
-        events = new ArrayList<>();
+        events = new ConcurrentLinkedQueue<>();
         this.window = window;
 
         init();
@@ -29,15 +28,13 @@ public class InputSystem {
     }
 
     public void dispatch(){
-        List<InputEvent> _events = events;
-        events = new ArrayList<>();
 
-        for(InputEvent event : _events){
+        for(InputEvent event : events){
             if(event.getType().isKeyEvent()) dispatchEvent(event);
             else if(event.getType().isMouseEvent()) dispatchEvent(event);
         }
 
-        Game.getInstance().getSceneManager().getScene().dispatchEvents(_events);
+        Game.getInstance().getSceneManager().getScene().dispatchEvents(events);
     }
 
     private <T extends InputEvent> void dispatchEvent(T event){

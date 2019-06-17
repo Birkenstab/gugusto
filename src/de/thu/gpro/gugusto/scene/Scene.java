@@ -2,10 +2,10 @@ package de.thu.gpro.gugusto.scene;
 
 import de.thu.gpro.gugusto.graphic.GraphicSystem;
 import de.thu.gpro.gugusto.input.event.InputEvent;
-import de.thu.gpro.gugusto.input.event.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 public abstract class Scene {
 
@@ -23,8 +23,9 @@ public abstract class Scene {
         graphicSystem.draw(layers);
     }
 
-    public void dispatchEvents(List<InputEvent> events){
-        for(InputEvent event : events){
+    public void dispatchEvents(Queue<InputEvent> events){
+        InputEvent event;
+        while ((event = events.poll()) != null) {
             for(int i = layers.size() - 1; i >= 0; i--){
                 if(layers.get(i).dispatchEvent(event)) break;
             }
