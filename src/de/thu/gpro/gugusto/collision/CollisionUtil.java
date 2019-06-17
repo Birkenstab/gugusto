@@ -3,6 +3,7 @@ package de.thu.gpro.gugusto.collision;
 import de.thu.gpro.gugusto.game.level.Chunk;
 import de.thu.gpro.gugusto.game.object.DynamicGameObject;
 import de.thu.gpro.gugusto.game.object.GameObject;
+import de.thu.gpro.gugusto.util.DebugInfo;
 import de.thu.gpro.gugusto.util.Vector;
 import de.thu.gpro.gugusto.game.Game;
 import de.thu.gpro.gugusto.util.Size;
@@ -21,7 +22,9 @@ public class CollisionUtil {
     public static void handleStaticCollisions(DynamicGameObject dynamicObj, List<Chunk> chunks) {
         for (Chunk chunk : chunks) {
             for (GameObject other : chunk.getBlocks()) {
+                DebugInfo.checkedStaticCollisions++;
                 if (CollisionUtil.isColliding(dynamicObj, other)) {
+                    DebugInfo.occurredStaticCollisions++;
                     dynamicObj.collision(other);
                     other.collision(dynamicObj);
                 }
@@ -39,7 +42,9 @@ public class CollisionUtil {
                 if (i < j) {
                     GameObject x = objs.get(i);
                     GameObject y = objs.get(j);
+                    DebugInfo.checkedDynamicCollisions++;
                     if (CollisionUtil.isColliding(x, y)) {
+                        DebugInfo.occurredDynamicCollisions++;
                         x.collision(y);
                         y.collision(x);
                     }

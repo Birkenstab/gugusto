@@ -24,6 +24,8 @@ public class LevelLogic {
     private Level level;
     private Camera camera;
     private boolean running = true;
+    private double updateTimeSum = 0;
+    private int updateTimeCount = 0;
     private List<DynamicGameObject> inactiveDynamicGameObjects = new ArrayList<>();
     private List<DynamicGameObject> activeDynamicGameObjects = new ArrayList<>();
 
@@ -44,6 +46,7 @@ public class LevelLogic {
     }
 
     public void update(double delta) {
+        double time = System.nanoTime();
         if (running) {
             handleActivations();
 
@@ -65,17 +68,27 @@ public class LevelLogic {
             if (!level.getPlayer().isAlive()) levelAction.restartLevel();
         }
         debugInfo();
+        updateTimeSum += (System.nanoTime() - time) / 1e3;
+        updateTimeCount++;
+        if (updateTimeCount >= 30) {
+            DebugInfo.avgLevelLogicUpdateTime = updateTimeSum / updateTimeCount;
+            updateTimeCount = 0;
+            updateTimeSum = 0;
+        }
     }
 
     public void draw(Graphics2D g2d) {
-        for(List<Chunk> chunks : level.getChunkList().getChunks()){
-            for(Chunk chunk : chunks)
-                for (Block block : chunk.getBlocks()) {
-                    doDraw(g2d, block);
-                }
-        }
         for(GameObject object : activeDynamicGameObjects){
             doDraw(g2d, object);
+        }
+
+        List<Chunk> visibleChunks = getVisibleChunks();
+        DebugInfo.visibleChunks = visibleChunks.size();
+
+        for(Chunk chunk : visibleChunks){
+            for (Block block : chunk.getBlocks()) {
+                doDraw(g2d, block);
+            }
         }
     }
 
@@ -117,7 +130,7 @@ public class LevelLogic {
         BoundingBox screenBoundingBox = new BoundingBox(camera.getPosition(), new Size(Game.WIDTH / camera.getScaling(),  Game.HEIGHT / camera.getScaling()));
         for (Iterator<DynamicGameObject> iterator = inactiveDynamicGameObjects.iterator(); iterator.hasNext(); ) {
             DynamicGameObject obj = iterator.next();
-            if (CollisionUtil.isColliding(obj.getBoundingBox(), screenBoundingBox)) {
+            if (CollisionUtil.isColliding(obj.getBoundingBox(), screenBoundingBox)) { // Ist auf dem Bildschirm sichtbar
                 iterator.remove();
                 activeDynamicGameObjects.add(obj);
             }
@@ -125,15 +138,17 @@ public class LevelLogic {
     }
 
     private void handleCollisions() {
-        List<DynamicGameObject> dynamicObjs = new ArrayList<>(level.getEnemies());
-        dynamicObjs.add(level.getPlayer());
+        DebugInfo.checkedStaticCollisions = 0;
+        DebugInfo.checkedDynamicCollisions = 0;
+        DebugInfo.occurredStaticCollisions = 0;
+        DebugInfo.occurredDynamicCollisions = 0;
 
-        for (DynamicGameObject obj : dynamicObjs) {
+        for (DynamicGameObject obj : activeDynamicGameObjects) {
             obj.setOnGround(false);
             CollisionUtil.handleStaticCollisions(obj, level.getChunkList().getNearby(obj.getBoundingBox().getPosition()));
         }
 
-        CollisionUtil.handleDynamicCollisions(dynamicObjs);
+        CollisionUtil.handleDynamicCollisions(activeDynamicGameObjects);
     }
 
     private void updateCamera(){
@@ -166,6 +181,27 @@ public class LevelLogic {
                 gameObject.kill();
             }
         });
+    }
+
+    private List<Chunk> getVisibleChunks() {
+        List<Chunk> list = new ArrayList<>();
+        Vector topLeft = camera.toWorldCoordinates(new Vector(0, 0));
+        Vector bottomRight = camera.toWorldCoordinates(new Vector(Game.WIDTH, Game.HEIGHT));
+
+        int x1 = Chunk.getChunkNo(topLeft.getX());
+        int x2 = Chunk.getChunkNo(bottomRight.getX());
+        int y1 = Chunk.getChunkNo(topLeft.getY());
+        int y2 = Chunk.getChunkNo(bottomRight.getY());
+
+        for (int x = x1; x <= x2; x++) {
+            for (int y = y1; y <= y2; y++) {
+                Chunk chunk = level.getChunkList().get(x, y);
+                if (chunk != null)
+                    list.add(chunk);
+            }
+        }
+
+        return list;
     }
 
     public Camera getCamera() {
