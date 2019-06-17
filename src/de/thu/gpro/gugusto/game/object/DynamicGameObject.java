@@ -66,7 +66,11 @@ public abstract class DynamicGameObject extends GameObject {
         }
     }
 
-    public void kill() {
+    public final void kill() {
+        kill(null);
+    }
+
+    public void kill(GameObject by) {
         remove();
     }
 

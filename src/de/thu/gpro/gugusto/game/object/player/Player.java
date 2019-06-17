@@ -96,7 +96,7 @@ public class Player extends DynamicGameObject {
     }
 
     @Override
-    public void kill() {
+    public void kill(GameObject by) {
         alive = false;
         remove();
     }

@@ -48,7 +48,7 @@ public class Saw extends Enemy {
     public void collision(GameObject other) {
         super.collision(other);
         if (other instanceof DynamicGameObject && !(other instanceof Saw)) {
-            ((DynamicGameObject) other).kill();
+            ((DynamicGameObject) other).kill(this);
         }
     }
 }
