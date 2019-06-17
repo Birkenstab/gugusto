@@ -177,6 +177,10 @@ public class LevelLogic {
         }
 
         camera.move(offset.divide(camera.getScaling()));
+        int levelHeight = level.getChunkList().getHeight() * Chunk.SIZE;
+        if (camera.toWorldCoordinates(new Vector(0, Game.INNER_HEIGHT)).getY() > levelHeight) { // Camera soll keinen Bereich unter dem untersten Chunk zeigen
+            camera.set(new Vector(camera.getPosition().getX(), (levelHeight * camera.getScaling() - Game.INNER_HEIGHT) / camera.getScaling()));
+        }
     }
 
     private void handleOutOfWorld() {
