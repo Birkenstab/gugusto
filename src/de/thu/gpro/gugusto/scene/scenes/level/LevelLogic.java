@@ -118,6 +118,10 @@ public class LevelLogic {
 
     private void handleRemovals() {
         activeDynamicGameObjects.removeIf(GameObject::shouldBeRemoved);
+        for (List<Chunk> chunks : level.getChunkList().getChunks()) {
+            for (Chunk chunk : chunks)
+                chunk.getBlocks().removeIf(Block::shouldBeRemoved);
+        }
     }
 
     public boolean onKeyDown(KeyEvent event) {
@@ -150,12 +154,15 @@ public class LevelLogic {
         DebugInfo.occurredStaticCollisions = 0;
         DebugInfo.occurredDynamicCollisions = 0;
 
+        List<CollisionUtil.Collision> collisions = new ArrayList<>();
+
         for (DynamicGameObject obj : activeDynamicGameObjects) {
             obj.setOnGround(false);
-            CollisionUtil.handleStaticCollisions(obj, level.getChunkList().getNearby(obj.getBoundingBox().getPosition()));
+            CollisionUtil.handleStaticCollisions(obj, level.getChunkList().getNearby(obj.getBoundingBox().getPosition()), collisions);
         }
 
-        CollisionUtil.handleDynamicCollisions(activeDynamicGameObjects);
+        CollisionUtil.handleDynamicCollisions(activeDynamicGameObjects, collisions);
+        CollisionUtil.callCollisions(collisions);
     }
 
     private void updateCamera(){

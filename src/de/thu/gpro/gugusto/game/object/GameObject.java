@@ -18,6 +18,7 @@ public abstract class GameObject {
     private boolean shouldRemove = false;
     private BoundingBox scaledBoundingBox;
     protected BoundingBox boundingBox;
+    private boolean solid;
 
     public GameObject(Vector position, Size size){
         boundingBox = new BoundingBox(position, size);
@@ -70,4 +71,11 @@ public abstract class GameObject {
 
     public void collision(GameObject other){}
 
+    public boolean isSolid() {
+        return solid;
+    }
+
+    protected void setSolid(boolean solid) {
+        this.solid = solid;
+    }
 }

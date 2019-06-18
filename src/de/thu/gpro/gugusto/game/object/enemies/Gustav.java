@@ -19,6 +19,7 @@ public class Gustav extends Enemy {
 
     public Gustav(Vector position, int size) {
         super(EnemyType.GUSTAV, position, new Size(size, size));
+        setSolid(true);
     }
 
     @Override

@@ -22,8 +22,7 @@ public class CollisionUtil {
      * @param dynamicObj
      * @param chunks
      */
-    public static void handleStaticCollisions(DynamicGameObject dynamicObj, List<Chunk> chunks) {
-        List<Collision> collisions = new ArrayList<>();
+    public static void handleStaticCollisions(DynamicGameObject dynamicObj, List<Chunk> chunks, List<Collision> collisions) {
         for (Chunk chunk : chunks) {
             for (GameObject other : chunk.getBlocks()) {
                 DebugInfo.checkedStaticCollisions++;
@@ -34,15 +33,13 @@ public class CollisionUtil {
             }
         }
         DebugInfo.occurredStaticCollisions = collisions.size();
-        callCollisions(collisions);
     }
 
     /**
      * Checks for collisions between those GameObjects and calls the collision method of both collision partners if there is a collision
      * @param objs
      */
-    public static void handleDynamicCollisions(List<DynamicGameObject> objs) {
-        List<Collision> collisions = new ArrayList<>();
+    public static void handleDynamicCollisions(List<DynamicGameObject> objs, List<Collision> collisions) {
         for (int i = 0; i < objs.size(); i++) {
             for (int j = 0; j < objs.size(); j++) {
                 if (i < j) {
@@ -57,10 +54,9 @@ public class CollisionUtil {
             }
         }
         DebugInfo.occurredDynamicCollisions = collisions.size();
-        callCollisions(collisions);
     }
 
-    private static void callCollisions(List<Collision> collisions) {
+    public static void callCollisions(List<Collision> collisions) {
         collisions.sort(Collections.reverseOrder(Comparator.comparingDouble(o -> o.surface)));
         for (Collision collision : collisions) {
             collision.obj1.collision(collision.obj2);
@@ -199,7 +195,7 @@ public class CollisionUtil {
                 point.getY() <= position.getY() + size.getHeight();
     }
 
-    private static class Collision {
+    public static class Collision {
         private double surface;
         private GameObject obj1;
         private GameObject obj2;

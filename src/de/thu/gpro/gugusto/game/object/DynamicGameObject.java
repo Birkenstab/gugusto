@@ -1,5 +1,6 @@
 package de.thu.gpro.gugusto.game.object;
 
+import de.thu.gpro.gugusto.collision.BoundingBox;
 import de.thu.gpro.gugusto.game.object.blocks.Block;
 import de.thu.gpro.gugusto.util.Vector;
 import de.thu.gpro.gugusto.util.Size;
@@ -28,11 +29,14 @@ public abstract class DynamicGameObject extends GameObject {
 
     @Override
     public void collision(GameObject other) {
-        if (other instanceof Block && ((Block) other).isSolid() && movable) {
+        if (other.isSolid() && movable) {
             Vector pos1 = boundingBox.getPosition();
             Vector pos2 = other.getBoundingBox().getPosition();
             Size size1 = boundingBox.getSize();
             Size size2 = other.getBoundingBox().getSize();
+
+            if (boundingBox.getType() != BoundingBox.Type.RECTANGLE || other.getBoundingBox().getType() != BoundingBox.Type.RECTANGLE)
+                throw new Error("Not implemented"); // Todo
 
             Vector center1 = pos1.clone().add(size1.toVector().multiply(0.5));
             Vector center2 = pos2.clone().add(size2.toVector().multiply(0.5));

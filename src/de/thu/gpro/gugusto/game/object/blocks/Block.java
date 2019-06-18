@@ -7,21 +7,16 @@ import de.thu.gpro.gugusto.util.Vector;
 public abstract class Block extends StaticGameObject {
 
     private BlockType type;
-    private boolean isSolid;
 
     public Block(BlockType type, Vector position) {
-        super(position, new Size(1,1));
-
-        this.type = type;
-        isSolid = true;
-        checkForVectorConstructor();
+        this(type, position, true);
     }
 
-    public Block(BlockType type, Vector position, boolean isSolid) {
+    public Block(BlockType type, Vector position, boolean solid) {
         super(position, new Size(1,1));
 
         this.type = type;
-        this.isSolid = isSolid;
+        setSolid(solid);
         checkForVectorConstructor();
     }
 
@@ -45,9 +40,4 @@ public abstract class Block extends StaticGameObject {
     public int getId(){
         return type.getId();
     }
-
-    public boolean isSolid(){
-        return isSolid;
-    }
-
 }
