@@ -69,9 +69,15 @@ public class LevelLogic {
             handleCollisions();
             updateCamera();
             handleOutOfWorld();
-            if (!gameEnded && !level.getPlayer().isAlive()) {
-                gameEnded = true;
-                levelAction.endLevelByDeath();
+            if (!gameEnded) {
+                if (!level.getPlayer().isAlive()) {
+                    gameEnded = true;
+                    levelAction.endLevelByDeath();
+                }
+                if (level.getPlayer().isWon()) {
+                    gameEnded = true;
+                    levelAction.endLevelByWin();
+                }
             }
         }
         debugInfo();

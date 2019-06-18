@@ -25,6 +25,10 @@ public class LevelUILayer extends UILayer {
         deathScreen.show();
     }
 
+    public void showLevelWinScreen() {
+
+    }
+
     public void restartLevel() {
         deathScreen.setVisible(false);
     }

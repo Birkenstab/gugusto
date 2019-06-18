@@ -51,6 +51,11 @@ public class Size {
     }
 
     @Override
+    public Size clone() {
+        return new Size(width, height);
+    }
+
+    @Override
     public String toString(){
         return String.format("Width: %.4f, Height: %.4f", width, height);
     }

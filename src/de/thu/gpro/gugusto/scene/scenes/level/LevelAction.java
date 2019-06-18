@@ -13,6 +13,10 @@ public class LevelAction {
         uiLayer.showDeathScreen();
     }
 
+    public void endLevelByWin() {
+        uiLayer.showLevelWinScreen();
+    }
+
     public void pause() {
         levelLayer.pause();
     }

@@ -22,9 +22,10 @@ public class Player extends DynamicGameObject {
     private PlayerState state;
     private boolean spaceDown = false;
     private boolean alive = true;
+    private boolean won = false;
 
     public Player(Vector position){
-        super(position, size);
+        super(position, size.clone());
 
         state = new PlayerState();
         animation = new PlayerAnimation(state);
@@ -58,22 +59,40 @@ public class Player extends DynamicGameObject {
     public void update(double delta){
         super.update(delta);
 
-        int step = 5;
+        if (won) {
+            Size size = getBoundingBox().getSize();
+            if (size.getWidth() < 4) {
+                double change = 2 * delta;
+                size.setWidth(size.getWidth() + change);
+                size.setHeight(size.getHeight() + change);
+                getBoundingBox().getPosition().subtract(new Vector(change / 2, change / 2));
+            }
+            if (isOnGround()) {
+                getVelocity().setY(-5);
+            }
+            state.setState(State.JUMP);
+            state.setDirection(Direction.RIGHT);
 
-        if(state.getDirection() == Direction.LEFT){
-            boundingBox.getPosition().add(new Vector(- delta * step, 0));
-        } else if(state.getDirection() == Direction.RIGHT){
-            boundingBox.getPosition().add(new Vector(delta * step, 0));
-        }
+        } else {
 
-        if(spaceDown && isOnGround()) getVelocity().setY(-18);
+            int step = 5;
 
-        if(!isOnGround()){
-            if(getVelocity().getY() > 0) state.setState(State.FALL);
-            else state.setState(State.JUMP);
-        } else if(state.getState() == State.FALL){
-            if(state.getDirection() == Direction.NONE) state.setState(State.IDLE);
-            else state.setState(State.WALK);
+            if (state.getDirection() == Direction.LEFT) {
+                boundingBox.getPosition().add(new Vector(-delta * step, 0));
+            } else if (state.getDirection() == Direction.RIGHT) {
+                boundingBox.getPosition().add(new Vector(delta * step, 0));
+            }
+
+            if (spaceDown && isOnGround()) getVelocity().setY(-18);
+
+            if (!isOnGround()) {
+                if (getVelocity().getY() > 0) state.setState(State.FALL);
+                else state.setState(State.JUMP);
+            } else if (state.getState() == State.FALL) {
+                if (state.getDirection() == Direction.NONE) state.setState(State.IDLE);
+                else state.setState(State.WALK);
+            }
+
         }
 
         animation.update(delta);
@@ -89,7 +108,7 @@ public class Player extends DynamicGameObject {
     public void collision(GameObject other) {
         super.collision(other);
         if (other instanceof GoalBlock) {
-            System.out.println("Jo du hast das Ziel erreicht!");
+            won = true;
         } else if(other instanceof Coin) {
             other.remove();
         }
@@ -97,12 +116,17 @@ public class Player extends DynamicGameObject {
 
     @Override
     public void kill(GameObject by) {
-        alive = false;
-        remove();
+        if (!won) {
+            alive = false;
+            remove();
+        }
     }
 
     public boolean isAlive(){
         return alive;
     }
 
+    public boolean isWon() {
+        return won;
+    }
 }
