@@ -54,7 +54,8 @@ public abstract class DynamicGameObject extends GameObject {
                 if (velocity.getX() < 0)
                     velocity.setX(0);
             } else if (max == deltaTop) {
-                onGround = true;
+                if (velocity.getY() >= 0)
+                    onGround = true;
                 boundingBox.getPosition().setY(pos2.getY() - size1.getHeight());
                 if (velocity.getY() > 0)
                     velocity.setY(0);
