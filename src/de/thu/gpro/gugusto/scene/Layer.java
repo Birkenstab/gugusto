@@ -43,6 +43,11 @@ public abstract class Layer {
         if(list != null) list.add((EventCallback<InputEvent>)callback);
     }
 
+    protected <T extends InputEvent> void removeListener(InputEventType type, EventCallback<T> callback){
+        List<EventCallback<InputEvent>> list = listeners.get(type.getId());
+        if(list != null) list.remove(callback);
+    }
+
     public boolean dispatchEvent(InputEvent event){
         List<EventCallback<InputEvent>> callbacks = listeners.get(event.getType().getId());
 

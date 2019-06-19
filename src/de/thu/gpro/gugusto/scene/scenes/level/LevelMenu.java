@@ -17,6 +17,11 @@ public class LevelMenu extends Menu {
             levelAction.restartLevel();
             setVisible(false);
         });
+
+        if(levelAction.hasConfig()){
+            addMenuEntry("Back to Level Editor", e -> levelAction.backToLevelEditorScene());
+        }
+
         addMenuEntry("Back to Main Menu", e -> Game.getInstance().getSceneManager().setScene(new StartMenuScene()));
         addMenuEntry("Exit Game", e -> System.exit(0));
         build();

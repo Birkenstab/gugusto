@@ -1,8 +1,21 @@
 package de.thu.gpro.gugusto.scene.scenes.level;
 
+import de.thu.gpro.gugusto.game.Game;
+import de.thu.gpro.gugusto.scene.scenes.leveleditor.editor.LevelEditorConfig;
+import de.thu.gpro.gugusto.scene.scenes.leveleditor.editor.LevelEditorScene;
+
+import java.nio.file.Path;
+
 public class LevelAction {
+
     private LevelLayer levelLayer;
     private LevelUILayer uiLayer;
+    private LevelEditorConfig config;
+    private Path levelPath;
+
+    public LevelAction(Path levelPath){
+        this.levelPath = levelPath;
+    }
 
     public void restartLevel() {
         uiLayer.restartLevel();
@@ -22,9 +35,8 @@ public class LevelAction {
     }
 
     public void resume() {
-        levelLayer.resume();
+        if(levelLayer != null) levelLayer.resume();
     }
-
 
     public void setLevelLayer(LevelLayer levelLayer) {
         this.levelLayer = levelLayer;
@@ -32,5 +44,17 @@ public class LevelAction {
 
     public void setUiLayer(LevelUILayer uiLayer) {
         this.uiLayer = uiLayer;
+    }
+
+    public void backToLevelEditorScene(){
+        Game.getInstance().getSceneManager().setScene(new LevelEditorScene(levelPath, config));
+    }
+
+    public void setLevelEditorConfig(LevelEditorConfig config){
+        this.config = config;
+    }
+
+    public boolean hasConfig(){
+        return config != null;
     }
 }

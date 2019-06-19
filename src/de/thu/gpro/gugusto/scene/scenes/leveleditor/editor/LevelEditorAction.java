@@ -1,6 +1,7 @@
 package de.thu.gpro.gugusto.scene.scenes.leveleditor.editor;
 
 import de.thu.gpro.gugusto.collision.CollisionUtil;
+import de.thu.gpro.gugusto.game.Game;
 import de.thu.gpro.gugusto.game.level.Chunk;
 import de.thu.gpro.gugusto.game.level.Level;
 import de.thu.gpro.gugusto.game.level.io.LevelLoader;
@@ -8,6 +9,7 @@ import de.thu.gpro.gugusto.game.object.GameObject;
 import de.thu.gpro.gugusto.game.object.blocks.Block;
 import de.thu.gpro.gugusto.game.object.enemies.Enemy;
 import de.thu.gpro.gugusto.game.object.enemies.EnemyFactory;
+import de.thu.gpro.gugusto.scene.scenes.level.LevelScene;
 import de.thu.gpro.gugusto.util.Vector;
 import de.thu.gpro.gugusto.game.object.blocks.BlockFactory;
 import de.thu.gpro.gugusto.game.object.blocks.BlockType;
@@ -22,6 +24,8 @@ class LevelEditorAction {
     private Level level;
     private GameObject.Type selectedType = GameObject.Type.Block;
     private int selectedId = BlockType.GRASS.getId();
+
+    private LevelEditorLayer levelEditorLayer;
 
     LevelEditorAction(Path path, Level level){
         levelPath = path;
@@ -68,6 +72,23 @@ class LevelEditorAction {
     public void setSelectedObject(int id, GameObject.Type type){
         selectedId = id;
         selectedType = type;
+    }
+
+    public void setLevelEditorLayer(LevelEditorLayer layer){
+        levelEditorLayer = layer;
+    }
+
+    public void toLevelScene(){
+        save();
+        levelEditorLayer.removeListeners();
+        Game.getInstance().getSceneManager().setScene(new LevelScene(levelPath, buildConfig()));
+    }
+
+    public LevelEditorConfig buildConfig(){
+        LevelEditorConfig config = new LevelEditorConfig();
+        config.setSelected(selectedId, selectedType);
+        config.setCamera(levelEditorLayer.getCamera().getPosition(), levelEditorLayer.getCamera().getScaling());
+        return config;
     }
 
 }

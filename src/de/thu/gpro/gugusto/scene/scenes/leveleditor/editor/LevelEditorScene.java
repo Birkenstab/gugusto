@@ -15,13 +15,24 @@ public class LevelEditorScene extends Scene {
     private LevelEditorAction levelEditorAction;
 
     public LevelEditorScene(Path path){
-        this(path, LevelLoader.load(path));
+        build(path, LevelLoader.load(path), null);
     }
 
     public LevelEditorScene(Path path, Level level){
+        build(path, level, null);
+    }
+
+    public LevelEditorScene(Path path, LevelEditorConfig config){
+        build(path, LevelLoader.load(path), config.getCamera());
+        levelEditorAction.setSelectedObject(config.getSelectedId(), config.getSelectedType());
+    }
+
+    private void build(Path path, Level level, LevelEditorCamera camera){
         levelEditorAction = new LevelEditorAction(path, level);
-        levelEditorLayer = new LevelEditorLayer(level, levelEditorAction);
         levelEditorUILayer = new LevelEditorUILayer(levelEditorAction);
+        levelEditorLayer = new LevelEditorLayer(level, levelEditorAction, camera);
+
+        levelEditorAction.setLevelEditorLayer(levelEditorLayer);
 
         addLayer(levelEditorLayer);
         addLayer(levelEditorUILayer);

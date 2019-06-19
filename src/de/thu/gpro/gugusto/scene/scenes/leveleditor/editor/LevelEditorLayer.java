@@ -4,6 +4,7 @@ import de.thu.gpro.gugusto.game.Camera;
 import de.thu.gpro.gugusto.game.Game;
 import de.thu.gpro.gugusto.game.level.Chunk;
 import de.thu.gpro.gugusto.game.level.Level;
+import de.thu.gpro.gugusto.game.object.GameObject;
 import de.thu.gpro.gugusto.input.MouseState;
 import de.thu.gpro.gugusto.input.event.EventCallback;
 import de.thu.gpro.gugusto.input.event.InputEventType;
@@ -23,23 +24,47 @@ class LevelEditorLayer extends Layer {
     private boolean showGrid = true;
 
     LevelEditorLayer(Level level, LevelEditorAction levelEditorAction){
+        this(level, levelEditorAction, null);
+    }
+
+    LevelEditorLayer(Level level, LevelEditorAction levelEditorAction, LevelEditorCamera camera){
         this.level = level;
         this.levelEditorAction = levelEditorAction;
-        camera = new LevelEditorCamera(level.getCameraStartPosition(32), 32);
+
+        if(camera == null) this.camera = new LevelEditorCamera(level.getCameraStartPosition(32), 32);
+        else this.camera = camera;
 
         addGameObjects();
+        addListeners();
+    }
+
+    private void addListeners(){
         addListener(InputEventType.MOUSE_MOVE, this::onMouseMove);
         addListener(InputEventType.MOUSE_DOWN, this::onMouseDown);
-        addListener(InputEventType.KEY_DOWN, (EventCallback<KeyEvent>) e -> {
-            if(e.getChar() == 'g') showGrid = !showGrid;
-            return e.getChar() == 'g';
-        });
+        addListener(InputEventType.KEY_DOWN, this::onKeyDown);
 
         addListener(InputEventType.KEY_DOWN, camera::onKeyDown);
         addListener(InputEventType.MOUSE_DOWN, camera::onMouseDown);
         addListener(InputEventType.MOUSE_UP, camera::onMouseUp);
         addListener(InputEventType.MOUSE_MOVE, camera::onMouseMove);
         addListener(InputEventType.MOUSE_SCROLL, camera::onMouseScroll);
+    }
+
+    public void removeListeners(){
+        removeListener(InputEventType.MOUSE_MOVE, this::onMouseMove);
+        removeListener(InputEventType.MOUSE_DOWN, this::onMouseDown);
+        removeListener(InputEventType.KEY_DOWN, this::onKeyDown);
+
+        removeListener(InputEventType.KEY_DOWN, camera::onKeyDown);
+        removeListener(InputEventType.MOUSE_DOWN, camera::onMouseDown);
+        removeListener(InputEventType.MOUSE_UP, camera::onMouseUp);
+        removeListener(InputEventType.MOUSE_MOVE, camera::onMouseMove);
+        removeListener(InputEventType.MOUSE_SCROLL, camera::onMouseScroll);
+    }
+
+    private boolean onKeyDown(KeyEvent event){
+        if(event.getChar() == 'g') showGrid = !showGrid;
+        return event.getChar() == 'g';
     }
 
     private boolean onMouseMove(MouseEvent event){
@@ -109,6 +134,5 @@ class LevelEditorLayer extends Layer {
     protected Camera getCamera(){
         return camera;
     }
-
 
 }
