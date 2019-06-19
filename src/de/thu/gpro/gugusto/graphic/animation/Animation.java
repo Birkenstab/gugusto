@@ -54,10 +54,20 @@ public abstract class Animation {
         afterLoopSleeping = true;
     }
 
+    protected void checkModeEnding(){
+        if(mode == Mode.LOOP){
+            enterAfterLoopSleep();
+            reset();
+        } else {
+            stop();
+            if(mode == Mode.LINEAR_RESET) reset();
+        }
+    }
+
     protected void updatePerDuration(double delta, long now){}
     protected void updatePerFrame(double delta, long now){}
 
-    public abstract void draw(Graphics2D g2d, int x, int y, int width, int height);
+    public void draw(Graphics2D g2d, int x, int y, int width, int height){}
 
     public void start(){
         reset();

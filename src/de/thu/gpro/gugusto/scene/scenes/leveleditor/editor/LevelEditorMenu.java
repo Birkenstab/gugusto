@@ -1,24 +1,24 @@
-package de.thu.gpro.gugusto.scene.scenes.mapeditor;
+package de.thu.gpro.gugusto.scene.scenes.leveleditor.editor;
 
 import de.thu.gpro.gugusto.game.Game;
 import de.thu.gpro.gugusto.scene.scenes.startmenu.StartMenuScene;
 import de.thu.gpro.gugusto.ui.components.Menu;
 
-public class MapEditorMenu extends Menu {
+class LevelEditorMenu extends Menu {
 
-    private MapEditorAction mapEditorAction;
+    private LevelEditorAction levelEditorAction;
 
-    public MapEditorMenu(MapEditorAction mapEditorAction){
+    public LevelEditorMenu(LevelEditorAction levelEditorAction){
         super();
 
-        this.mapEditorAction = mapEditorAction;
+        this.levelEditorAction = levelEditorAction;
 
         addMenuEntry("Save Map", e -> {
-            mapEditorAction.save();
+            levelEditorAction.save();
             setVisible(false);
         });
         addMenuEntry("Save and Exit", e -> {
-            mapEditorAction.save();
+            levelEditorAction.save();
             Game.getInstance().getSceneManager().setScene(new StartMenuScene());
         });
         addMenuEntry("Back to Main Menu", e -> Game.getInstance().getSceneManager().setScene(new StartMenuScene()));

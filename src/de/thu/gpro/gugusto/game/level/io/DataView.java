@@ -1,8 +1,8 @@
-package de.thu.gpro.gugusto.game.level;
+package de.thu.gpro.gugusto.game.level.io;
 
 import java.util.Arrays;
 
-public class DataView {
+class DataView {
 
     private byte[] data;
     private int index = 0;

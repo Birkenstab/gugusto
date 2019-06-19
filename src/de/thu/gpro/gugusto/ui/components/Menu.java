@@ -6,7 +6,6 @@ import de.thu.gpro.gugusto.input.event.KeyEvent;
 import de.thu.gpro.gugusto.ui.components.button.Button;
 import de.thu.gpro.gugusto.ui.components.button.IconButton;
 import de.thu.gpro.gugusto.ui.components.button.TextButton;
-import de.thu.gpro.gugusto.ui.components.button.TextButtonFactory;
 import de.thu.gpro.gugusto.ui.icon.Icon;
 import de.thu.gpro.gugusto.util.Size;
 import de.thu.gpro.gugusto.util.Vector;
@@ -24,10 +23,10 @@ public abstract class Menu extends Panel {
     private static final int menuWidth = 280;
     private static final int menuItemPadding = 10;
 
-    private static final TextButtonFactory tbf;
+    private static final LabelFactory lf;
 
     static {
-        tbf = new TextButtonFactory(menuWidth - menuItemPadding * 2, new Vector(0, 10), 16);
+        lf = new LabelFactory(menuWidth - menuItemPadding * 2, new Vector(0, 10), 16);
     }
 
     private IconButton closeButton;
@@ -46,7 +45,7 @@ public abstract class Menu extends Panel {
     }
 
     protected void addMenuEntry(String label, Button.OnClickListener listener){
-        TextButton button = tbf.create(new Vector(), label);
+        TextButton button = new TextButton(lf.create(new Vector(), label));
         button.setClickListener(listener);
         menuItems.add(button);
     }

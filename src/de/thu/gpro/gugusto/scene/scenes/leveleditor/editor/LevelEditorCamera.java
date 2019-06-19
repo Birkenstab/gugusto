@@ -1,4 +1,4 @@
-package de.thu.gpro.gugusto.scene.scenes.mapeditor;
+package de.thu.gpro.gugusto.scene.scenes.leveleditor.editor;
 
 import de.thu.gpro.gugusto.game.Camera;
 import de.thu.gpro.gugusto.input.MouseState;
@@ -6,12 +6,12 @@ import de.thu.gpro.gugusto.input.event.KeyEvent;
 import de.thu.gpro.gugusto.input.event.MouseEvent;
 import de.thu.gpro.gugusto.util.Vector;
 
-public class MapEditorCamera extends Camera {
+class LevelEditorCamera extends Camera {
 
     private Vector lastDownPosition;
     private Vector lastDownCameraPosition;
 
-    public MapEditorCamera(Vector position, double scaling) {
+    LevelEditorCamera(Vector position, double scaling) {
         super(position, scaling);
     }
 

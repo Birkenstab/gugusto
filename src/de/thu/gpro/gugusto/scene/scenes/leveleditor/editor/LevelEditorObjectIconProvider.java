@@ -1,4 +1,4 @@
-package de.thu.gpro.gugusto.scene.scenes.mapeditor;
+package de.thu.gpro.gugusto.scene.scenes.leveleditor.editor;
 
 import de.thu.gpro.gugusto.game.object.blocks.BlockType;
 import de.thu.gpro.gugusto.game.object.enemies.EnemyType;
@@ -8,7 +8,7 @@ import de.thu.gpro.gugusto.graphic.TextureLoader;
 import java.awt.image.BufferedImage;
 import java.util.Map;
 
-public class MapEditorObjectIconProvider {
+class LevelEditorObjectIconProvider {
     private static Map<EnemyType, Texture> enemyMap = Map.of(
             EnemyType.SAW, Texture.ENEMY_SAW,
             EnemyType.GUSTAV, Texture.BUTTON_SECTIONS // TODO

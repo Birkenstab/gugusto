@@ -17,14 +17,7 @@ public class SpriteAnimation extends Animation {
     public void updatePerDuration(double delta, long now) {
         currentFrameIndex++;
 
-        if(currentFrameIndex == frames.length){
-            if(mode == Mode.LOOP){
-                enterAfterLoopSleep();
-                currentFrameIndex = 0;
-            } else {
-                stop();
-            }
-        }
+        if(currentFrameIndex == frames.length) checkModeEnding();
     }
 
     @Override

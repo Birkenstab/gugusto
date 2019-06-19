@@ -1,7 +1,7 @@
 package de.thu.gpro.gugusto.scene.scenes.level;
 
 import de.thu.gpro.gugusto.game.Camera;
-import de.thu.gpro.gugusto.game.level.LevelLoader;
+import de.thu.gpro.gugusto.game.level.io.LevelLoader;
 import de.thu.gpro.gugusto.input.event.InputEventType;
 import de.thu.gpro.gugusto.input.event.KeyEvent;
 import de.thu.gpro.gugusto.scene.Layer;

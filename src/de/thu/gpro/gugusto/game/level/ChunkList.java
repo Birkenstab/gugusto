@@ -14,6 +14,21 @@ public class ChunkList {
     private int width;
     private int height;
 
+    public ChunkList(int width, int height){
+        this.width = width;
+        this.height = height;
+        blockCount = 0;
+        chunks = new ArrayList<>();
+
+        for(int x = 0; x < width; x++){
+            chunks.add(new ArrayList<>());
+
+            for(int y = 0; y < height; y++){
+                chunks.get(x).add(new Chunk(new ArrayList<>()));
+            }
+        }
+    }
+
     public ChunkList(List<List<Chunk>> chunks, int blockCount, int width, int height){
         this.chunks = chunks;
         this.blockCount = blockCount;

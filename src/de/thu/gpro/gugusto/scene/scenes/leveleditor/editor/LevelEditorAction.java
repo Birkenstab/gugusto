@@ -1,9 +1,9 @@
-package de.thu.gpro.gugusto.scene.scenes.mapeditor;
+package de.thu.gpro.gugusto.scene.scenes.leveleditor.editor;
 
 import de.thu.gpro.gugusto.collision.CollisionUtil;
 import de.thu.gpro.gugusto.game.level.Chunk;
 import de.thu.gpro.gugusto.game.level.Level;
-import de.thu.gpro.gugusto.game.level.LevelLoader;
+import de.thu.gpro.gugusto.game.level.io.LevelLoader;
 import de.thu.gpro.gugusto.game.object.GameObject;
 import de.thu.gpro.gugusto.game.object.blocks.Block;
 import de.thu.gpro.gugusto.game.object.enemies.Enemy;
@@ -12,20 +12,23 @@ import de.thu.gpro.gugusto.util.Vector;
 import de.thu.gpro.gugusto.game.object.blocks.BlockFactory;
 import de.thu.gpro.gugusto.game.object.blocks.BlockType;
 
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class MapEditorAction {
+class LevelEditorAction {
 
+    private Path levelPath;
     private Level level;
     private GameObject.Type selectedType = GameObject.Type.Block;
     private int selectedId = BlockType.GRASS.getId();
 
-    public MapEditorAction(Level level){
+    LevelEditorAction(Path path, Level level){
+        levelPath = path;
         this.level = level;
     }
 
-    public void primaryAction(Vector position, List<GameObject> gameObjects){
+    void primaryAction(Vector position, List<GameObject> gameObjects){
         position.floor();
         Vector chunkPosition = position.clone().divide(Chunk.SIZE);
 
@@ -59,7 +62,7 @@ public class MapEditorAction {
     }
 
     public void save(){
-        LevelLoader.save(level, Paths.get("./test.gug"));
+        LevelLoader.save(level, levelPath);
     }
 
     public void setSelectedObject(int id, GameObject.Type type){

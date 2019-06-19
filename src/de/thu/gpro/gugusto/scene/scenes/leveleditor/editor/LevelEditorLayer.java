@@ -1,4 +1,4 @@
-package de.thu.gpro.gugusto.scene.scenes.mapeditor;
+package de.thu.gpro.gugusto.scene.scenes.leveleditor.editor;
 
 import de.thu.gpro.gugusto.game.Camera;
 import de.thu.gpro.gugusto.game.Game;
@@ -15,17 +15,17 @@ import de.thu.gpro.gugusto.util.Vector;
 import java.awt.*;
 import java.util.List;
 
-public class MapEditorLayer extends Layer {
+class LevelEditorLayer extends Layer {
 
     private Level level;
-    private MapEditorAction mapEditorAction;
-    private MapEditorCamera camera;
+    private LevelEditorAction levelEditorAction;
+    private LevelEditorCamera camera;
     private boolean showGrid = true;
 
-    public MapEditorLayer(Level level, MapEditorAction mapEditorAction){
+    LevelEditorLayer(Level level, LevelEditorAction levelEditorAction){
         this.level = level;
-        this.mapEditorAction = mapEditorAction;
-        camera = new MapEditorCamera(level.getCameraStartPosition(32), 32);
+        this.levelEditorAction = levelEditorAction;
+        camera = new LevelEditorCamera(level.getCameraStartPosition(32), 32);
 
         addGameObjects();
         addListener(InputEventType.MOUSE_MOVE, this::onMouseMove);
@@ -60,8 +60,8 @@ public class MapEditorLayer extends Layer {
         position = camera.toWorldCoordinates(position);
 
         if(position.getX() >= 0 && position.getY() >= 0){
-            if(MouseState.isDown(MouseEvent.BUTTON1)) mapEditorAction.primaryAction(position, gameObjects);
-            else if(MouseState.isDown(MouseEvent.BUTTON3)) mapEditorAction.secondaryAction(position, gameObjects);
+            if(MouseState.isDown(MouseEvent.BUTTON1)) levelEditorAction.primaryAction(position, gameObjects);
+            else if(MouseState.isDown(MouseEvent.BUTTON3)) levelEditorAction.secondaryAction(position, gameObjects);
         }
     }
 

@@ -20,8 +20,10 @@ import java.util.List;
 public abstract class UIComponent extends GameObject {
 
     private List<List<EventCallback<InputEvent>>> listeners;
-    protected boolean visible = true;
     private boolean mouseOver = false;
+
+    protected boolean active = false;
+    protected boolean visible = true;
 
     protected Rectangle2D clipArea;
     protected BoundingBox clipBoundingBox;
@@ -86,6 +88,14 @@ public abstract class UIComponent extends GameObject {
         return visible;
     }
 
+    public void setActive(boolean active){
+        this.active = active;
+    }
+
+    public boolean isActive(){
+        return active;
+    }
+
     public void setMouseOver(boolean mouseOver){
         this.mouseOver = mouseOver;
     }
@@ -112,6 +122,24 @@ public abstract class UIComponent extends GameObject {
         boundingBox.getPosition().set(position);
 
         for(UIComponent component : components) component.getBoundingBox().getPosition().add(offset);
+    }
+
+    protected void setClipArea(Rectangle rect, BoundingBox bb){
+        clipArea = rect;
+        clipBoundingBox = bb;
+
+        for(UIComponent component : components){
+            component.setClipArea(rect, bb);
+        }
+    }
+
+    protected void clearClipArea(){
+        clipArea = null;
+        clipBoundingBox = null;
+
+        for(UIComponent component : components){
+            component.setClipArea(null, null);
+        }
     }
 
 }

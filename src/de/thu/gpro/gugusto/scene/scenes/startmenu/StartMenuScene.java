@@ -5,7 +5,7 @@ import de.thu.gpro.gugusto.scene.Scene;
 public class StartMenuScene extends Scene {
 
     public StartMenuScene(){
-        addLayer(new StartMenuLayer());
+        addLayer(new StartMenuUILayer());
     }
 
 }

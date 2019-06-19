@@ -8,12 +8,13 @@ import de.thu.gpro.gugusto.ui.components.UIComponent;
 import de.thu.gpro.gugusto.util.Vector;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UILayer extends Layer {
 
     public UILayer(){
-        super.addListener(InputEventType.MOUSE_DOWN, this::onMouseEvent);
+        super.addListener(InputEventType.MOUSE_DOWN, this::onMouseDown);
         super.addListener(InputEventType.MOUSE_UP, this::onMouseEvent);
         super.addListener(InputEventType.MOUSE_CLICK, this::onMouseEvent);
         super.addListener(InputEventType.MOUSE_MOVE, this::onMouseMove);
@@ -35,6 +36,15 @@ public class UILayer extends Layer {
         }
     }
 
+    private boolean onKeyEvent(KeyEvent e){
+        for(int i = gameObjects.size() - 1; i >= 0; i--){
+            UIComponent component = (UIComponent)gameObjects.get(i);
+            if(component.dispatchEvent(e)) return true;
+        }
+
+        return false;
+    }
+
     private boolean onMouseEvent(MouseEvent e){
         Vector point = e.asVector();
 
@@ -46,13 +56,22 @@ public class UILayer extends Layer {
         return false;
     }
 
-    private boolean onKeyEvent(KeyEvent e){
+    private boolean onMouseDown(MouseEvent e){
+        Vector point = e.asVector();
+        boolean consumed = false;
+
         for(int i = gameObjects.size() - 1; i >= 0; i--){
             UIComponent component = (UIComponent)gameObjects.get(i);
-            if(component.dispatchEvent(e)) return true;
+
+            if(!consumed && component.contains(point)){
+                component.setActive(true);
+                if(component.dispatchEvent(e)) consumed = true;
+            } else {
+                component.setActive(false);
+            }
         }
 
-        return false;
+        return consumed;
     }
 
     private boolean onMouseMove(MouseEvent e){
@@ -64,20 +83,23 @@ public class UILayer extends Layer {
 
             if(!consumed && component.contains(point)){
                 if(!component.isMouseOver()){
-                    component.onMouseEnter(e);
                     component.setMouseOver(true);
+                    component.onMouseEnter(e);
                 }
                 if(component.dispatchEvent(e)) consumed = true;
             } else {
                 if(component.isMouseOver()){
-                    component.onMouseLeave(e);
                     component.setMouseOver(false);
+                    component.onMouseLeave(e);
                 }
             }
-
         }
 
         return consumed;
+    }
+
+    protected void clear(){
+        gameObjects = new ArrayList<>();
     }
 
     protected void addUIComponent(UIComponent component){

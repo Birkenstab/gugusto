@@ -37,10 +37,7 @@ public class RotationAnimation extends Animation {
         long timeDiff = now - animationStart;
         rotation = maxAngle * timeDiff / duration * (reverse ? -1 : 1);
 
-        if(timeDiff >= duration){
-            if(mode == Mode.LOOP) enterAfterLoopSleep();
-            else stop();
-        }
+        if(timeDiff >= duration) checkModeEnding();
     }
 
     @Override

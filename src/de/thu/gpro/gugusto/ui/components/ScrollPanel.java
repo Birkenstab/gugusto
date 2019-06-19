@@ -13,11 +13,10 @@ import java.util.Map;
 public class ScrollPanel extends Panel {
 
     private int scrollY = 0;
-    private int maxScrollY;
-    private int contentHeight;
-
     private double scrollModifier;
     private Map<UIComponent, Vector> componentOffset;
+
+    protected int maxScrollY;
 
     public ScrollPanel(Vector position, Size size){
         this(position, size, 1);
@@ -32,12 +31,19 @@ public class ScrollPanel extends Panel {
     }
 
     private boolean onScroll(MouseEvent e){
+        if(maxScrollY < 1){
+            if(scrollY != 0){
+                scrollY = 0;
+                updateChildPositions();
+            }
+            return false;
+        }
         scroll(e.getUnitsToScroll());
         return true;
     }
 
     public void build(){
-        contentHeight = 0;
+        int contentHeight = 0;
 
         for(UIComponent component : components){
             componentOffset.put(component, component.getBoundingBox().getPosition().clone().subtract(boundingBox.getPosition()));
@@ -73,26 +79,6 @@ public class ScrollPanel extends Panel {
         super.update(delta);
 
         clipArea.setRect(getX(), getY(), getWidth(), getHeight());
-    }
-
-    protected void setClipArea(Rectangle rect, BoundingBox bb){
-        clipArea = rect;
-        clipBoundingBox = bb;
-
-        for(UIComponent component : components){
-            component.clipArea = rect;
-            component.clipBoundingBox = bb;
-        }
-    }
-
-    protected void clearClipArea(){
-        clipArea = null;
-        clipBoundingBox = null;
-
-        for(UIComponent component : components){
-            component.clipArea = null;
-            component.clipBoundingBox = null;
-        }
     }
 
 }

@@ -17,18 +17,19 @@ public class DeathScreen extends Panel {
     // Todo Beschreibungstext dass Space = Restart; Hauptmenü-Knopf
     public DeathScreen(LevelAction levelAction) {
         super(new Vector(), new Size(Game.INNER_WIDTH, Game.INNER_HEIGHT));
+
         addUIComponent(deathLabel);
 
         addListener(InputEventType.KEY_DOWN, (KeyEvent event) -> {
-            if (!isVisible())
-                return false;
-
-            if (elapsedTime > 0.5) { // 0.5s Wartezeit bevor man restarten kann
+            if (isVisible() && elapsedTime > 0.5) { // 0.5s Wartezeit bevor man restarten kann
                 if (event.getChar() == KeyEvent.VK_SPACE) {
                     levelAction.restartLevel();
+                    setVisible(false);
+                    return true;
                 }
             }
-            return true;
+
+            return false;
         });
 
         setVisible(false);
@@ -36,7 +37,6 @@ public class DeathScreen extends Panel {
 
     public void show() {
         setVisible(true);
-        deathLabel.resetAnimation();
         elapsedTime = 0;
     }
 

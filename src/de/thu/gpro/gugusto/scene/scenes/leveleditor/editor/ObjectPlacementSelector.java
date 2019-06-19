@@ -1,4 +1,4 @@
-package de.thu.gpro.gugusto.scene.scenes.mapeditor;
+package de.thu.gpro.gugusto.scene.scenes.leveleditor.editor;
 
 import de.thu.gpro.gugusto.game.object.GameObject;
 import de.thu.gpro.gugusto.game.object.enemies.EnemyType;
@@ -9,7 +9,7 @@ import de.thu.gpro.gugusto.ui.components.ScrollPanel;
 import de.thu.gpro.gugusto.ui.components.TabPanel;
 import de.thu.gpro.gugusto.ui.components.button.ImageButton;
 import de.thu.gpro.gugusto.ui.components.button.TextButton;
-import de.thu.gpro.gugusto.ui.components.button.TextButtonFactory;
+import de.thu.gpro.gugusto.ui.components.LabelFactory;
 import de.thu.gpro.gugusto.util.Size;
 import de.thu.gpro.gugusto.util.Vector;
 import de.thu.gpro.gugusto.game.object.blocks.BlockType;
@@ -20,16 +20,16 @@ import java.util.EnumSet;
 
 public class ObjectPlacementSelector extends TabPanel {
 
-    private MapEditorAction mapEditorAction;
+    private LevelEditorAction levelEditorAction;
 
-    public ObjectPlacementSelector(Vector position, MapEditorAction mapEditorAction) {
+    public ObjectPlacementSelector(Vector position, LevelEditorAction levelEditorAction) {
         super(position, 200);
 
-        this.mapEditorAction = mapEditorAction;
+        this.levelEditorAction = levelEditorAction;
 
-        TextButtonFactory tbf = new TextButtonFactory(100, new Vector(0, 6), 16);
-        TextButton tab1 = tbf.create(new Vector(), "Blocks");
-        TextButton tab2 = tbf.create(new Vector(100, 0), "Enemys");
+        LabelFactory lf = new LabelFactory(100, new Vector(0, 6), 16);
+        TextButton tab1 = new TextButton(lf.create(new Vector(), "Blocks"));
+        TextButton tab2 = new TextButton(lf.create(new Vector(100, 0), "Enemys"));
         Panel header = new Panel(new Vector(), new Size(200, 30), Color.BLACK);
 
         tab1.setClickListener(b -> setTab(0));
@@ -59,7 +59,7 @@ public class ObjectPlacementSelector extends TabPanel {
         EnumSet<BlockType> types = EnumSet.complementOf(EnumSet.of(BlockType.NONE)); // Alle außer NONE
         int i = 0;
         for (BlockType blockType : types) {
-            ImageButton button = new ImageButton(new Vector((i % 4) * 50, (i / 4) * 50), new Size(32, 32), MapEditorObjectIconProvider.getBlockIcon(blockType));
+            ImageButton button = new ImageButton(new Vector((i % 4) * 50, (i / 4) * 50), new Size(32, 32), LevelEditorObjectIconProvider.getBlockIcon(blockType));
             button.setClickListener(b -> setSelection(blockType.getId(), Type.Block));
             scrollPanel.addUIComponent(button);
             i++;
@@ -76,7 +76,7 @@ public class ObjectPlacementSelector extends TabPanel {
         EnumSet<EnemyType> types = EnumSet.complementOf(EnumSet.of(EnemyType.NONE)); // Alle außer NONE
         int i = 0;
         for (EnemyType enemyType : types) {
-            ImageButton button = new ImageButton(new Vector((i % 4) * 50, (i / 4) * 50), new Size(32, 32), MapEditorObjectIconProvider.getEnemyIcon(enemyType));
+            ImageButton button = new ImageButton(new Vector((i % 4) * 50, (i / 4) * 50), new Size(32, 32), LevelEditorObjectIconProvider.getEnemyIcon(enemyType));
             button.setClickListener(b -> setSelection(enemyType.getId(), Type.Enemy));
             scrollPanel.addUIComponent(button);
             i++;
@@ -88,7 +88,7 @@ public class ObjectPlacementSelector extends TabPanel {
     }
 
     private boolean setSelection(int id, GameObject.Type type){
-        mapEditorAction.setSelectedObject(id, type);
+        levelEditorAction.setSelectedObject(id, type);
         setVisible(false);
         return true;
     }

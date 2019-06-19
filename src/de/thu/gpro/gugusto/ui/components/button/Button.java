@@ -8,6 +8,7 @@ import de.thu.gpro.gugusto.util.Vector;
 
 public abstract class Button extends UIComponent {
 
+    private String tag;
     private OnClickListener clickListener;
     protected boolean hover = false;
 
@@ -43,6 +44,14 @@ public abstract class Button extends UIComponent {
     }
     public void setClickListener(OnClickListener clickListener){
         this.clickListener = clickListener;
+    }
+
+    public void setTag(String tag){
+        this.tag = tag;
+    }
+
+    public String getTag(){
+        return tag;
     }
 
     public interface OnClickListener {
