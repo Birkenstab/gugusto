@@ -16,7 +16,7 @@ public class Player extends DynamicGameObject {
 
     public enum State { IDLE, WALK, JUMP, FALL }
 
-    private static final Size size = new Size(1, 1);
+    private static final Size size = new Size(0.8, 0.8); // TODO Gezeichnete Größe sollte aber 1x1 sein
 
     private PlayerAnimation animation;
     private PlayerState state;
