@@ -1,9 +1,12 @@
 package de.thu.gpro.gugusto.game;
 
+import de.thu.gpro.gugusto.game.level.Level;
 import de.thu.gpro.gugusto.graphic.GraphicSystem;
 import de.thu.gpro.gugusto.graphic.Window;
 import de.thu.gpro.gugusto.input.InputSystem;
 import de.thu.gpro.gugusto.scene.SceneManager;
+import de.thu.gpro.gugusto.scene.scenes.level.LevelScene;
+import de.thu.gpro.gugusto.scene.scenes.startmenu.StartMenuScene;
 
 public class Game {
 
@@ -66,5 +69,9 @@ public class Game {
 
     public SceneManager getSceneManager(){
         return sceneManager;
+    }
+
+    public Level getCurrentLevel() {
+        return ((LevelScene) sceneManager.getScene()).getLevelLayer().getLogic().getLevel();
     }
 }

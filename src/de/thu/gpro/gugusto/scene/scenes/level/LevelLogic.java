@@ -231,4 +231,8 @@ public class LevelLogic {
     public Camera getCamera() {
         return camera;
     }
+
+    public Level getLevel() {
+        return level;
+    }
 }

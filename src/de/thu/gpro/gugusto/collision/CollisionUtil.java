@@ -86,7 +86,7 @@ public class CollisionUtil {
             if (bb2.getType() == BoundingBox.Type.RECTANGLE)
                 return surfRectToCircle(bb2, bb1);
             else if (bb2.getType() == BoundingBox.Type.CIRCLE)
-                return surfRectToRect(bb1, bb2);
+                return surfCircleToCircle(bb1, bb2);
         }
 
         throw new Error("Cannot check collisions of these BoundingBox types " + bb1.getType() + " and " + bb2.getType());

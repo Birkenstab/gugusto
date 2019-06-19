@@ -63,4 +63,7 @@ public class LevelLayer extends Layer {
         return logic.getCamera();
     }
 
+    public LevelLogic getLogic() {
+        return logic;
+    }
 }

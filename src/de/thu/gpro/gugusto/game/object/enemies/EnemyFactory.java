@@ -15,6 +15,7 @@ public final class EnemyFactory {
             case NONE: return null;
             case SAW: return new Saw(position);
             case GUSTAV: return new Gustav(position);
+            case VERFOLGI: return new Verfolgi(position);
         }
 
         throw new Error("\nSir, I'm afraid to inform you that I do not know the Enemy '" + type + "' and therefore cannot create an instance of its type\nIm sorry!\n\nSincerely EnemyFactory\n");

@@ -1,7 +1,6 @@
 package de.thu.gpro.gugusto.game.object;
 
 import de.thu.gpro.gugusto.collision.BoundingBox;
-import de.thu.gpro.gugusto.game.object.blocks.Block;
 import de.thu.gpro.gugusto.util.Vector;
 import de.thu.gpro.gugusto.util.Size;
 
