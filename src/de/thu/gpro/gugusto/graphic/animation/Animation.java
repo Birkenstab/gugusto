@@ -2,7 +2,7 @@ package de.thu.gpro.gugusto.graphic.animation;
 
 import java.awt.*;
 
-abstract class Animation {
+public abstract class Animation {
 
     public enum Mode {
         LINEAR,

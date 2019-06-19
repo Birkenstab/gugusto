@@ -7,6 +7,8 @@ public enum Texture {
 
     ENEMY_SAW,
 
+    ENEMY_GUSTAV_WALK,
+
     PLAYER_IDLE,
     PLAYER_JUMP_FALL,
     PLAYER_WALK,

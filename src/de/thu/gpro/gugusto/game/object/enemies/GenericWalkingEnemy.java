@@ -26,13 +26,6 @@ public abstract class GenericWalkingEnemy extends Enemy {
     }
 
     @Override
-    public void draw(Graphics2D g2d, Camera camera) {
-        super.draw(g2d, camera);
-        g2d.setColor(Color.RED);
-        g2d.fillRect(getX(), getY(), getWidth(), getHeight());
-    }
-
-    @Override
     public void update(double delta) {
         super.update(delta);
 

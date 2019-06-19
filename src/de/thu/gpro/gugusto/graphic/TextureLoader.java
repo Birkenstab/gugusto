@@ -13,29 +13,27 @@ public final class TextureLoader {
     static {
         textures = new HashMap<>();
 
-        File grassBlock = new File("./Gugusto Graphics/grass.png");
-        File coin = new File("./Gugusto Graphics/coin.png");
-        File saw = new File("./Gugusto Graphics/saw.png");
-        File icons = new File("./Gugusto Graphics/icons.png");
-        File buttonSections = new File("./Gugusto Graphics/button_sections.png");
-        File playerIdle = new File("./Gugusto Graphics/idle.png");
-        File playerJumpFall = new File("./Gugusto Graphics/jumpfall.png");
-        File playerWalk = new File("./Gugusto Graphics/walk.png");
+        Map<Texture, String> map = Map.of(
+                Texture.BLOCK_GRASS,  "./Gugusto Graphics/grass.png",
+                Texture.BLOCK_COIN, "./Gugusto Graphics/coin.png",
 
-        try {
-            textures.put(Texture.BLOCK_GRASS, ImageIO.read(grassBlock));
-            textures.put(Texture.BLOCK_COIN, ImageIO.read(coin));
+                Texture.ENEMY_SAW, "./Gugusto Graphics/saw.png",
+                Texture.ENEMY_GUSTAV_WALK, "./Gugusto Graphics/100x80 Enemy Run.png",
 
-            textures.put(Texture.ENEMY_SAW, ImageIO.read(saw));
+                Texture.PLAYER_IDLE, "./Gugusto Graphics/idle.png",
+                Texture.PLAYER_JUMP_FALL, "./Gugusto Graphics/jumpfall.png",
+                Texture.PLAYER_WALK, "./Gugusto Graphics/walk.png",
 
-            textures.put(Texture.PLAYER_IDLE, ImageIO.read(playerIdle));
-            textures.put(Texture.PLAYER_JUMP_FALL, ImageIO.read(playerJumpFall));
-            textures.put(Texture.PLAYER_WALK, ImageIO.read(playerWalk));
+                Texture.ICONS, "./Gugusto Graphics/icons.png",
+                Texture.BUTTON_SECTIONS, "./Gugusto Graphics/button_sections.png"
+            );
 
-            textures.put(Texture.ICONS, ImageIO.read(icons));
-            textures.put(Texture.BUTTON_SECTIONS, ImageIO.read(buttonSections));
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (Map.Entry<Texture, String> entry : map.entrySet()) {
+            try {
+                textures.put(entry.getKey(), ImageIO.read(new File(entry.getValue())));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         validate();
