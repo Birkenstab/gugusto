@@ -8,10 +8,10 @@ import java.awt.image.BufferedImage;
 
 public class GrassBlock extends TextureBlock {
 
-    private static final BufferedImage texture = TextureLoader.get(Texture.BLOCK_GRASS);
+    public static final BufferedImage TEXTURE = TextureLoader.get(Texture.BLOCK_GRASS);
 
     public GrassBlock(Vector position) {
-        super(BlockType.GRASS, position, texture);
+        super(BlockType.GRASS, position, TEXTURE);
     }
 
 }

@@ -13,21 +13,23 @@ public final class TextureLoader {
     static {
         textures = new HashMap<>();
 
-        Map<Texture, String> map = Map.of(
-                Texture.BLOCK_GRASS,  "./Gugusto Graphics/grass.png",
-                Texture.BLOCK_COIN, "./Gugusto Graphics/coin.png",
 
-                Texture.ENEMY_SAW, "./Gugusto Graphics/saw.png",
-                Texture.ENEMY_GUSTAV_WALK, "./Gugusto Graphics/100x80 Enemy Run.png",
-                Texture.ENEMY_VERFOLGI_WALK, "./Gugusto Graphics/Enemy Yellow Run.png",
+        Map<Texture, String> map = new HashMap<>();
 
-                Texture.PLAYER_IDLE, "./Gugusto Graphics/idle.png",
-                Texture.PLAYER_JUMP_FALL, "./Gugusto Graphics/jumpfall.png",
-                Texture.PLAYER_WALK, "./Gugusto Graphics/walk.png",
+        map.put(Texture.BLOCK_GRASS,  "./Gugusto Graphics/grass.png");
+        map.put(Texture.BLOCK_COIN, "./Gugusto Graphics/coin.png");
+        map.put(Texture.BLOCK_CHEST, "./Gugusto Graphics/other/NEU Chest Animation.png");
 
-                Texture.ICONS, "./Gugusto Graphics/icons.png",
-                Texture.BUTTON_SECTIONS, "./Gugusto Graphics/button_sections.png"
-            );
+        map.put(Texture.ENEMY_SAW, "./Gugusto Graphics/saw.png");
+        map.put(Texture.ENEMY_GUSTAV_WALK, "./Gugusto Graphics/100x80 Enemy Run.png");
+        map.put(Texture.ENEMY_VERFOLGI_WALK, "./Gugusto Graphics/Enemy Yellow Run.png");
+
+        map.put(Texture.PLAYER_IDLE, "./Gugusto Graphics/idle.png");
+        map.put(Texture.PLAYER_JUMP_FALL, "./Gugusto Graphics/jumpfall.png");
+        map.put(Texture.PLAYER_WALK, "./Gugusto Graphics/walk.png");
+
+        map.put(Texture.ICONS, "./Gugusto Graphics/icons.png");
+        map.put(Texture.BUTTON_SECTIONS, "./Gugusto Graphics/button_sections.png");
 
         for (Map.Entry<Texture, String> entry : map.entrySet()) {
             try {

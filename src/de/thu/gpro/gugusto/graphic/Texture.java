@@ -4,6 +4,7 @@ public enum Texture {
 
     BLOCK_GRASS,
     BLOCK_COIN,
+    BLOCK_CHEST,
 
     ENEMY_SAW,
 

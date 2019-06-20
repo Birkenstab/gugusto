@@ -9,6 +9,7 @@ import de.thu.gpro.gugusto.game.level.Level;
 import de.thu.gpro.gugusto.game.object.DynamicGameObject;
 import de.thu.gpro.gugusto.game.object.GameObject;
 import de.thu.gpro.gugusto.game.object.blocks.Block;
+import de.thu.gpro.gugusto.game.object.player.WinState;
 import de.thu.gpro.gugusto.input.KeyState;
 import de.thu.gpro.gugusto.input.event.KeyEvent;
 import de.thu.gpro.gugusto.util.Size;
@@ -74,7 +75,9 @@ public class LevelLogic {
                     gameEnded = true;
                     levelAction.endLevelByDeath();
                 }
-                if (level.getPlayer().isWon()) {
+                if (level.getPlayer().getWinState() == WinState.WALKING) {
+
+                } else if (level.getPlayer().getWinState() == WinState.POST_ANIMATION) {
                     gameEnded = true;
                     levelAction.endLevelByWin();
                 }

@@ -3,7 +3,7 @@ package de.thu.gpro.gugusto.scene.scenes.level;
 import de.thu.gpro.gugusto.game.Game;
 import de.thu.gpro.gugusto.input.event.InputEventType;
 import de.thu.gpro.gugusto.input.event.KeyEvent;
-import de.thu.gpro.gugusto.ui.components.DeathLabel;
+import de.thu.gpro.gugusto.ui.components.FadingLabel;
 import de.thu.gpro.gugusto.ui.components.Panel;
 import de.thu.gpro.gugusto.util.Size;
 import de.thu.gpro.gugusto.util.Vector;
@@ -11,7 +11,7 @@ import de.thu.gpro.gugusto.util.Vector;
 import java.awt.*;
 
 public class DeathScreen extends Panel {
-    private DeathLabel deathLabel = new DeathLabel("Du bist gestorben", new Font("Arial", Font.PLAIN, 50));
+    private FadingLabel deathLabel = new FadingLabel("Du bist gestorben", new Color(255, 0, 0));
     private double elapsedTime = 0;
 
     // Todo Beschreibungstext dass Space = Restart; Hauptmenü-Knopf

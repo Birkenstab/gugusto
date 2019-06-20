@@ -29,6 +29,10 @@ public class Camera {
         return new Size(size.getWidth() * scaling, size.getHeight() * scaling);
     }
 
+    public Size toWorldCoordinates(Size size) {
+        return new Size(size.getWidth() / scaling, size.getHeight() / scaling);
+    }
+
     public Vector toWorldCoordinates(Vector screenCoordinates){
         return screenCoordinates.clone().add(getScaledPosition()).divide(scaling);
     }

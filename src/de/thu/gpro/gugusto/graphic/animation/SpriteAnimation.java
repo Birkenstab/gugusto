@@ -17,7 +17,12 @@ public class SpriteAnimation extends Animation {
     public void updatePerDuration(double delta, long now) {
         currentFrameIndex++;
 
-        if(currentFrameIndex == frames.length) checkModeEnding();
+        if(currentFrameIndex == frames.length) {
+            checkModeEnding();
+            if (mode == Mode.LINEAR)
+                currentFrameIndex = frames.length - 1;
+        }
+
     }
 
     @Override

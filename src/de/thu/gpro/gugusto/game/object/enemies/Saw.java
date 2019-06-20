@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
 
 public class Saw extends Enemy {
 
-    private static final BufferedImage texture = TextureLoader.get(Texture.ENEMY_SAW);
+    public static final BufferedImage TEXTURE = TextureLoader.get(Texture.ENEMY_SAW);
     private static final int ROTATION_SPEED = 2000;
 
     private RotationAnimation animation;
@@ -28,7 +28,7 @@ public class Saw extends Enemy {
         setMovable(false);
         setGravity(false);
 
-        animation = new RotationAnimation(texture, ROTATION_SPEED, RotationAnimation.Anchor.CENTER);
+        animation = new RotationAnimation(TEXTURE, ROTATION_SPEED, RotationAnimation.Anchor.CENTER);
         animation.start();
     }
 

@@ -10,12 +10,15 @@ public class LevelUILayer extends UILayer {
 
     private LevelAction levelAction;
     private DeathScreen deathScreen;
+    private WinScreen winScreen;
 
     public LevelUILayer(LevelAction levelAction){
         this.levelAction = levelAction;
 
         deathScreen = new DeathScreen(levelAction);
+        winScreen = new WinScreen(levelAction);
         addUIComponent(deathScreen);
+        addUIComponent(winScreen);
         addUIComponent(new LevelMenu(levelAction));
         addUIComponent(new FpsCounter(new Vector(Game.INNER_WIDTH - FpsCounter.WIDTH - 10, 10)));
         addUIComponent(new DebugInfoText(new Vector(10, 10)));
@@ -26,7 +29,7 @@ public class LevelUILayer extends UILayer {
     }
 
     public void showLevelWinScreen() {
-
+        winScreen.show();
     }
 
     public void restartLevel() {

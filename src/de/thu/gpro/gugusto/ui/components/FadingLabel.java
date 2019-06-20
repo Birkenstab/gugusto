@@ -6,18 +6,15 @@ import de.thu.gpro.gugusto.util.Size;
 import de.thu.gpro.gugusto.util.Vector;
 
 import java.awt.*;
-import java.awt.font.FontRenderContext;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
 
-public class DeathLabel extends Label {
+public class FadingLabel extends Label {
 
     private ColorAlphaAnimation animation;
 
-    public DeathLabel(String label, Font font) {
-        super(new Vector(), label, new Vector(), font);
+    public FadingLabel(String label, Color color) {
+        super(new Vector(), label, new Vector(), new Font("Arial", Font.PLAIN, 50));
 
-        animation = new ColorAlphaAnimation(new Color(255, 0, 0), 1000);
+        animation = new ColorAlphaAnimation(color, 1000);
 
         Size size = getBoundingBox().getSize();
         setPosition(new Vector((Game.INNER_WIDTH - size.getWidth()) / 2, (Game.INNER_HEIGHT - size.getHeight()) / 2));

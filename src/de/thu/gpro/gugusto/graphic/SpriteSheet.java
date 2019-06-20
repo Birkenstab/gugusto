@@ -15,7 +15,7 @@ public final class SpriteSheet {
 
         for(int x = 0; x < nX; x++){
             for(int y = 0; y < nY; y++){
-                images[x + y * width] = image.getSubimage(x * (width + oX), y * (height + oY), width, height);
+                images[x + y * width] = image.getSubimage(x * width + oX, y * height + oY, width, height);
             }
         }
 

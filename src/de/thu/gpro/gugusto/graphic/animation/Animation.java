@@ -12,6 +12,7 @@ public abstract class Animation {
 
     private long lastDurationFrame;
     private long lengthBeforePause;
+    private Runnable doneCallback;
 
     protected long animationStart;
     protected boolean afterLoopSleeping = false;
@@ -62,6 +63,8 @@ public abstract class Animation {
             stop();
             if(mode == Mode.LINEAR_RESET) reset();
         }
+        if (doneCallback != null)
+            doneCallback.run();
     }
 
     protected void updatePerDuration(double delta, long now){}
@@ -124,4 +127,7 @@ public abstract class Animation {
         return afterLoopSleepTime;
     }
 
+    public void setDoneCallback(Runnable doneCallback) {
+        this.doneCallback = doneCallback;
+    }
 }

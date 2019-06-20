@@ -16,6 +16,7 @@ public final class BlockFactory {
             case GRASS: return new GrassBlock(position);
             case GOAL: return new GoalBlock(position);
             case COIN: return new Coin(position);
+            case CHEST: return new Chest(position);
         }
 
         throw new Error("\nSir, I'm afraid to inform you that I do not know the block '" + type + "' and therefore cannot create an instance of it\nIm sorry!\n\nSincerely BlockFactory\n");

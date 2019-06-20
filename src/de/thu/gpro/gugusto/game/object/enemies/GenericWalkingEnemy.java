@@ -7,7 +7,6 @@ import de.thu.gpro.gugusto.game.object.Direction;
 import de.thu.gpro.gugusto.game.object.GameObject;
 import de.thu.gpro.gugusto.game.object.player.Player;
 import de.thu.gpro.gugusto.graphic.animation.Animation;
-import de.thu.gpro.gugusto.graphic.animation.SpriteAnimation;
 import de.thu.gpro.gugusto.util.Size;
 import de.thu.gpro.gugusto.util.Vector;
 

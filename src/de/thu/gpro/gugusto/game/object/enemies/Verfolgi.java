@@ -7,18 +7,17 @@ import de.thu.gpro.gugusto.game.object.blocks.Block;
 import de.thu.gpro.gugusto.graphic.SpriteSheet;
 import de.thu.gpro.gugusto.graphic.Texture;
 import de.thu.gpro.gugusto.graphic.TextureLoader;
-import de.thu.gpro.gugusto.graphic.animation.Animation;
 import de.thu.gpro.gugusto.graphic.animation.SpriteAnimation;
 import de.thu.gpro.gugusto.util.Vector;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Verfolgi extends GenericWalkingEnemy {
-    private static BufferedImage[] animationImage = SpriteSheet.extract(TextureLoader.get(Texture.ENEMY_VERFOLGI_WALK), 18,1, 100, 80);
+    private static final BufferedImage[] ANIMATION_FRAMES = SpriteSheet.extract(TextureLoader.get(Texture.ENEMY_VERFOLGI_WALK), 18,1, 100, 80);
+    public static final BufferedImage TEXTURE = ANIMATION_FRAMES[0];
 
     public Verfolgi(Vector position) {
-        super(EnemyType.VERFOLGI, position, new SpriteAnimation(animationImage, 1000));
+        super(EnemyType.VERFOLGI, position, new SpriteAnimation(ANIMATION_FRAMES, 1000));
     }
 
     private boolean isBlock(Vector position) {

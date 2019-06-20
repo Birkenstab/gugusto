@@ -13,7 +13,11 @@ public abstract class Block extends StaticGameObject {
     }
 
     public Block(BlockType type, Vector position, boolean solid) {
-        super(position, new Size(1,1));
+        this(type, position, solid, new Size(1,1));
+    }
+
+    public Block(BlockType type, Vector position, boolean solid, Size size) {
+        super(position, size);
 
         this.type = type;
         setSolid(solid);

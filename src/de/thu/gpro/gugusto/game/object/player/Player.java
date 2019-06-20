@@ -1,5 +1,6 @@
 package de.thu.gpro.gugusto.game.object.player;
 
+import de.thu.gpro.gugusto.game.object.blocks.Chest;
 import de.thu.gpro.gugusto.input.event.KeyEvent;
 import de.thu.gpro.gugusto.util.Vector;
 import de.thu.gpro.gugusto.game.Camera;
@@ -16,13 +17,14 @@ public class Player extends DynamicGameObject {
 
     public enum State { IDLE, WALK, JUMP, FALL }
 
+    private static final Vector JUMP_VELOCITY = new Vector(0, -18);
     private static final Size size = new Size(0.8, 0.8); // TODO Gezeichnete Größe sollte aber 1x1 sein
 
     private PlayerAnimation animation;
     private PlayerState state;
     private boolean spaceDown = false;
     private boolean alive = true;
-    private boolean won = false;
+    private WinState winState = WinState.NONE;
 
     public Player(Vector position){
         super(position, size.clone());
@@ -59,40 +61,32 @@ public class Player extends DynamicGameObject {
     public void update(double delta){
         super.update(delta);
 
-        if (won) {
-            Size size = getBoundingBox().getSize();
-            if (size.getWidth() < 4) {
-                double change = 2 * delta;
-                size.setWidth(size.getWidth() + change);
-                size.setHeight(size.getHeight() + change);
-                getBoundingBox().getPosition().subtract(new Vector(change / 2, change / 2));
-            }
-            if (isOnGround()) {
-                getVelocity().setY(-5);
-            }
-            state.setState(State.JUMP);
+        if (winState == WinState.NONE) {
+            if (spaceDown && isOnGround())
+                getVelocity().set(JUMP_VELOCITY);
+        } else if (winState == WinState.WALKING) {
+            state.setState(State.WALK);
             state.setDirection(Direction.RIGHT);
 
         } else {
+            state.setState(State.IDLE);
+            state.setDirection(Direction.NONE);
+        }
 
-            int step = 5;
+        int step = 5;
 
-            if (state.getDirection() == Direction.LEFT) {
-                boundingBox.getPosition().add(new Vector(-delta * step, 0));
-            } else if (state.getDirection() == Direction.RIGHT) {
-                boundingBox.getPosition().add(new Vector(delta * step, 0));
-            }
+        if (state.getDirection() == Direction.LEFT) {
+            boundingBox.getPosition().add(new Vector(-delta * step, 0));
+        } else if (state.getDirection() == Direction.RIGHT) {
+            boundingBox.getPosition().add(new Vector(delta * step, 0));
+        }
 
-            if (spaceDown && isOnGround()) getVelocity().setY(-18);
-
-            if (!isOnGround()) {
-                if (getVelocity().getY() > 0) state.setState(State.FALL);
-                else state.setState(State.JUMP);
-            } else if (state.getState() == State.FALL) {
-                if (state.getDirection() == Direction.NONE) state.setState(State.IDLE);
-                else state.setState(State.WALK);
-            }
-
+        if (!isOnGround()) {
+            if (getVelocity().getY() > 0) state.setState(State.FALL);
+            else state.setState(State.JUMP);
+        } else if (state.getState() == State.FALL) {
+            if (state.getDirection() == Direction.NONE) state.setState(State.IDLE);
+            else state.setState(State.WALK);
         }
 
         animation.update(delta);
@@ -108,15 +102,26 @@ public class Player extends DynamicGameObject {
     public void collision(GameObject other) {
         super.collision(other);
         if (other instanceof GoalBlock) {
-            won = true;
+            winState = WinState.WALKING;
         } else if(other instanceof Coin) {
             other.remove();
+        }
+
+        if (winState == WinState.WALKING) {
+            if (other instanceof Chest) {
+                ((Chest) other).open((state) -> {
+                    winState = state;
+                    if (winState == WinState.JUMP)
+                        getVelocity().add(JUMP_VELOCITY);
+                });
+                winState = WinState.AT_CHEST;
+            }
         }
     }
 
     @Override
     public void kill(GameObject by) {
-        if (!won) {
+        if (winState == WinState.NONE) {
             alive = false;
             remove();
         }
@@ -126,7 +131,7 @@ public class Player extends DynamicGameObject {
         return alive;
     }
 
-    public boolean isWon() {
-        return won;
+    public WinState getWinState() {
+        return winState;
     }
 }
