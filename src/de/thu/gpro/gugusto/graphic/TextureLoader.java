@@ -19,6 +19,7 @@ public final class TextureLoader {
 
                 Texture.ENEMY_SAW, "./Gugusto Graphics/saw.png",
                 Texture.ENEMY_GUSTAV_WALK, "./Gugusto Graphics/100x80 Enemy Run.png",
+                Texture.ENEMY_VERFOLGI_WALK, "./Gugusto Graphics/Enemy Yellow Run.png",
 
                 Texture.PLAYER_IDLE, "./Gugusto Graphics/idle.png",
                 Texture.PLAYER_JUMP_FALL, "./Gugusto Graphics/jumpfall.png",

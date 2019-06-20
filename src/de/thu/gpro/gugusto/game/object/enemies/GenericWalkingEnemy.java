@@ -6,6 +6,8 @@ import de.thu.gpro.gugusto.game.level.ChunkList;
 import de.thu.gpro.gugusto.game.object.Direction;
 import de.thu.gpro.gugusto.game.object.GameObject;
 import de.thu.gpro.gugusto.game.object.player.Player;
+import de.thu.gpro.gugusto.graphic.animation.Animation;
+import de.thu.gpro.gugusto.graphic.animation.SpriteAnimation;
 import de.thu.gpro.gugusto.util.Size;
 import de.thu.gpro.gugusto.util.Vector;
 
@@ -15,13 +17,16 @@ public abstract class GenericWalkingEnemy extends Enemy {
     protected static final double WALKING_SPEED = 3;
     private Direction direction = Direction.NONE;
     private boolean jumping;
+    private Animation animation;
 
-    public GenericWalkingEnemy(EnemyType enemyType, Vector position) {
-        this(enemyType, position, 0.8);
+    public GenericWalkingEnemy(EnemyType enemyType, Vector position, Animation animation) {
+        this(enemyType, position, 0.8, animation);
     }
 
-    public GenericWalkingEnemy(EnemyType enemyType, Vector position, double size) {
+    public GenericWalkingEnemy(EnemyType enemyType, Vector position, double size, Animation animation) {
         super(enemyType, position, new Size(size, size));
+        this.animation = animation;
+        this.animation.start();
         setSolid(true);
     }
 
@@ -35,16 +40,25 @@ public abstract class GenericWalkingEnemy extends Enemy {
         ai(delta);
 
         double speed = 0;
-        if (direction == Direction.LEFT)
+        if (direction == Direction.LEFT) {
             speed = -WALKING_SPEED;
-        else if (direction == Direction.RIGHT)
+        } else if (direction == Direction.RIGHT) {
             speed = WALKING_SPEED;
+        }
 
         boundingBox.getPosition().add(new Vector(delta * speed, 0));
 
         if (isOnGround() && jumping) {
             getVelocity().setY(-12.5);
         }
+
+        animation.update(delta);
+    }
+
+    @Override
+    public void draw(Graphics2D g2d, Camera camera) {
+        super.draw(g2d, camera);
+        animation.draw(g2d, getX(), getY(), getWidth(), getHeight());
     }
 
     protected Vector getPlayerPosition() {

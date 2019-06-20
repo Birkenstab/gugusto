@@ -4,22 +4,21 @@ import de.thu.gpro.gugusto.collision.CollisionUtil;
 import de.thu.gpro.gugusto.game.Camera;
 import de.thu.gpro.gugusto.game.level.Chunk;
 import de.thu.gpro.gugusto.game.object.blocks.Block;
+import de.thu.gpro.gugusto.graphic.SpriteSheet;
+import de.thu.gpro.gugusto.graphic.Texture;
+import de.thu.gpro.gugusto.graphic.TextureLoader;
+import de.thu.gpro.gugusto.graphic.animation.Animation;
+import de.thu.gpro.gugusto.graphic.animation.SpriteAnimation;
 import de.thu.gpro.gugusto.util.Vector;
 
 import java.awt.*;
-import java.nio.file.attribute.PosixFileAttributes;
+import java.awt.image.BufferedImage;
 
 public class Verfolgi extends GenericWalkingEnemy {
+    private static BufferedImage[] animationImage = SpriteSheet.extract(TextureLoader.get(Texture.ENEMY_VERFOLGI_WALK), 18,1, 100, 80);
 
     public Verfolgi(Vector position) {
-        super(EnemyType.VERFOLGI, position);
-    }
-
-    @Override
-    public void draw(Graphics2D g2d, Camera camera) {
-        super.draw(g2d, camera);
-        g2d.setColor(Color.BLUE);
-        g2d.fillRect(getX(), getY(), getWidth(), getHeight());
+        super(EnemyType.VERFOLGI, position, new SpriteAnimation(animationImage, 1000));
     }
 
     private boolean isBlock(Vector position) {
