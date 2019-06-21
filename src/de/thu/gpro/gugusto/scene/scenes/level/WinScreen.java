@@ -11,7 +11,7 @@ import de.thu.gpro.gugusto.util.Vector;
 import java.awt.*;
 
 public class WinScreen extends Panel {
-    private FadingLabel deathLabel = new FadingLabel("Level abgeschlossen", new Color(0, 255, 0));
+    private FadingLabel deathLabel = new FadingLabel("Level Completed", new Color(0, 255, 0));
     private double elapsedTime;
     private Panel buttonsPanel;
 
@@ -23,11 +23,11 @@ public class WinScreen extends Panel {
         LabelFactory lf = new LabelFactory(250, new Vector(0, 6), 16);
 
         buttonsPanel = new Panel(new Vector(Game.INNER_WIDTH / 2, Game.INNER_HEIGHT / 2 + 30), new Size(100, 300));
-        TextButton backButton = new TextButton(lf.create(new Vector(), "Zurück zur Levelauswahl"));
+        TextButton backButton = new TextButton(lf.create(new Vector(), "Back to Level Selection"));
         backButton.getBoundingBox().getPosition().set(buttonsPanel.getBoundingBox().getPosition().clone().subtract(backButton.getBoundingBox().getSize().toVector().multiply(0.5)).add(new Vector(20, 20)));
         backButton.setClickListener(button -> levelAction.backToLevelSelector());
         buttonsPanel.addUIComponent(backButton);
-        TextButton restartButton = new TextButton(lf.create(new Vector(0, 100), "Level neustarten"));
+        TextButton restartButton = new TextButton(lf.create(new Vector(0, 100), "Restart Level"));
         restartButton.getBoundingBox().getPosition().set(backButton.getBoundingBox().getPosition().clone().add(new Vector(0, 50)));
         restartButton.setClickListener(button -> {
             levelAction.restartLevel();

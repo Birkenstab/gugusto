@@ -3,6 +3,7 @@ package de.thu.gpro.gugusto.scene.scenes.level;
 import de.thu.gpro.gugusto.game.Game;
 import de.thu.gpro.gugusto.scene.scenes.leveleditor.editor.LevelEditorConfig;
 import de.thu.gpro.gugusto.scene.scenes.leveleditor.editor.LevelEditorScene;
+import de.thu.gpro.gugusto.scene.scenes.levelselection.LevelSelectionScene;
 import de.thu.gpro.gugusto.scene.scenes.startmenu.StartMenuScene;
 
 import java.nio.file.Path;
@@ -48,7 +49,7 @@ public class LevelAction {
     }
 
     public void backToLevelSelector() {
-        Game.getInstance().getSceneManager().setScene(new StartMenuScene());
+        Game.getInstance().getSceneManager().setScene(new LevelSelectionScene());
     }
 
     public void backToLevelEditorScene(){

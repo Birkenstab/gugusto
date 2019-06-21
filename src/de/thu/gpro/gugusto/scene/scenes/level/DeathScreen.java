@@ -11,7 +11,7 @@ import de.thu.gpro.gugusto.util.Vector;
 import java.awt.*;
 
 public class DeathScreen extends Panel {
-    private FadingLabel deathLabel = new FadingLabel("Du bist gestorben", new Color(255, 0, 0));
+    private FadingLabel deathLabel = new FadingLabel("You died", new Color(255, 0, 0));
     private double elapsedTime = 0;
 
     // Todo Beschreibungstext dass Space = Restart; Hauptmenü-Knopf

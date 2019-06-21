@@ -19,6 +19,10 @@ public class GraphicSystem {
     public void draw(List<Layer> layers) {
         do {
             Graphics2D g2d = (Graphics2D) bs.getDrawGraphics();
+            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
             g2d.setColor(Color.WHITE);
             g2d.fillRect(0, 0, window.getWidth(), window.getHeight());

@@ -23,7 +23,7 @@ public class LevelMenu extends Menu {
             addMenuEntry("Back to Level Editor", e -> levelAction.backToLevelEditorScene());
         }
 
-        addMenuEntry("Back to Level Selection", e -> Game.getInstance().getSceneManager().setScene(new LevelSelectionScene()));
+        addMenuEntry("Back to Level Selection", e -> levelAction.backToLevelSelector());
         addMenuEntry("Exit Game", e -> System.exit(0));
         build();
     }

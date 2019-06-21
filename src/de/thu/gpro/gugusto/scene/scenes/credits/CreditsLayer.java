@@ -41,7 +41,7 @@ public class CreditsLayer extends UILayer {
             "This project was created as part\n" +
             "of the game programming lecture\n" +
             "of Computer Science at the THU\n" +
-            "within 6 weeks of time\n\n\n\n" +
+            "within 6 weeks\n\n\n\n" +
             "ADDITIONAL LINKS\n\n" +
             "Github Repo\n" +
             "github.com/Birkenstab/gugusto\n\n" +
