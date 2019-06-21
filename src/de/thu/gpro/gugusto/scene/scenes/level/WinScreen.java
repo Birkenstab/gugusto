@@ -11,7 +11,7 @@ import de.thu.gpro.gugusto.util.Vector;
 import java.awt.*;
 
 public class WinScreen extends Panel {
-    private FadingLabel deathLabel = new FadingLabel("Level Completed", new Color(0, 255, 0));
+    private FadingLabel deathLabel = new FadingLabel("Level Completed", new Color(0, 135, 44));
     private double elapsedTime;
     private Panel buttonsPanel;
 
