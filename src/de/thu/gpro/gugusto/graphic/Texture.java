@@ -17,6 +17,7 @@ public enum Texture {
     PLAYER_WALK,
 
     ICONS,
-    BUTTON_SECTIONS
+    BUTTON_SECTIONS,
 
+    BACKGROUND
 }

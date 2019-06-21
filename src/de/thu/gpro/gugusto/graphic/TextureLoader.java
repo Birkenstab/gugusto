@@ -31,6 +31,7 @@ public final class TextureLoader {
 
         map.put(Texture.ICONS, "./Gugusto Graphics/icons.png");
         map.put(Texture.BUTTON_SECTIONS, "./Gugusto Graphics/button_sections.png");
+        map.put(Texture.BACKGROUND, "./Gugusto Graphics/Background/Green Background.png");
 
         for (Map.Entry<Texture, String> entry : map.entrySet()) {
             try {

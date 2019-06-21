@@ -2,7 +2,6 @@ package de.thu.gpro.gugusto.game.object.blocks;
 
 import de.thu.gpro.gugusto.game.object.DynamicGameObject;
 import de.thu.gpro.gugusto.game.object.GameObject;
-import de.thu.gpro.gugusto.game.object.player.Player;
 import de.thu.gpro.gugusto.graphic.Texture;
 import de.thu.gpro.gugusto.graphic.TextureLoader;
 import de.thu.gpro.gugusto.util.Vector;
@@ -23,7 +22,7 @@ public class JumpPad extends TextureBlock {
         if (other instanceof DynamicGameObject && ((DynamicGameObject) other).isOnGround()) {
             double bottom = other.getBoundingBox().getPosition().getY() + other.getBoundingBox().getSize().getHeight();
             if (bottom < boundingBox.getPosition().getY() + boundingBox.getSize().getHeight() / 4) {
-                ((Player) other).getVelocity().setY(-25);
+                ((DynamicGameObject) other).getVelocity().setY(-25);
             }
         }
     }

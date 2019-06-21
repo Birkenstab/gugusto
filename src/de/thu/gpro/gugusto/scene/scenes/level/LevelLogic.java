@@ -10,6 +10,8 @@ import de.thu.gpro.gugusto.game.object.DynamicGameObject;
 import de.thu.gpro.gugusto.game.object.GameObject;
 import de.thu.gpro.gugusto.game.object.blocks.Block;
 import de.thu.gpro.gugusto.game.object.player.WinState;
+import de.thu.gpro.gugusto.graphic.Texture;
+import de.thu.gpro.gugusto.graphic.TextureLoader;
 import de.thu.gpro.gugusto.input.KeyState;
 import de.thu.gpro.gugusto.input.event.KeyEvent;
 import de.thu.gpro.gugusto.util.Size;
@@ -17,6 +19,7 @@ import de.thu.gpro.gugusto.util.Vector;
 import de.thu.gpro.gugusto.util.DebugInfo;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -94,6 +97,32 @@ public class LevelLogic {
     }
 
     public void draw(Graphics2D g2d) {
+        double imageWidth = 1536;
+        Vector position = camera.getPosition().clone().multiply(-2);
+        int multiplier = -(int) (position.getX() / imageWidth + 100) + 100;
+
+        position.setY(position.getY() - 30);
+
+        if (position.getY() < -144) {
+            position.setY(-144);
+        }
+        if (position.getY() > 0)
+            position.setY(0);
+
+
+        // So ein Transform Dings damit wir auf Subpixel-Level translaten können, sonst sah es ziemlich ruckelig aus
+        AffineTransform t = new AffineTransform();
+        t.translate(imageWidth * (multiplier - 1)+ position.getX(), Game.WINDOW.getTopLeftInsets().getY() + position.getY());
+        t.scale(0.8, 0.8);
+        g2d.drawImage(TextureLoader.get(Texture.BACKGROUND), t, null);
+
+
+        t.setToIdentity();
+        t.translate(imageWidth * multiplier + position.getX(), Game.WINDOW.getTopLeftInsets().getY() + position.getY());
+        t.scale(0.8, 0.8);
+        g2d.drawImage(TextureLoader.get(Texture.BACKGROUND), t, null);
+
+
         for(GameObject object : activeDynamicGameObjects){
             doDraw(g2d, object);
         }
