@@ -41,8 +41,7 @@ public final class LevelUtil {
 
     private static List<Path> getFileNames(String content){
         List<Path> filePaths = new ArrayList<>();
-        content = content.replaceAll("\\r\\n", "\n");
-        content = content.replaceAll("\\r", "\n");
+        content = content.replaceAll("\\r\\n?", "\n");
         String[] fileNames = content.split("\n");
 
         for(String fileName : fileNames) filePaths.add(Path.of("./levels/" + fileName + ".gug"));

@@ -1,10 +1,14 @@
 package de.thu.gpro.gugusto.ui.components;
 
+import de.thu.gpro.gugusto.input.event.EventCallback;
+import de.thu.gpro.gugusto.input.event.InputEventType;
+import de.thu.gpro.gugusto.input.event.KeyEvent;
 import de.thu.gpro.gugusto.util.Size;
 import de.thu.gpro.gugusto.util.Vector;
 import de.thu.gpro.gugusto.util.DebugInfo;
 
 import java.awt.*;
+import java.security.Key;
 
 public class DebugInfoText extends UIComponent {
     private static final Font font = new Font("Dialog", Font.PLAIN, 12);
@@ -13,6 +17,16 @@ public class DebugInfoText extends UIComponent {
 
     public DebugInfoText(Vector position) {
         super(position, new Size(WIDTH, HEIGHT));
+
+        addListener(InputEventType.KEY_DOWN, (EventCallback<KeyEvent>)e -> {
+            if(e.getChar() == 'i'){
+                setVisible(!isVisible());
+                return true;
+            }
+            return false;
+        });
+
+        setVisible(true);
     }
 
     @Override
