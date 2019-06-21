@@ -25,7 +25,6 @@ public class LevelEditorSelectionLevelList extends ScrollPanel {
     private static final Size size = new Size(600, 530);
     private static final Vector position = new Vector((Game.INNER_WIDTH - size.getWidth()) / 2, 120);
     private static final Font font = new Font("Arial", Font.BOLD, 16);
-    private static final Path LEVEL_DIR = Paths.get("./levels/");
 
     private int listItemCount;
 
@@ -38,7 +37,7 @@ public class LevelEditorSelectionLevelList extends ScrollPanel {
     }
 
     private void buildList(){
-        List<Path> levelPathList = getLevelPathList();
+        List<Path> levelPathList = LevelUtil.getAllLevels(LevelUtil.LEVEL_DIR);
         listItemCount = levelPathList.size();
 
         for(int i = 0; i < levelPathList.size(); i++){
@@ -65,16 +64,6 @@ public class LevelEditorSelectionLevelList extends ScrollPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private List<Path> getLevelPathList(){
-        try {
-            return LevelUtil.getAllLevels(LEVEL_DIR);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 
     private class ListItem extends Panel {

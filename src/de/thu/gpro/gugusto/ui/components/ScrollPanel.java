@@ -2,6 +2,7 @@ package de.thu.gpro.gugusto.ui.components;
 
 import de.thu.gpro.gugusto.collision.BoundingBox;
 import de.thu.gpro.gugusto.input.event.InputEventType;
+import de.thu.gpro.gugusto.input.event.KeyEvent;
 import de.thu.gpro.gugusto.input.event.MouseEvent;
 import de.thu.gpro.gugusto.util.Size;
 import de.thu.gpro.gugusto.util.Vector;
@@ -28,18 +29,7 @@ public class ScrollPanel extends Panel {
         this.scrollModifier = scrollModifier;
         componentOffset = new HashMap<>();
         addListener(InputEventType.MOUSE_SCROLL, this::onScroll);
-    }
-
-    private boolean onScroll(MouseEvent e){
-        if(maxScrollY < 1){
-            if(scrollY != 0){
-                scrollY = 0;
-                updateChildPositions();
-            }
-            return false;
-        }
-        scroll(e.getUnitsToScroll());
-        return true;
+        addListener(InputEventType.KEY_DOWN, this::onKeyScroll);
     }
 
     public void build(){
@@ -52,6 +42,30 @@ public class ScrollPanel extends Panel {
 
         maxScrollY = contentHeight - (int)boundingBox.getSize().getHeight();
         setClipArea(new Rectangle(), boundingBox);
+    }
+
+    private boolean onScroll(MouseEvent e){
+        return preScroll(e.getUnitsToScroll());
+    }
+
+    private boolean onKeyScroll(KeyEvent e){
+        if(e.getKeyCode() == KeyEvent.VK_DOWN) return preScroll(3);
+        else if(e.getKeyCode() == KeyEvent.VK_UP) return preScroll(-3);
+
+        return false;
+    }
+
+    private boolean preScroll(int units){
+        if(maxScrollY < 1){
+            if(scrollY != 0){
+                scrollY = 0;
+                updateChildPositions();
+            }
+            return false;
+        }
+
+        scroll(units);
+        return true;
     }
 
     private void scroll(int units){

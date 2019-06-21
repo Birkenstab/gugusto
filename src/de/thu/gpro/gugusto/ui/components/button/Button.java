@@ -11,6 +11,7 @@ public abstract class Button extends UIComponent {
     private String tag;
     private OnClickListener clickListener;
     protected boolean hover = false;
+    protected boolean disabled = false;
 
     public Button(Vector position, Size size) {
         super(position, size);
@@ -35,7 +36,11 @@ public abstract class Button extends UIComponent {
     }
 
     private boolean onMouseClick(MouseEvent e){
-        if(e.getButton() == MouseEvent.BUTTON1) return click();
+        if(e.getButton() == MouseEvent.BUTTON1){
+            if(!disabled) return click();
+            return true;
+        }
+
         return false;
     }
 
@@ -58,6 +63,10 @@ public abstract class Button extends UIComponent {
 
         void onClick(Button button);
 
+    }
+
+    public void setDisabled(boolean disabled){
+        this.disabled = disabled;
     }
 
 }

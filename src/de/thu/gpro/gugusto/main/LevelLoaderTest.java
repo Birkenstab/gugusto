@@ -10,12 +10,8 @@ import java.util.List;
 public class LevelLoaderTest {
 
     public static void main(String[] args){
-        try {
-            List<Path> levelPathList = LevelUtil.getAllLevels(Paths.get("./levels"));
-            for(Path path : levelPathList) System.out.println(path);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        List<Path> levelPathList = LevelUtil.getAllLevels(Paths.get("./levels"));
+        for(Path path : levelPathList) System.out.println(path);
     }
 
 }

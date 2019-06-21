@@ -21,6 +21,10 @@ public class TextButton extends Button {
     private static Image sectionHoverMiddle;
     private static Image sectionHoverRight;
 
+    private static Image sectionDisabledLeft;
+    private static Image sectionDisabledMiddle;
+    private static Image sectionDisabledRight;
+
     static {
         BufferedImage buttonSections = TextureLoader.get(Texture.BUTTON_SECTIONS);
         sectionLeft = buttonSections.getSubimage(0, 0, SECTION_WIDTH, SECTION_HEIGHT);
@@ -30,6 +34,10 @@ public class TextButton extends Button {
         sectionHoverLeft = buttonSections.getSubimage(0, SECTION_HEIGHT, SECTION_WIDTH, SECTION_HEIGHT);
         sectionHoverMiddle = buttonSections.getSubimage(SECTION_WIDTH, SECTION_HEIGHT, SECTION_WIDTH, SECTION_HEIGHT);
         sectionHoverRight = buttonSections.getSubimage(SECTION_WIDTH * 2, SECTION_HEIGHT, SECTION_WIDTH, SECTION_HEIGHT);
+
+        sectionDisabledLeft = buttonSections.getSubimage(0, SECTION_HEIGHT * 2, SECTION_WIDTH, SECTION_HEIGHT);
+        sectionDisabledMiddle = buttonSections.getSubimage(SECTION_WIDTH, SECTION_HEIGHT * 2, SECTION_WIDTH, SECTION_HEIGHT);
+        sectionDisabledRight = buttonSections.getSubimage(SECTION_WIDTH * 2, SECTION_HEIGHT * 2, SECTION_WIDTH, SECTION_HEIGHT);
     }
 
 
@@ -50,7 +58,11 @@ public class TextButton extends Button {
         Image middle = sectionMiddle;
         Image right = sectionRight;
 
-        if(hover){
+        if(disabled){
+            left = sectionDisabledLeft;
+            middle = sectionDisabledMiddle;
+            right = sectionDisabledRight;
+        } else if(hover){
             left = sectionHoverLeft;
             middle = sectionHoverMiddle;
             right = sectionHoverRight;

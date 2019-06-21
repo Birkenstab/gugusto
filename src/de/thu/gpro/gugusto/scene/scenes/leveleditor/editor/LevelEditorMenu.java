@@ -1,6 +1,7 @@
 package de.thu.gpro.gugusto.scene.scenes.leveleditor.editor;
 
 import de.thu.gpro.gugusto.game.Game;
+import de.thu.gpro.gugusto.scene.scenes.leveleditor.selection.LevelEditorSelectionScene;
 import de.thu.gpro.gugusto.scene.scenes.startmenu.StartMenuScene;
 import de.thu.gpro.gugusto.ui.components.Menu;
 
@@ -21,7 +22,7 @@ class LevelEditorMenu extends Menu {
             levelEditorAction.save();
             Game.getInstance().getSceneManager().setScene(new StartMenuScene());
         });
-        addMenuEntry("Back to Main Menu", e -> Game.getInstance().getSceneManager().setScene(new StartMenuScene()));
+        addMenuEntry("Back to Level Selection", e -> Game.getInstance().getSceneManager().setScene(new LevelEditorSelectionScene()));
         addMenuEntry("Exit Game", e -> System.exit(0));
         build();
     }
