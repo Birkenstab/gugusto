@@ -1,9 +1,6 @@
 package de.thu.gpro.gugusto.scene.scenes.leveleditor.editor;
 
-import de.thu.gpro.gugusto.game.object.blocks.BlockType;
-import de.thu.gpro.gugusto.game.object.blocks.Chest;
-import de.thu.gpro.gugusto.game.object.blocks.Coin;
-import de.thu.gpro.gugusto.game.object.blocks.GrassBlock;
+import de.thu.gpro.gugusto.game.object.blocks.*;
 import de.thu.gpro.gugusto.game.object.enemies.EnemyType;
 import de.thu.gpro.gugusto.game.object.enemies.Gustav;
 import de.thu.gpro.gugusto.game.object.enemies.Verfolgi;
@@ -27,6 +24,7 @@ class LevelEditorObjectIconProvider {
         blockMap.put(BlockType.GOAL, TextureLoader.get(Texture.BUTTON_SECTIONS));
         blockMap.put(BlockType.COIN, Coin.TEXTURE);
         blockMap.put(BlockType.CHEST, Chest.TEXTURE);
+        blockMap.put(BlockType.JUMP_PAD, JumpPad.TEXTURE);
     }
 
     public static BufferedImage getEnemyIcon(EnemyType type) {

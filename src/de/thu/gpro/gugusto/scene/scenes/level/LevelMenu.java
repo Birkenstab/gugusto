@@ -14,7 +14,7 @@ public class LevelMenu extends Menu {
 
         this.levelAction = levelAction;
 
-        addMenuEntry("Reset Level", e -> {
+        addMenuEntry("Restart Level", e -> {
             levelAction.restartLevel();
             setVisible(false);
         });

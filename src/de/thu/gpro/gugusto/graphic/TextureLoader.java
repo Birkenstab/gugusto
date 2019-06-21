@@ -19,6 +19,7 @@ public final class TextureLoader {
         map.put(Texture.BLOCK_GRASS,  "./Gugusto Graphics/grass.png");
         map.put(Texture.BLOCK_COIN, "./Gugusto Graphics/coin.png");
         map.put(Texture.BLOCK_CHEST, "./Gugusto Graphics/other/NEU Chest Animation.png");
+        map.put(Texture.BLOCK_JUMP_PAD, "./Gugusto Graphics/128x128 Autumn/GrassJoinHillRight2.png"); // TODO
 
         map.put(Texture.ENEMY_SAW, "./Gugusto Graphics/saw.png");
         map.put(Texture.ENEMY_GUSTAV_WALK, "./Gugusto Graphics/100x80 Enemy Run.png");
