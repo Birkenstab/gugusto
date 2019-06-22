@@ -20,6 +20,7 @@ class LevelEditorLayer extends Layer {
 
     private Level level;
     private LevelEditorAction levelEditorAction;
+    private LevelEditorMode mode;
     private LevelEditorCamera camera;
     private boolean showGrid = true;
 
@@ -34,14 +35,18 @@ class LevelEditorLayer extends Layer {
         if(camera == null) this.camera = new LevelEditorCamera(level.getCameraStartPosition(32), 32);
         else this.camera = camera;
 
+        mode = new LevelEditorMode(levelEditorAction, this.camera, gameObjects);
+
         addGameObjects();
         addListeners();
     }
 
     private void addListeners(){
         MouseState.set(MouseEvent.BUTTON1, false);
-        addListener(InputEventType.MOUSE_MOVE, this::onMouseMove);
-        addListener(InputEventType.MOUSE_DOWN, this::onMouseDown);
+        addListener(InputEventType.MOUSE_MOVE, mode::onMouseMove);
+        addListener(InputEventType.MOUSE_DOWN, mode::onMouseDown);
+        addListener(InputEventType.MOUSE_UP, mode::onMouseUp);
+
         addListener(InputEventType.KEY_DOWN, this::onKeyDown);
 
         addListener(InputEventType.KEY_DOWN, camera::onKeyDown);
@@ -52,8 +57,10 @@ class LevelEditorLayer extends Layer {
     }
 
     public void removeListeners(){
-        removeListener(InputEventType.MOUSE_MOVE, this::onMouseMove);
-        removeListener(InputEventType.MOUSE_DOWN, this::onMouseDown);
+        removeListener(InputEventType.MOUSE_MOVE, mode::onMouseMove);
+        removeListener(InputEventType.MOUSE_DOWN, mode::onMouseDown);
+        removeListener(InputEventType.MOUSE_UP, mode::onMouseUp);
+
         removeListener(InputEventType.KEY_DOWN, this::onKeyDown);
 
         removeListener(InputEventType.KEY_DOWN, camera::onKeyDown);
@@ -65,30 +72,9 @@ class LevelEditorLayer extends Layer {
 
     private boolean onKeyDown(KeyEvent event){
         if(event.getChar() == 'g') showGrid = !showGrid;
-        return event.getChar() == 'g';
-    }
+        else if(event.getChar() == 'm') mode.toggle();
 
-    private boolean onMouseMove(MouseEvent event){
-        if(MouseState.isDown(MouseEvent.BUTTON1) || MouseState.isDown(MouseEvent.BUTTON3)){
-            setBlock(event.asVector());
-        }
-
-        return false;
-    }
-
-    private boolean onMouseDown(MouseEvent event){
-        setBlock(event.asVector());
-
-        return false;
-    }
-
-    private void setBlock(Vector position){
-        position = camera.toWorldCoordinates(position);
-
-        if(position.getX() >= 0 && position.getY() >= 0){
-            if(MouseState.isDown(MouseEvent.BUTTON1)) levelEditorAction.primaryAction(position, gameObjects);
-            else if(MouseState.isDown(MouseEvent.BUTTON3)) levelEditorAction.secondaryAction(position, gameObjects);
-        }
+        return event.getChar() == 'g' || event.getChar() == 'm';
     }
 
     private void addGameObjects(){
@@ -104,8 +90,8 @@ class LevelEditorLayer extends Layer {
     public void draw(Graphics2D g2d){
         super.draw(g2d);
 
-        g2d.setColor(Color.BLACK);
         if(showGrid) drawGrid(g2d);
+        mode.draw(g2d);
     }
 
     private void drawGrid(Graphics2D g2d){
@@ -115,6 +101,7 @@ class LevelEditorLayer extends Layer {
         int mapHeight = (int)(level.getChunkList().getHeight() * Chunk.SIZE * camera.getScaling());
         int mapWidth = (int)(level.getChunkList().getWidth() * Chunk.SIZE * camera.getScaling());
 
+        g2d.setColor(Color.BLACK);
         for(int x = 0; x < mapWidth + gridSize; x += gridSize){
             Vector vPos = pos.clone().add(new Vector(x, 0));
             g2d.drawLine((int)vPos.getX(), (int)vPos.getY(), (int)(vPos.getX()), (int)(vPos.getY() + mapHeight));
@@ -124,6 +111,14 @@ class LevelEditorLayer extends Layer {
                 g2d.drawLine((int)xPos.getX(), (int)xPos.getY(), (int)(xPos.getX() + mapWidth), (int)xPos.getY());
             }
         }
+    }
+
+    public LevelEditorMode.Mode getMode(){
+        return mode.getMode();
+    }
+
+    public void setMode(LevelEditorMode.Mode mode){
+        this.mode.setMode(mode);
     }
 
     @Override

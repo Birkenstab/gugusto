@@ -1,6 +1,5 @@
 package de.thu.gpro.gugusto.scene.scenes.startmenu;
 
-import de.thu.gpro.gugusto.game.level.Level;
 import de.thu.gpro.gugusto.scene.Scene;
 import de.thu.gpro.gugusto.scene.scenes.level.LevelAction;
 import de.thu.gpro.gugusto.scene.scenes.level.LevelLayer;

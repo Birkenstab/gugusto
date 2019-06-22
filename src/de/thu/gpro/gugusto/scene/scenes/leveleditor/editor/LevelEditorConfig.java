@@ -9,6 +9,7 @@ public class LevelEditorConfig {
     private double cameraScale;
     private GameObject.Type selectedType;
     private int selectedId;
+    private LevelEditorMode.Mode mode;
 
     LevelEditorConfig(){
     }
@@ -33,6 +34,14 @@ public class LevelEditorConfig {
 
     public GameObject.Type getSelectedType(){
         return selectedType;
+    }
+
+    public void setMode(LevelEditorMode.Mode mode) {
+        this.mode = mode;
+    }
+
+    public LevelEditorMode.Mode getMode(){
+        return mode;
     }
 
 }

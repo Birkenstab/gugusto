@@ -24,7 +24,7 @@ public class LevelEditorScene extends Scene {
 
     public LevelEditorScene(Path path, LevelEditorConfig config){
         build(path, LevelLoader.load(path), config.getCamera());
-        levelEditorAction.setSelectedObject(config.getSelectedId(), config.getSelectedType());
+        levelEditorAction.setConfig(config);
     }
 
     private void build(Path path, Level level, LevelEditorCamera camera){

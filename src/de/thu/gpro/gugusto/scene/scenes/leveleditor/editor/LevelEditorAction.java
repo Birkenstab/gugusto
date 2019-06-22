@@ -32,23 +32,22 @@ class LevelEditorAction {
         this.level = level;
     }
 
-    void primaryAction(Vector position, List<GameObject> gameObjects){
-        position.floor();
-        Vector chunkPosition = position.clone().divide(Chunk.SIZE);
+    void placeObject(Vector blockPosition, Vector chunkPosition, List<GameObject> gameObjects){
+        blockPosition.floor();
 
         if(selectedType == GameObject.Type.Block){
-            Block block = BlockFactory.create(selectedId, position);
+            Block block = BlockFactory.create(selectedId, blockPosition);
             if(level.getChunkList().addBlock(block, chunkPosition)) gameObjects.add(block);
         } else if(selectedType == GameObject.Type.Enemy){
-            Enemy enemy = EnemyFactory.create(selectedId, position);
+            Enemy enemy = EnemyFactory.create(selectedId, blockPosition);
             level.getEnemies().add(enemy);
             gameObjects.add(enemy);
         }
     }
 
-    public void secondaryAction(Vector position, List<GameObject> gameObjects){
-        Vector chunkPosition = position.clone().divide(Chunk.SIZE);
-        Block block = level.getChunkList().removeBlock(position.clone().floor(), chunkPosition);
+    public void removeObject(Vector blockPosition, Vector chunkPosition, List<GameObject> gameObjects){
+        blockPosition.floor();
+        Block block = level.getChunkList().removeBlock(blockPosition, chunkPosition);
 
         if(block != null){
             gameObjects.remove(block);
@@ -56,7 +55,7 @@ class LevelEditorAction {
             for(int i = 0; i < level.getEnemies().size(); i++){
                 Enemy enemy = level.getEnemies().get(i);
 
-                if(CollisionUtil.contains(position, enemy.getBoundingBox())){
+                if(CollisionUtil.contains(blockPosition, enemy.getBoundingBox())){
                     level.getEnemies().remove(enemy);
                     gameObjects.remove(enemy);
                     break;
@@ -84,11 +83,21 @@ class LevelEditorAction {
         Game.getInstance().getSceneManager().setScene(new LevelScene(levelPath, buildConfig()));
     }
 
+    public void setConfig(LevelEditorConfig config){
+        setSelectedObject(config.getSelectedId(), config.getSelectedType());
+        levelEditorLayer.setMode(config.getMode());
+    }
+
     public LevelEditorConfig buildConfig(){
         LevelEditorConfig config = new LevelEditorConfig();
         config.setSelected(selectedId, selectedType);
         config.setCamera(levelEditorLayer.getCamera().getPosition(), levelEditorLayer.getCamera().getScaling());
+        config.setMode(levelEditorLayer.getMode());
         return config;
+    }
+
+    public String getModeString(){
+        return levelEditorLayer.getMode() == LevelEditorMode.Mode.SINGLE ? "Mode: Single" : "Mode: Area";
     }
 
 }
