@@ -12,11 +12,11 @@ public final class LevelLoader {
 
     public static void save(Level level, Path path){
         byte[] bytes = LevelFormat.encode(level);
-        writeToFile(bytes, path);
+        IOUtil.write(bytes, path);
     }
 
     public static Level load(Path path){
-        byte[] bytes = readFromFile(path);
+        byte[] bytes = IOUtil.read(path);
         Level level = LevelFormat.decode(bytes);
 
         if(level == null){
@@ -30,22 +30,4 @@ public final class LevelLoader {
         return level;
     }
 
-    private static void writeToFile(byte[] data, Path path){
-        try {
-            Files.write(path, data);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static byte[] readFromFile(Path path){
-        try {
-            return Files.readAllBytes(path);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("File not found: " + path);
-
-        return null;
-    }
 }

@@ -1,7 +1,9 @@
 package de.thu.gpro.gugusto.scene.scenes.levelselection;
 
 import de.thu.gpro.gugusto.game.Game;
+import de.thu.gpro.gugusto.game.level.Profile;
 import de.thu.gpro.gugusto.game.level.io.LevelUtil;
+import de.thu.gpro.gugusto.game.level.io.ProfileLoader;
 import de.thu.gpro.gugusto.scene.scenes.level.LevelScene;
 import de.thu.gpro.gugusto.ui.components.Label;
 import de.thu.gpro.gugusto.ui.components.LabelFactory;
@@ -29,9 +31,11 @@ public class LevelSelectionList extends Panel {
     public void build(){
         List<Path> levelPaths = LevelUtil.getPlayableLevels();
         Vector bPos = new Vector(29, 0).add(position);
+        Profile profile = ProfileLoader.load();
+        int lulid= profile.getLastUnlockedLevelId() + 1;
 
         for(int i = 0; i < levelPaths.size(); i++){
-            TextButton textButton = buildButton(bPos.clone(), i, true);
+            TextButton textButton = buildButton(bPos.clone(), i, i < lulid);
             textButton.setTag(levelPaths.get(i).toString());
             addUIComponent(textButton);
             bPos.add(new Vector(75 + 29, 0));
