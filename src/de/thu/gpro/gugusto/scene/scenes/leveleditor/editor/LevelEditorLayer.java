@@ -39,6 +39,7 @@ class LevelEditorLayer extends Layer {
     }
 
     private void addListeners(){
+        MouseState.set(MouseEvent.BUTTON1, false);
         addListener(InputEventType.MOUSE_MOVE, this::onMouseMove);
         addListener(InputEventType.MOUSE_DOWN, this::onMouseDown);
         addListener(InputEventType.KEY_DOWN, this::onKeyDown);
