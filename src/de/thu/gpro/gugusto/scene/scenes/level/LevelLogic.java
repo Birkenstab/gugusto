@@ -13,6 +13,8 @@ import de.thu.gpro.gugusto.game.object.player.WinState;
 import de.thu.gpro.gugusto.graphic.Texture;
 import de.thu.gpro.gugusto.graphic.TextureLoader;
 import de.thu.gpro.gugusto.input.KeyState;
+import de.thu.gpro.gugusto.input.event.EventCallback;
+import de.thu.gpro.gugusto.input.event.InputEventType;
 import de.thu.gpro.gugusto.input.event.KeyEvent;
 import de.thu.gpro.gugusto.util.Size;
 import de.thu.gpro.gugusto.util.Vector;
@@ -34,6 +36,7 @@ public class LevelLogic {
     private int updateTimeCount = 0;
     private List<DynamicGameObject> inactiveDynamicGameObjects = new ArrayList<>();
     private List<DynamicGameObject> activeDynamicGameObjects = new ArrayList<>();
+    private boolean showBoundingBoxes = false;
 
 
     public LevelLogic(Level level, LevelAction levelAction) {
@@ -147,6 +150,19 @@ public class LevelLogic {
     private void doDraw(Graphics2D g2d, GameObject gameObject) {
         if(!gameObject.shouldBeRemoved())
             gameObject.draw(g2d, getCamera());
+
+        if (showBoundingBoxes) {
+            Vector position = camera.toScreenCoordinates(gameObject.getBoundingBox().getPosition().clone().add(gameObject.getDrawBoundingBox().getPosition()));
+            Size size = camera.toScreenCoordinates(gameObject.getDrawBoundingBox().getSize());
+
+            Vector collPos = camera.toScreenCoordinates(gameObject.getBoundingBox().getPosition());
+            Size collSize = camera.toScreenCoordinates(gameObject.getBoundingBox().getSize());
+            g2d.setColor(Color.BLACK);
+            g2d.drawRect((int) (collPos.getX() + Game.WINDOW.getTopLeftInsets().getX()), (int) (collPos.getY() + Game.WINDOW.getTopLeftInsets().getY()), (int) collSize.getWidth(), (int) collSize.getHeight());
+
+            g2d.setColor(Color.CYAN);
+            g2d.drawRect((int) (position.getX() + Game.WINDOW.getTopLeftInsets().getX()), (int) (position.getY() + Game.WINDOW.getTopLeftInsets().getY()), (int) size.getWidth(), (int) size.getHeight());
+        }
     }
 
     private void doUpdate(double delta, GameObject gameObject) {
@@ -163,6 +179,10 @@ public class LevelLogic {
     }
 
     public boolean onKeyDown(KeyEvent event) {
+        if(event.getChar() == 'b'){
+            showBoundingBoxes = !showBoundingBoxes;
+            return true;
+        }
         return level.getPlayer().onKeyDown(event);
     }
 

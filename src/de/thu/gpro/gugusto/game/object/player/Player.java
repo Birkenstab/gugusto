@@ -1,5 +1,6 @@
 package de.thu.gpro.gugusto.game.object.player;
 
+import de.thu.gpro.gugusto.collision.BoundingBox;
 import de.thu.gpro.gugusto.game.object.blocks.Chest;
 import de.thu.gpro.gugusto.input.event.KeyEvent;
 import de.thu.gpro.gugusto.util.Vector;
@@ -28,6 +29,7 @@ public class Player extends DynamicGameObject {
 
     public Player(Vector position){
         super(position, size.clone());
+        drawBoundingBox = new BoundingBox(new Vector(-0.1, -0.2), new Size(1, 1));
 
         state = new PlayerState();
         animation = new PlayerAnimation(state);

@@ -1,5 +1,6 @@
 package de.thu.gpro.gugusto.game.object.blocks;
 
+import de.thu.gpro.gugusto.collision.BoundingBox;
 import de.thu.gpro.gugusto.game.Camera;
 import de.thu.gpro.gugusto.game.object.player.WinState;
 import de.thu.gpro.gugusto.graphic.SpriteSheet;
@@ -25,7 +26,8 @@ public class Chest extends Block {
     private Consumer<WinState> openCallback;
 
     public Chest(Vector position) {
-        super(BlockType.CHEST, position, true, new Size(1.5, 1.5));
+        super(BlockType.CHEST, position, true, new Size(1, 1));
+        drawBoundingBox = new BoundingBox(new Vector(-0.23, -0.5), new Size(1.5, 1.5));
         openAnimation.setMode(Animation.Mode.LINEAR);
         openAnimation.setDoneCallback(this::placeCoin);
     }

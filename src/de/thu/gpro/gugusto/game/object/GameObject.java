@@ -16,21 +16,23 @@ public abstract class GameObject {
     private static final int insetY = (int)Game.WINDOW.getTopLeftInsets().getY();
 
     private boolean shouldRemove = false;
-    private BoundingBox scaledBoundingBox;
+    private BoundingBox scaledDrawBoundingBox;
     protected BoundingBox boundingBox;
+    protected BoundingBox drawBoundingBox;
     private boolean solid;
 
     public GameObject(Vector position, Size size){
         boundingBox = new BoundingBox(position, size);
-        scaledBoundingBox = boundingBox;
+        drawBoundingBox = new BoundingBox(new Vector(0, 0), size);
+        scaledDrawBoundingBox = boundingBox;
     }
 
     public abstract void update(double delta);
 
     public void draw(Graphics2D g2d, Camera camera) {
-        Vector position = camera.toScreenCoordinates(boundingBox.getPosition());
-        Size size = camera.toScreenCoordinates(boundingBox.getSize());
-        scaledBoundingBox = new BoundingBox(position, size);
+        Vector position = camera.toScreenCoordinates(boundingBox.getPosition().clone().add(drawBoundingBox.getPosition()));
+        Size size = camera.toScreenCoordinates(drawBoundingBox.getSize());
+        scaledDrawBoundingBox = new BoundingBox(position, size);
     }
 
 
@@ -38,8 +40,8 @@ public abstract class GameObject {
         return boundingBox;
     }
 
-    public BoundingBox getScaledBoundingBox(){
-        return scaledBoundingBox;
+    public BoundingBox getDrawBoundingBox() {
+        return drawBoundingBox;
     }
 
     public void remove(){
@@ -53,19 +55,19 @@ public abstract class GameObject {
     // These methods should only be used in drawing stuff
     // ----------------------------------------------------------------------------------
     protected int getX(){
-        return (int)(scaledBoundingBox.getPosition().getX() + insetX);
+        return (int)(scaledDrawBoundingBox.getPosition().getX() + insetX);
     }
 
     protected int getY(){
-        return (int)(scaledBoundingBox.getPosition().getY() + insetY);
+        return (int)(scaledDrawBoundingBox.getPosition().getY() + insetY);
     }
 
     protected int getWidth(){
-        return (int)scaledBoundingBox.getSize().getWidth();
+        return (int)scaledDrawBoundingBox.getSize().getWidth();
     }
 
     protected int getHeight(){
-        return (int)scaledBoundingBox.getSize().getHeight();
+        return (int)scaledDrawBoundingBox.getSize().getHeight();
     }
     // ----------------------------------------------------------------------------------
 
