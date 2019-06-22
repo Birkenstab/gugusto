@@ -3,42 +3,51 @@ package de.thu.gpro.gugusto.scene.scenes.startmenu;
 import de.thu.gpro.gugusto.game.Game;
 import de.thu.gpro.gugusto.scene.UILayer;
 import de.thu.gpro.gugusto.scene.scenes.credits.CreditsScene;
-import de.thu.gpro.gugusto.scene.scenes.level.LevelScene;
 import de.thu.gpro.gugusto.scene.scenes.leveleditor.selection.LevelEditorSelectionScene;
 import de.thu.gpro.gugusto.scene.scenes.levelselection.LevelSelectionScene;
 import de.thu.gpro.gugusto.ui.components.Panel;
-import de.thu.gpro.gugusto.ui.components.button.TextButton;
+import de.thu.gpro.gugusto.ui.components.button.IconButton;
 import de.thu.gpro.gugusto.ui.components.LabelFactory;
+import de.thu.gpro.gugusto.ui.components.Label;
+import de.thu.gpro.gugusto.ui.icon.Icon;
 import de.thu.gpro.gugusto.util.Size;
 import de.thu.gpro.gugusto.util.Vector;
 
 import java.awt.*;
-import java.nio.file.Paths;
 
 public class StartMenuUILayer extends UILayer {
 
     public StartMenuUILayer(){
-        int buttonCenterX = (Game.INNER_WIDTH - 200) / 2;
-        int centerY = Game.INNER_HEIGHT / 2;
+        int centerY = Game.INNER_HEIGHT - Icon.DEFAULT_DRAW_SIZE - 20;
+        int centerX = Game.INNER_WIDTH / 2;
 
-        LabelFactory lf = new LabelFactory(200, new Vector(0, 20), 18);
+        Font titleFont = new Font("Mali Bold", Font.PLAIN, 150);
+        LabelFactory lf = new LabelFactory(Game.INNER_WIDTH, new Vector(0, 20), titleFont);
 
-        Vector playButtonPosition = new Vector(buttonCenterX, centerY - 190);
-        Vector levelEditorButtonPosition = new Vector(buttonCenterX, centerY - 90);
-        Vector creditsButtonPosition = new Vector(buttonCenterX, centerY + 10);
-        Vector exitButtonPosition = new Vector(buttonCenterX, centerY + 110);
+        Vector titlePosition = new Vector();
+        Vector playButtonPosition = new Vector(centerX - Icon.DEFAULT_DRAW_SIZE - 20, centerY);
+        Vector levelEditorButtonPosition = new Vector(centerX + 20, centerY);
+        Vector creditsButtonPosition = new Vector(Game.INNER_WIDTH - Icon.DEFAULT_DRAW_SIZE - 20, 20);
+        Vector exitButtonPosition = new Vector(Game.INNER_WIDTH - Icon.DEFAULT_DRAW_SIZE - 20,
+                                                Game.INNER_HEIGHT - Icon.DEFAULT_DRAW_SIZE - 20);
 
-        TextButton playButton = new TextButton(lf.create(playButtonPosition, "Play"));
-        TextButton levelEditorButton = new TextButton(lf.create(levelEditorButtonPosition, "Map Editor"));
-        TextButton creditsButton = new TextButton(lf.create(creditsButtonPosition, "Credits"));
-        TextButton exitButton = new TextButton(lf.create(exitButtonPosition, "Exit"));
+        Label titleShadow = lf.create(new Vector(3, 3).add(titlePosition), "Gugusto");
+        Label title = lf.create(titlePosition, "Gugusto");
+        IconButton playButton = new IconButton(playButtonPosition, Icon.ARROW_HEAD_RIGHT);
+        IconButton levelEditorButton = new IconButton(levelEditorButtonPosition, Icon.SETTINGS);
+        IconButton creditsButton = new IconButton (creditsButtonPosition, Icon.INFO);
+        IconButton exitButton = new IconButton(exitButtonPosition, Icon.OPEN_DOOR);
 
+        titleShadow.setColor(new Color(0, 0, 0, 60));
+        title.setColor(Color.WHITE);
         playButton.setClickListener(b -> Game.getInstance().getSceneManager().setScene(new LevelSelectionScene()));
         levelEditorButton.setClickListener(b -> Game.getInstance().getSceneManager().setScene(new LevelEditorSelectionScene()));
         creditsButton.setClickListener(b -> Game.getInstance().getSceneManager().setScene(new CreditsScene()));
         exitButton.setClickListener(b -> System.exit(0));
 
         addUIComponent(new Panel(new Vector(), new Size(Game.INNER_WIDTH, Game.INNER_HEIGHT), new Color(0.0f, 0.0f, 0.0f, 0.2f)));
+        addUIComponent(titleShadow);
+        addUIComponent(title);
         addUIComponent(playButton);
         addUIComponent(levelEditorButton);
         addUIComponent(creditsButton);
