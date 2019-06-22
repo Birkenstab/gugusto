@@ -2,6 +2,7 @@ package de.thu.gpro.gugusto.scene;
 
 import de.thu.gpro.gugusto.graphic.GraphicSystem;
 import de.thu.gpro.gugusto.input.event.InputEvent;
+import de.thu.gpro.gugusto.scene.scenes.level.LevelLayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,4 +37,11 @@ public abstract class Scene {
         layers.add(layer);
     }
 
+    public LevelLayer getLevelLayer() {
+        for (Layer layer : layers) {
+            if (layer instanceof LevelLayer)
+                return (LevelLayer) layer;
+        }
+        return null;
+    }
 }

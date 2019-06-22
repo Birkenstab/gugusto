@@ -48,4 +48,7 @@ public class Level {
         return startPosition.clone().subtract(window.divide(new Vector(scale * 2.5, scale * 2)));
     }
 
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 }

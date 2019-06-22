@@ -19,11 +19,11 @@ public class Player extends DynamicGameObject {
     public enum State { IDLE, WALK, JUMP, FALL }
 
     private static final Vector JUMP_VELOCITY = new Vector(0, -18);
-    private static final Size size = new Size(0.8, 0.8); // TODO Gezeichnete Größe sollte aber 1x1 sein
+    private static final Size size = new Size(0.8, 0.8);
 
     private PlayerAnimation animation;
     private PlayerState state;
-    private boolean spaceDown = false;
+    protected boolean spaceDown = false;
     private boolean alive = true;
     private WinState winState = WinState.NONE;
 
@@ -135,5 +135,9 @@ public class Player extends DynamicGameObject {
 
     public WinState getWinState() {
         return winState;
+    }
+
+    protected PlayerState getState() {
+        return state;
     }
 }

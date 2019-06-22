@@ -9,6 +9,7 @@ import de.thu.gpro.gugusto.game.level.Level;
 import de.thu.gpro.gugusto.game.object.DynamicGameObject;
 import de.thu.gpro.gugusto.game.object.GameObject;
 import de.thu.gpro.gugusto.game.object.blocks.Block;
+import de.thu.gpro.gugusto.game.object.player.AiPlayer;
 import de.thu.gpro.gugusto.game.object.player.WinState;
 import de.thu.gpro.gugusto.graphic.Texture;
 import de.thu.gpro.gugusto.graphic.TextureLoader;
@@ -37,12 +38,17 @@ public class LevelLogic {
     private List<DynamicGameObject> inactiveDynamicGameObjects = new ArrayList<>();
     private List<DynamicGameObject> activeDynamicGameObjects = new ArrayList<>();
     private boolean showBoundingBoxes = false;
+    private boolean aiMode;
 
 
-    public LevelLogic(Level level, LevelAction levelAction) {
+    public LevelLogic(Level level, LevelAction levelAction, boolean aiMode) {
         this.level = level;
         this.levelAction = levelAction;
+        this.aiMode = aiMode;
         camera = new Camera(level.getCameraStartPosition(32), 32);
+        if (aiMode) {
+            level.setPlayer(new AiPlayer(level.getPlayer().getBoundingBox().getPosition()));
+        }
         addGameObjects();
     }
 
@@ -79,13 +85,21 @@ public class LevelLogic {
             if (!gameEnded) {
                 if (!level.getPlayer().isAlive()) {
                     gameEnded = true;
-                    levelAction.endLevelByDeath();
+                    if (aiMode)
+                        levelAction.restartLevel();
+                    else
+                        levelAction.endLevelByDeath();
                 }
-                if (level.getPlayer().getWinState() == WinState.WALKING) {
+                if (level.getPlayer().getWinState() == WinState.JUMP) {
+                    if (aiMode)
+                        levelAction.restartLevel();
 
                 } else if (level.getPlayer().getWinState() == WinState.POST_ANIMATION) {
                     gameEnded = true;
-                    levelAction.endLevelByWin();
+                    if (aiMode)
+                        levelAction.restartLevel();
+                    else
+                        levelAction.endLevelByWin();
                 }
             }
         }

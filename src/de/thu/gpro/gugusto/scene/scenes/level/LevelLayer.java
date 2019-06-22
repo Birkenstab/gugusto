@@ -2,11 +2,13 @@ package de.thu.gpro.gugusto.scene.scenes.level;
 
 import de.thu.gpro.gugusto.game.Camera;
 import de.thu.gpro.gugusto.game.level.io.LevelLoader;
+import de.thu.gpro.gugusto.game.level.io.LevelUtil;
 import de.thu.gpro.gugusto.input.event.InputEventType;
 import de.thu.gpro.gugusto.input.event.KeyEvent;
 import de.thu.gpro.gugusto.scene.Layer;
 import de.thu.gpro.gugusto.game.level.Level;
 
+import java.util.List;
 import java.awt.*;
 import java.nio.file.Path;
 
@@ -16,10 +18,16 @@ public class LevelLayer extends Layer {
     private Path currentLevelPath;
     private LevelLogic logic;
     private LevelAction levelAction;
+    private boolean aiMode;
 
     public LevelLayer(Path level, LevelAction levelAction) {
+        this(level, levelAction, false);
+    }
+
+    public LevelLayer(Path level, LevelAction levelAction, boolean aiMode) {
         currentLevelPath = level;
         this.levelAction = levelAction;
+        this.aiMode = aiMode;
 
         loadLevel();
         bindListeners();
@@ -38,8 +46,14 @@ public class LevelLayer extends Layer {
     }
 
     private void loadLevel() {
-        Level level = LevelLoader.load(currentLevelPath);
-        this.logic = new LevelLogic(level, levelAction);
+        Level level;
+        if (aiMode) {
+            List<Path> levels = LevelUtil.getPlayableLevels();
+            level = LevelLoader.load(levels.get((int)(Math.random() * levels.size())));
+        } else {
+            level = LevelLoader.load(currentLevelPath);
+        }
+        this.logic = new LevelLogic(level, levelAction, aiMode);
     }
 
     private void bindListeners() {

@@ -8,6 +8,7 @@ import de.thu.gpro.gugusto.graphic.SpriteSheet;
 import de.thu.gpro.gugusto.graphic.Texture;
 import de.thu.gpro.gugusto.graphic.TextureLoader;
 import de.thu.gpro.gugusto.graphic.animation.SpriteAnimation;
+import de.thu.gpro.gugusto.util.AiUtil;
 import de.thu.gpro.gugusto.util.Vector;
 
 import java.awt.image.BufferedImage;
@@ -18,19 +19,6 @@ public class Verfolgi extends GenericWalkingEnemy {
 
     public Verfolgi(Vector position) {
         super(EnemyType.VERFOLGI, position, new SpriteAnimation(ANIMATION_FRAMES, 1000));
-    }
-
-    private boolean isBlock(Vector position) {
-        Chunk chunk = getChunkList().get(Chunk.getChunkNo(position.getX()), Chunk.getChunkNo(position.getY()));
-        if (chunk == null)
-            return false;
-        for (Block block : chunk.getBlocks()) {
-            if (!block.isSolid())
-                continue;
-            if (CollisionUtil.isPointInRect(position, block.getBoundingBox()))
-                return true;
-        }
-        return false;
     }
 
     @Override
@@ -49,7 +37,7 @@ public class Verfolgi extends GenericWalkingEnemy {
             jump();
         }
 
-        if (!isBlock(target)) {
+        if (!AiUtil.isBlock(target)) {
             jump();
         }
 

@@ -20,7 +20,8 @@ public class LevelAction {
     }
 
     public void restartLevel() {
-        uiLayer.restartLevel();
+        if (uiLayer != null)
+            uiLayer.restartLevel();
         levelLayer.restartLevel();
     }
 

@@ -6,10 +6,13 @@ import de.thu.gpro.gugusto.scene.scenes.credits.CreditsScene;
 import de.thu.gpro.gugusto.scene.scenes.level.LevelScene;
 import de.thu.gpro.gugusto.scene.scenes.leveleditor.selection.LevelEditorSelectionScene;
 import de.thu.gpro.gugusto.scene.scenes.levelselection.LevelSelectionScene;
+import de.thu.gpro.gugusto.ui.components.Panel;
 import de.thu.gpro.gugusto.ui.components.button.TextButton;
 import de.thu.gpro.gugusto.ui.components.LabelFactory;
+import de.thu.gpro.gugusto.util.Size;
 import de.thu.gpro.gugusto.util.Vector;
 
+import java.awt.*;
 import java.nio.file.Paths;
 
 public class StartMenuUILayer extends UILayer {
@@ -35,6 +38,7 @@ public class StartMenuUILayer extends UILayer {
         creditsButton.setClickListener(b -> Game.getInstance().getSceneManager().setScene(new CreditsScene()));
         exitButton.setClickListener(b -> System.exit(0));
 
+        addUIComponent(new Panel(new Vector(), new Size(Game.INNER_WIDTH, Game.INNER_HEIGHT), new Color(0.0f, 0.0f, 0.0f, 0.2f)));
         addUIComponent(playButton);
         addUIComponent(levelEditorButton);
         addUIComponent(creditsButton);

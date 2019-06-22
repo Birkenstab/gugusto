@@ -64,10 +64,6 @@ public abstract class GenericWalkingEnemy extends Enemy {
         return Game.getInstance().getCurrentLevel().getPlayer().getBoundingBox().getPosition();
     }
 
-    protected ChunkList getChunkList() {
-        return Game.getInstance().getCurrentLevel().getChunkList();
-    }
-
     protected abstract void ai(double delta);
 
     protected void walkLeft() {

@@ -72,6 +72,6 @@ public class Game {
     }
 
     public Level getCurrentLevel() {
-        return ((LevelScene) sceneManager.getScene()).getLevelLayer().getLogic().getLevel();
+        return sceneManager.getScene().getLevelLayer().getLogic().getLevel();
     }
 }
