@@ -11,18 +11,18 @@ public final class LevelLoader {
     private LevelLoader(){}
 
     public static void save(Level level, Path path){
-        byte[] bytes = FileFormat.encode(level);
+        byte[] bytes = LevelFormat.encode(level);
         writeToFile(bytes, path);
     }
 
     public static Level load(Path path){
         byte[] bytes = readFromFile(path);
-        Level level = FileFormat.decode(bytes);
+        Level level = LevelFormat.decode(bytes);
 
         if(level == null){
-            if(FileFormat.statusCode == FileFormat.Status.NOT_GUG_FILE){
+            if(LevelFormat.statusCode == LevelFormat.Status.NOT_GUG_FILE){
                 throw new Error(String.format("\"%s\" is not a gugusto level file.", path));
-            } else if(FileFormat.statusCode == FileFormat.Status.OUTDATED){
+            } else if(LevelFormat.statusCode == LevelFormat.Status.OUTDATED){
                 throw new Error(String.format("\"%s\" version is outdated.", path));
             }
         }

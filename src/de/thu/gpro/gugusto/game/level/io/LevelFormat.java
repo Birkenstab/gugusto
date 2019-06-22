@@ -12,11 +12,11 @@ import de.thu.gpro.gugusto.util.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class FileFormat {
+public final class LevelFormat {
 
     enum Status { SUCCESS, NOT_GUG_FILE, OUTDATED }
 
-    private FileFormat(){}
+    private LevelFormat(){}
 
     private static final String FF_IDENTIFIER = "GUG";
     private static final short FF_MAJOR_VERSION = 0;

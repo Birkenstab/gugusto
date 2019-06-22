@@ -58,7 +58,7 @@ public class Chest extends Block {
     }
 
     private void placeCoin() {
-        coin = new GoalCoin(boundingBox.getPosition().clone().add(new Vector(0.4, 0.4)));
+        coin = new GoalCoin(boundingBox.getPosition().clone().add(new Vector(0.2, 0.2)));
         openCallback.accept(WinState.JUMP);
     }
 }
