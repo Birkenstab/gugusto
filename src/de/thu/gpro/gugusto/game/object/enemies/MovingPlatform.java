@@ -33,8 +33,6 @@ public class MovingPlatform extends Enemy {
         super(EnemyType.MOVING_PLATFORM, position, new Size(width, 1));
         originPosition = position.clone();
         attached = new ArrayList<>();
-        setMovable(true);
-        setGravity(false);
         setSolid(true);
     }
 
