@@ -10,7 +10,8 @@ public enum EnemyType {
     NONE(0),
     SAW(1),
     GUSTAV(2),
-    VERFOLGI(3);
+    VERFOLGI(3),
+    MOVING_PLATFORM(4);
 
     private static final Map<Integer, EnemyType> map = new HashMap<>();
 

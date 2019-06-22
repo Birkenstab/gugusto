@@ -3,6 +3,7 @@ package de.thu.gpro.gugusto.scene.scenes.leveleditor.editor;
 import de.thu.gpro.gugusto.game.object.blocks.*;
 import de.thu.gpro.gugusto.game.object.enemies.EnemyType;
 import de.thu.gpro.gugusto.game.object.enemies.Gustav;
+import de.thu.gpro.gugusto.game.object.enemies.MovingPlatform;
 import de.thu.gpro.gugusto.game.object.enemies.Verfolgi;
 import de.thu.gpro.gugusto.graphic.Texture;
 import de.thu.gpro.gugusto.graphic.TextureLoader;
@@ -19,6 +20,7 @@ class LevelEditorObjectIconProvider {
         enemyMap.put(EnemyType.SAW, TextureLoader.get(Texture.ENEMY_SAW));
         enemyMap.put(EnemyType.GUSTAV, Gustav.TEXTURE);
         enemyMap.put(EnemyType.VERFOLGI, Verfolgi.TEXTURE);
+        enemyMap.put(EnemyType.MOVING_PLATFORM, MovingPlatform.TEXTURE);
 
         blockMap.put(BlockType.GRASS, GrassBlock.TEXTURE);
         blockMap.put(BlockType.GOAL, TextureLoader.get(Texture.BUTTON_SECTIONS));
