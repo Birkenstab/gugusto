@@ -37,32 +37,31 @@ public abstract class DynamicGameObject extends GameObject {
             if (boundingBox.getType() != BoundingBox.Type.RECTANGLE || other.getBoundingBox().getType() != BoundingBox.Type.RECTANGLE)
                 throw new Error("Not implemented"); // Todo
 
-            Vector center1 = pos1.clone().add(size1.toVector().multiply(0.5));
-            Vector center2 = pos2.clone().add(size2.toVector().multiply(0.5));
+            double deltaLeft = pos1.getX() + size1.getWidth() - pos2.getX();
+            double deltaTop = pos1.getY() + size1.getHeight() - pos2.getY();
+            double deltaRight = pos2.getX() + size2.getWidth() - pos1.getX();
+            double deltaBottom = pos2.getY() + size2.getHeight() - pos1.getY();
+            
+            // TODO evtl. wenn schon weggesputh (min kleiner als 0, dann nichts tun)
 
-            double deltaLeft = center2.getX() - center1.getX();
-            double deltaTop = center2.getY() - center1.getY();
 
-            double deltaRight = -deltaLeft;
-            double deltaBottom = -deltaTop;
+            double min = DoubleStream.of(deltaLeft, deltaTop, deltaRight, deltaBottom).min().getAsDouble();
 
-            double max = DoubleStream.of(deltaLeft, deltaTop, deltaRight, deltaBottom).max().getAsDouble();
-
-            if (max == deltaLeft) {
+            if (min == deltaLeft) { // Nach links vom Hindernis pushen
                 boundingBox.getPosition().setX(pos2.getX() - size1.getWidth());
                 if (velocity.getX() > 0)
                     velocity.setX(0);
-            } else if (max == deltaRight) {
+            } else if (min == deltaRight) { // Nach rechts vom Hindernis pushen
                 boundingBox.getPosition().setX(pos2.getX() + size2.getWidth());
                 if (velocity.getX() < 0)
                     velocity.setX(0);
-            } else if (max == deltaTop) {
+            } else if (min == deltaTop) { // Nach oben vom Hindernis pushen
                 if (velocity.getY() >= 0)
                     onGround = true;
                 boundingBox.getPosition().setY(pos2.getY() - size1.getHeight());
                 if (velocity.getY() > 0)
                     velocity.setY(0);
-            } else if (max == deltaBottom) {
+            } else if (min == deltaBottom) { // Nach unten vom Hindernis pushen
                 boundingBox.getPosition().setY(pos2.getY() + size2.getHeight());
                 if (velocity.getY() < 0)
                     velocity.setY(0);
