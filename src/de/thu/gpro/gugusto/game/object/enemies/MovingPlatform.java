@@ -34,6 +34,7 @@ public class MovingPlatform extends Enemy {
         originPosition = position.clone();
         attached = new ArrayList<>();
         setSolid(true);
+        setMovable(false);
     }
 
     @Override
