@@ -16,27 +16,28 @@ public final class TextureLoader {
 
         Map<Texture, String> map = new HashMap<>();
 
-        map.put(Texture.BLOCK_GRASS,  "./Gugusto Graphics/grass.png");
-        map.put(Texture.BLOCK_COIN, "./Gugusto Graphics/coin.png");
-        map.put(Texture.BLOCK_CHEST, "./Gugusto Graphics/other/NEU Chest Animation.png");
-        map.put(Texture.BLOCK_JUMP_PAD, "./Gugusto Graphics/128x128 Autumn/GrassJoinHillRight2.png"); // TODO
+        map.put(Texture.BLOCK_GRASS,  "/textures/blocks/grass.png");
+        map.put(Texture.BLOCK_COIN, "/textures/blocks/coin.png");
+        map.put(Texture.BLOCK_CHEST, "/textures/blocks/chest.png");
+        map.put(Texture.BLOCK_JUMP_PAD, "/textures/blocks/jumpPad.png"); // TODO
 
-        map.put(Texture.ENEMY_SAW, "./Gugusto Graphics/saw.png");
-        map.put(Texture.ENEMY_GUSTAV_WALK, "./Gugusto Graphics/100x80 Enemy Run.png");
-        map.put(Texture.ENEMY_VERFOLGI_WALK, "./Gugusto Graphics/Enemy Yellow Run.png");
+        map.put(Texture.ENEMY_SAW, "/textures/enemies/saw.png");
+        map.put(Texture.ENEMY_GUSTAV_WALK, "/textures/enemies/gustav.png");
+        map.put(Texture.ENEMY_VERFOLGI_WALK, "/textures/enemies/verfolgi.png");
 
-        map.put(Texture.PLAYER_IDLE, "./Gugusto Graphics/100x80 Character Blink Right.png");
-        map.put(Texture.PLAYER_JUMP_FALL, "./Gugusto Graphics/100x80 Character Jump Right.png");
-        map.put(Texture.PLAYER_WALK, "./Gugusto Graphics/100x80 Character Run Right.png");
+        map.put(Texture.PLAYER_IDLE, "/textures/player/playerBlink.png");
+        map.put(Texture.PLAYER_JUMP_FALL, "/textures/player/playerJump.png");
+        map.put(Texture.PLAYER_WALK, "/textures/player/playerRun.png");
 
-        map.put(Texture.ICONS, "./Gugusto Graphics/icons.png");
-        map.put(Texture.BUTTON_SECTIONS, "./Gugusto Graphics/button_sections.png");
-        map.put(Texture.BACKGROUND, "./Gugusto Graphics/Background/Green Background.png");
+        map.put(Texture.ICONS, "/textures/miscellaneous/icons.png");
+        map.put(Texture.BUTTON_SECTIONS, "/textures/miscellaneous/buttonSections.png");
+        map.put(Texture.BACKGROUND, "/textures/miscellaneous/background.png");
 
         for (Map.Entry<Texture, String> entry : map.entrySet()) {
             try {
-                textures.put(entry.getKey(), ImageIO.read(new File(entry.getValue())));
-            } catch (IOException e) {
+                textures.put(entry.getKey(), ImageIO.read(TextureLoader.class.getResource(entry.getValue())));
+            } catch (IOException | IllegalArgumentException e) {
+                System.err.println("Error while reading file " + entry.getValue());
                 e.printStackTrace();
             }
         }

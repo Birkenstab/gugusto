@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args){
         try {
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Mali-Bold.ttf")));
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, Main.class.getResourceAsStream("/fonts/Mali-Bold.ttf")));
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
