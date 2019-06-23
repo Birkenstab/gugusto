@@ -29,12 +29,12 @@ class PlayerAnimation {
     }
 
     private void initializeAnimations(){
-        BufferedImage[] jumpfall = SpriteSheet.extract(jumpFallImage, 2, 1, 76, 78);
+        BufferedImage[] jumpfall = SpriteSheet.extract(jumpFallImage, 2, 1, 100, 80);
         jumpImage = jumpfall[0];
         fallImage = jumpfall[1];
-        idleAnimation = new SpriteAnimation(SpriteSheet.extract(idleImage, 11, 1, 72, 74), 1000);
+        idleAnimation = new SpriteAnimation(SpriteSheet.extract(idleImage, 11, 1, 100, 80), 500);
         idleAnimation.setAfterLoopSleepTime(1500);
-        walkAnimation = new SpriteAnimation(SpriteSheet.extract(walkImage, 6, 1, 76, 76), 1000);
+        walkAnimation = new SpriteAnimation(SpriteSheet.extract(walkImage, 18, 1, 100, 80), 600);
         currentAnimation = idleAnimation;
     }
 

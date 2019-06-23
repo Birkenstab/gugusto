@@ -25,9 +25,9 @@ public final class TextureLoader {
         map.put(Texture.ENEMY_GUSTAV_WALK, "./Gugusto Graphics/100x80 Enemy Run.png");
         map.put(Texture.ENEMY_VERFOLGI_WALK, "./Gugusto Graphics/Enemy Yellow Run.png");
 
-        map.put(Texture.PLAYER_IDLE, "./Gugusto Graphics/idle.png");
-        map.put(Texture.PLAYER_JUMP_FALL, "./Gugusto Graphics/jumpfall.png");
-        map.put(Texture.PLAYER_WALK, "./Gugusto Graphics/walk.png");
+        map.put(Texture.PLAYER_IDLE, "./Gugusto Graphics/100x80 Character Blink Right.png");
+        map.put(Texture.PLAYER_JUMP_FALL, "./Gugusto Graphics/100x80 Character Jump Right.png");
+        map.put(Texture.PLAYER_WALK, "./Gugusto Graphics/100x80 Character Run Right.png");
 
         map.put(Texture.ICONS, "./Gugusto Graphics/icons.png");
         map.put(Texture.BUTTON_SECTIONS, "./Gugusto Graphics/button_sections.png");

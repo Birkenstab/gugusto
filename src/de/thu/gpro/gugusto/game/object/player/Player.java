@@ -29,7 +29,7 @@ public class Player extends DynamicGameObject {
 
     public Player(Vector position){
         super(position, size.clone());
-        drawBoundingBox = new BoundingBox(new Vector(-0.1, -0.2), new Size(1, 1));
+        drawBoundingBox = new BoundingBox(new Vector(-0.25, -0.2), new Size(1.25, 1));
 
         state = new PlayerState();
         animation = new PlayerAnimation(state);
