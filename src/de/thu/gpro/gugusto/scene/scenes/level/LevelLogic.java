@@ -219,7 +219,7 @@ public class LevelLogic {
         Vector playerPos = camera.toScreenCoordinates(level.getPlayer().getBoundingBox().getPosition());
         Size playerSize = camera.toScreenCoordinates(level.getPlayer().getBoundingBox().getSize());
         Vector diff = playerPos.subtract(camera.getPosition());
-        Vector border = new Vector(100, 200);
+        Vector border = new Vector(Game.WIDTH/2, Game.HEIGHT/2);
         Vector offset = new Vector();
 
         if(diff.getX() < border.getX()){
