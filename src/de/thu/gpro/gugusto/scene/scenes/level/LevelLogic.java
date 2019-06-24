@@ -216,28 +216,29 @@ public class LevelLogic {
     }
 
     private void updateCamera(){
+        Vector border = new Vector(500, 250);
+
         Vector playerPos = camera.toScreenCoordinates(level.getPlayer().getBoundingBox().getPosition());
         Size playerSize = camera.toScreenCoordinates(level.getPlayer().getBoundingBox().getSize());
-        Vector diff = playerPos.subtract(camera.getPosition());
-        Vector border = new Vector(Game.WIDTH/2, Game.HEIGHT/2);
         Vector offset = new Vector();
 
-        if(diff.getX() < border.getX()){
-            offset.setX(diff.getX() - border.getX());
+        if(playerPos.getX() < border.getX()){
+            offset.setX(playerPos.getX() - border.getX());
         } else {
-            double offsetX = Game.INNER_WIDTH - diff.getX() - playerSize.getWidth();
+            double offsetX = Game.INNER_WIDTH - playerPos.getX() - playerSize.getWidth();
             if(offsetX < border.getX()) offset.setX(border.getX() - offsetX);
         }
 
-        if(diff.getY() < border.getY()){
-            offset.setY(diff.getY() - border.getY());
+        if(playerPos.getY() < border.getY()){
+            offset.setY(playerPos.getY() - border.getY());
         } else {
-            double offsetY = Game.INNER_HEIGHT - diff.getY() - playerSize.getHeight();
+            double offsetY = Game.INNER_HEIGHT - playerPos.getY() - playerSize.getHeight();
             if(offsetY < border.getY()) offset.setY(border.getY() - offsetY);
         }
 
         camera.move(offset.divide(camera.getScaling()));
         int levelHeight = level.getChunkList().getHeight() * Chunk.SIZE;
+
         if (camera.toWorldCoordinates(new Vector(0, Game.INNER_HEIGHT)).getY() > levelHeight) { // Camera soll keinen Bereich unter dem untersten Chunk zeigen
             camera.set(new Vector(camera.getPosition().getX(), (levelHeight * camera.getScaling() - Game.INNER_HEIGHT) / camera.getScaling()));
         }
