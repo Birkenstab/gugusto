@@ -1,5 +1,8 @@
 package de.thu.gpro.gugusto.ui.components;
 
+import de.thu.gpro.gugusto.input.event.EventCallback;
+import de.thu.gpro.gugusto.input.event.InputEventType;
+import de.thu.gpro.gugusto.input.event.KeyEvent;
 import de.thu.gpro.gugusto.util.Size;
 import de.thu.gpro.gugusto.util.Vector;
 
@@ -18,6 +21,16 @@ public class FpsCounter extends UIComponent {
     public FpsCounter(Vector position) {
         super(position, new Size(WIDTH, HEIGHT));
         since = System.currentTimeMillis();
+
+        addListener(InputEventType.KEY_DOWN, (EventCallback<KeyEvent>) e -> {
+            if(e.getChar() == 'p'){
+                setVisible(!isVisible());
+                return true;
+            }
+            return false;
+        });
+
+        setVisible(false);
     }
 
     @Override

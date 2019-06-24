@@ -26,7 +26,7 @@ public class DebugInfoText extends UIComponent {
             return false;
         });
 
-        setVisible(true);
+        setVisible(false);
     }
 
     @Override
