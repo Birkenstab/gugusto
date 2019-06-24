@@ -52,7 +52,9 @@ public class Game {
             lastFrame = currentFrame;
 
             inputSystem.dispatch();
-            sceneManager.update(delta);
+            int count = 8;
+            for (int i = 0; i < count; i++)
+                sceneManager.update(delta / count);
             sceneManager.draw(graphicSystem);
 
             long elapsedTime = System.currentTimeMillis() - lastFrame;
