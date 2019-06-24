@@ -76,4 +76,8 @@ public class Game {
     public Level getCurrentLevel() {
         return sceneManager.getScene().getLevelLayer().getLogic().getLevel();
     }
+
+    public Camera getCamera() {
+        return sceneManager.getScene().getLevelLayer().getCamera();
+    }
 }

@@ -32,6 +32,10 @@ public class MultilineLabel extends UIComponent {
         boundingBox.getSize().set(width, height);
     }
 
+    public void setColor(Color color) {
+        labels.forEach(label -> label.setColor(color));
+    }
+
     public void setPosition(Vector position) {
         boundingBox.getPosition().set(position);
         updatePositions();

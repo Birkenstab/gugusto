@@ -6,6 +6,7 @@ import de.thu.gpro.gugusto.input.event.InputEventType;
 import de.thu.gpro.gugusto.input.event.KeyEvent;
 import de.thu.gpro.gugusto.scene.UILayer;
 import de.thu.gpro.gugusto.scene.scenes.startmenu.StartMenuScene;
+import de.thu.gpro.gugusto.ui.components.BackgroundCurtain;
 import de.thu.gpro.gugusto.ui.components.button.BackToStartButton;
 import de.thu.gpro.gugusto.ui.components.button.IconButton;
 import de.thu.gpro.gugusto.ui.icon.Icon;
@@ -25,6 +26,7 @@ public class LevelEditorSelectionUILayer extends UILayer {
 
         config = new LevelEditorSelectionConfig();
 
+        addUIComponent(new BackgroundCurtain());
         addUIComponent(backButton);
         addUIComponent(config);
         addUIComponent(new LevelEditorSelectionLevelList());

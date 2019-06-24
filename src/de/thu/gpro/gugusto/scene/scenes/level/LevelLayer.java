@@ -73,7 +73,7 @@ public class LevelLayer extends Layer {
 
 
     @Override
-    protected Camera getCamera() {
+    public Camera getCamera() {
         return logic.getCamera();
     }
 

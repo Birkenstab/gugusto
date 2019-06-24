@@ -5,6 +5,7 @@ import de.thu.gpro.gugusto.scene.UILayer;
 import de.thu.gpro.gugusto.scene.scenes.credits.CreditsScene;
 import de.thu.gpro.gugusto.scene.scenes.leveleditor.selection.LevelEditorSelectionScene;
 import de.thu.gpro.gugusto.scene.scenes.levelselection.LevelSelectionScene;
+import de.thu.gpro.gugusto.ui.components.BackgroundCurtain;
 import de.thu.gpro.gugusto.ui.components.Panel;
 import de.thu.gpro.gugusto.ui.components.button.IconButton;
 import de.thu.gpro.gugusto.ui.components.LabelFactory;
@@ -45,7 +46,7 @@ public class StartMenuUILayer extends UILayer {
         creditsButton.setClickListener(b -> Game.getInstance().getSceneManager().setScene(new CreditsScene()));
         exitButton.setClickListener(b -> System.exit(0));
 
-        addUIComponent(new Panel(new Vector(), new Size(Game.INNER_WIDTH, Game.INNER_HEIGHT), new Color(0.0f, 0.0f, 0.0f, 0.2f)));
+        addUIComponent(new BackgroundCurtain());
         addUIComponent(titleShadow);
         addUIComponent(title);
         addUIComponent(playButton);
