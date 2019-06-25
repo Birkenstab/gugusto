@@ -85,7 +85,7 @@ public abstract class GenericWalkingEnemy extends Enemy {
             double playerBottom = other.getBoundingBox().getPosition().getY() + other.getBoundingBox().getSize().getHeight();
             if (playerBottom < boundingBox.getPosition().getY() + boundingBox.getSize().getHeight() / 4) {
                 kill(other);
-                ((Player) other).getVelocity().setY(-15);
+                ((Player) other).getVelocity().setY(-20);
             } else {
                 ((Player) other).kill(this);
             }
