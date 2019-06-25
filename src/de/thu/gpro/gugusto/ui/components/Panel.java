@@ -16,6 +16,7 @@ public class Panel extends UIComponent {
 
     private Map<InputEventType, Boolean> hasNoListener;
 
+    protected boolean rounded = false;
     protected Color color;
 
     public Panel(Vector position, Size size) {
@@ -52,13 +53,43 @@ public class Panel extends UIComponent {
     @Override
     public void draw(Graphics2D g2d){
         if(color != null){
-            g2d.setColor(color);
-            g2d.fillRect(getX(), getY(), getWidth(), getHeight());
+            if(rounded){
+                g2d.setColor(Color.BLACK);
+                drawRoundedRect(g2d, new Vector(2, 2));
+                g2d.setColor(color);
+                drawRoundedRect(g2d, new Vector());
+            } else {
+                g2d.setColor(color);
+                g2d.fillRect(getX(), getY(), getWidth(), getHeight());
+            }
         }
+    }
+
+    private void drawRoundedRect(Graphics2D g2d, Vector offset){
+        int bs = 10; // border radius size
+        int bsh = bs / 2; // border radius half
+        int ox = (int)offset.getX();
+        int oy = (int)offset.getY();
+
+        g2d.fillArc(getX() + ox, getY() + oy, bs, bs, 0, 360);
+        g2d.fillArc(getX() + getWidth() - bs + ox, getY() + oy, bs, bs, 0, 360);
+        g2d.fillArc(getX() + ox, getY() + getHeight() - bs + oy, bs, bs, 0, 360);
+        g2d.fillArc(getX() + getWidth() - bs + ox, getY() + getHeight() - bs + oy, bs, bs, 0, 360);
+
+        g2d.fillRect(getX() + bsh + ox, getY() + oy, getWidth() - bs, bs);
+        g2d.fillRect(getX() + bsh + ox, getY() + getHeight() - bs + oy, getWidth() - bs, bs);
+        g2d.fillRect(getX() + ox, getY() + bsh + oy, bs, getHeight() - bs);
+        g2d.fillRect(getX() + getWidth() - bs + ox, getY() + bsh + oy, bs, getHeight() - bs);
+
+        g2d.fillRect(getX() + bs + ox, getY() + bs + oy, getWidth() - bs * 2, getHeight() - bs * 2);
     }
 
     protected void setFilter(InputEventType type, boolean enable){
         hasNoListener.put(type, enable);
+    }
+
+    public void setRounded(boolean rounded){
+        this.rounded = rounded;
     }
 
 }

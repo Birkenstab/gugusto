@@ -38,6 +38,7 @@ public class LevelEditorSelectionLevelList extends ScrollPanel {
         this.confirmationPopup = confirmationPopup;
         color = Color.GRAY;
         callback = button -> deleteListItem();
+        color = new Color(0, 0, 0, 50);
 
         buildList();
         build();
@@ -77,6 +78,7 @@ public class LevelEditorSelectionLevelList extends ScrollPanel {
 
         public static final int height = 50;
         private final Size iconSize = new Size(38, 38);
+        private final Color color = new Color(230, 230, 230);
 
         private Path path;
         private Label levelName;
@@ -86,6 +88,7 @@ public class LevelEditorSelectionLevelList extends ScrollPanel {
         public ListItem(int n, Path path){
             super(new Vector(0, n * height).add(position), new Size(size.getWidth(), height), new Color(230, 230, 230));
             this.path = path;
+            super.color = color;
 
             setFilter(InputEventType.MOUSE_SCROLL, false);
 

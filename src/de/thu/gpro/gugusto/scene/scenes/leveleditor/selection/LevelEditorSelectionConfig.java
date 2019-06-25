@@ -41,6 +41,7 @@ public class LevelEditorSelectionConfig extends Panel {
         levelWidth = new NumberField(levelWidthPosition, 100, "Width");
         levelHeight = new NumberField(levelHeightPosition, 100, "Height");
         createLevelButton = new TextButton(lf.create(createLevelPosition, "Create Level"));
+        rounded = true;
 
         createLevelButton.setClickListener(b -> createLevel());
 

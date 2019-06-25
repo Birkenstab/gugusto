@@ -3,6 +3,7 @@ package de.thu.gpro.gugusto.scene.scenes.leveleditor.editor;
 import de.thu.gpro.gugusto.game.level.Level;
 import de.thu.gpro.gugusto.game.level.io.LevelLoader;
 import de.thu.gpro.gugusto.scene.Scene;
+import de.thu.gpro.gugusto.scene.scenes.levelselection.BackgroundLayer;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -34,6 +35,8 @@ public class LevelEditorScene extends Scene {
 
         levelEditorAction.setLevelEditorLayer(levelEditorLayer);
 
+
+        addLayer(new BackgroundLayer());
         addLayer(levelEditorLayer);
         addLayer(levelEditorUILayer);
     }

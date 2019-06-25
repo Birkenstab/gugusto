@@ -38,6 +38,7 @@ public abstract class Menu extends Panel {
         closeButton = new IconButton(new Vector(), closeButtonSize, Icon.CLOSE);
         closeButton.setClickListener(e -> setVisible(false));
         menuItems = new ArrayList<>();
+        rounded = true;
 
         addListener(InputEventType.KEY_DOWN, this::onKeyDown);
         addListener(InputEventType.KEY_UP, e -> isVisible());
