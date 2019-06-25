@@ -12,12 +12,12 @@ public class FadingLabel extends Label {
     private ColorAlphaAnimation animation;
 
     public FadingLabel(String label, Color color) {
-        super(new Vector(), label, new Vector(), new Font("Arial", Font.PLAIN, 50));
+        super(new Vector(), label, Game.INNER_WIDTH, new Vector(), new Font("Arial", Font.PLAIN, 50), Alignment.CENTER);
 
         animation = new ColorAlphaAnimation(color, 1000);
 
         Size size = getBoundingBox().getSize();
-        setPosition(new Vector((Game.INNER_WIDTH - size.getWidth()) / 2, (Game.INNER_HEIGHT - size.getHeight()) / 2));
+        setPosition(new Vector(0, (Game.INNER_HEIGHT - size.getHeight()) / 2));
     }
 
     @Override

@@ -31,14 +31,14 @@ public class Label extends UIComponent {
         return new Size(padded);
     }
 
-    Label(Vector position, String text, Vector padding, Font font) {
+    public Label(Vector position, String text, Vector padding, Font font) {
         super(position, calcSize(text, padding, font));
         this.text = text;
         this.font = font;
         this.padding = padding;
     }
 
-    Label(Vector position, String text, int width, Vector padding, Font font, Alignment alignment) {
+    public Label(Vector position, String text, int width, Vector padding, Font font, Alignment alignment) {
         super(position, calcSize(text, padding, font));
         this.text = text;
         this.font = font;
