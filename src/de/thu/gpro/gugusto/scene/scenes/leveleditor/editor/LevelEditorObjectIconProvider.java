@@ -27,6 +27,7 @@ class LevelEditorObjectIconProvider {
         blockMap.put(BlockType.COIN, Coin.TEXTURE);
         blockMap.put(BlockType.CHEST, Chest.TEXTURE);
         blockMap.put(BlockType.JUMP_PAD, JumpPad.TEXTURE);
+        blockMap.put(BlockType.DIRT, DirtBlock.TEXTURE);
     }
 
     public static BufferedImage getEnemyIcon(EnemyType type) {

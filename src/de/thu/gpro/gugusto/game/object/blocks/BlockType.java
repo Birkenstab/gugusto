@@ -11,7 +11,8 @@ public enum BlockType {
     GOAL(2),
     COIN(3),
     CHEST(4),
-    JUMP_PAD(5);
+    JUMP_PAD(5),
+    DIRT(6);
 
     private static final Map<Integer, BlockType> map = new HashMap<>();
 
