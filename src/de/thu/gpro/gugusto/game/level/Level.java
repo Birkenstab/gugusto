@@ -51,4 +51,8 @@ public class Level {
     public void setPlayer(Player player) {
         this.player = player;
     }
+
+    public void setStartPosition(Vector position){
+        startPosition = position;
+    }
 }

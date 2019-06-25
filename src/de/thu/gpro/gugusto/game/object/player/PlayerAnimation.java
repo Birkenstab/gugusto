@@ -15,6 +15,12 @@ class PlayerAnimation {
     private static final BufferedImage jumpFallImage = TextureLoader.get(Texture.PLAYER_JUMP_FALL);
     private static final BufferedImage walkImage = TextureLoader.get(Texture.PLAYER_WALK);
 
+    private static final BufferedImage[] idleFrames = SpriteSheet.extract(idleImage, 11, 1, 100, 80);
+    private static final BufferedImage[] walkAnimationFrames = SpriteSheet.extract(walkImage, 18, 1, 100, 80);
+    private static final BufferedImage[] jumpFallFrames = SpriteSheet.extract(jumpFallImage, 2, 1, 100, 80);
+
+    static final BufferedImage TEXTURE = idleFrames[0];
+
     private PlayerState state;
     private SpriteAnimation currentAnimation;
     private SpriteAnimation idleAnimation;
@@ -29,12 +35,11 @@ class PlayerAnimation {
     }
 
     private void initializeAnimations(){
-        BufferedImage[] jumpfall = SpriteSheet.extract(jumpFallImage, 2, 1, 100, 80);
-        jumpImage = jumpfall[0];
-        fallImage = jumpfall[1];
-        idleAnimation = new SpriteAnimation(SpriteSheet.extract(idleImage, 11, 1, 100, 80), 500);
+        jumpImage = jumpFallFrames[0];
+        fallImage = jumpFallFrames[1];
+        idleAnimation = new SpriteAnimation(idleFrames, 500);
         idleAnimation.setAfterLoopSleepTime(1500);
-        walkAnimation = new SpriteAnimation(SpriteSheet.extract(walkImage, 18, 1, 100, 80), 600);
+        walkAnimation = new SpriteAnimation(walkAnimationFrames, 600);
         currentAnimation = idleAnimation;
     }
 

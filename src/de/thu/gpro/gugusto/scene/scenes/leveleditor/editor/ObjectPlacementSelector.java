@@ -65,9 +65,17 @@ public class ObjectPlacementSelector extends TabPanel {
             i++;
         }
 
+        addPlayerPositionEntry(scrollPanel, i);
+
         scrollPanel.build();
 
         return scrollPanel;
+    }
+
+    private void addPlayerPositionEntry(ScrollPanel scrollPanel, int i){
+        ImageButton button = new ImageButton(new Vector((i % 4) * 50, (i / 4) * 50), new Size(32, 32), LevelEditorObjectIconProvider.getPlayerIcon());
+        button.setClickListener(b -> setSelection(0, Type.Player));
+        scrollPanel.addUIComponent(button);
     }
 
     private ScrollPanel buildEnemySelection(){

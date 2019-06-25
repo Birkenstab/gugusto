@@ -10,7 +10,7 @@ import java.awt.*;
 
 public abstract class GameObject {
 
-    public enum Type { Block, Enemy }
+    public enum Type { Block, Enemy, Player }
 
     private static final int insetX = (int)Game.WINDOW.getTopLeftInsets().getX();
     private static final int insetY = (int)Game.WINDOW.getTopLeftInsets().getY();

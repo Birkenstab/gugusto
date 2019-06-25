@@ -13,11 +13,13 @@ import de.thu.gpro.gugusto.game.object.blocks.GoalBlock;
 import de.thu.gpro.gugusto.util.Size;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Player extends DynamicGameObject {
 
     public enum State { IDLE, WALK, JUMP, FALL }
 
+    public static BufferedImage TEXTURE = PlayerAnimation.TEXTURE;
     private static final Vector JUMP_VELOCITY = new Vector(0, -18);
     private static final Size size = new Size(0.8, 0.8);
 

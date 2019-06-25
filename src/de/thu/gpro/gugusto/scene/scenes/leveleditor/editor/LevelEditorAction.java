@@ -42,6 +42,9 @@ class LevelEditorAction {
             Enemy enemy = EnemyFactory.create(selectedId, blockPosition);
             level.getEnemies().add(enemy);
             gameObjects.add(enemy);
+        } else if(selectedType == GameObject.Type.Player){
+            level.getPlayer().getBoundingBox().getPosition().set(blockPosition);
+            level.setStartPosition(blockPosition);
         }
     }
 
@@ -71,6 +74,7 @@ class LevelEditorAction {
     public void setSelectedObject(int id, GameObject.Type type){
         selectedId = id;
         selectedType = type;
+        if(type == GameObject.Type.Player) levelEditorLayer.setMode(LevelEditorMode.Mode.SINGLE);
     }
 
     public void setLevelEditorLayer(LevelEditorLayer layer){
@@ -98,6 +102,10 @@ class LevelEditorAction {
 
     public String getModeString(){
         return levelEditorLayer.getMode() == LevelEditorMode.Mode.SINGLE ? "Mode: Single" : "Mode: Area";
+    }
+
+    public GameObject.Type getSelectedType(){
+        return selectedType;
     }
 
 }

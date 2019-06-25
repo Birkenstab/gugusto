@@ -72,7 +72,7 @@ class LevelEditorLayer extends Layer {
 
     private boolean onKeyDown(KeyEvent event){
         if(event.getChar() == 'g') showGrid = !showGrid;
-        else if(event.getChar() == 'm') mode.toggle();
+        else if(event.getChar() == 'm' && levelEditorAction.getSelectedType() != GameObject.Type.Player) mode.toggle();
 
         return event.getChar() == 'g' || event.getChar() == 'm';
     }
