@@ -9,6 +9,7 @@ import de.thu.gpro.gugusto.ui.components.LabelFactory;
 import de.thu.gpro.gugusto.ui.components.Panel;
 import de.thu.gpro.gugusto.ui.components.ScrollPanel;
 import de.thu.gpro.gugusto.ui.components.button.IconButton;
+import de.thu.gpro.gugusto.ui.components.button.Button;
 import de.thu.gpro.gugusto.ui.icon.Icon;
 import de.thu.gpro.gugusto.util.Size;
 import de.thu.gpro.gugusto.util.Vector;
@@ -26,12 +27,18 @@ public class LevelEditorSelectionLevelList extends ScrollPanel {
     private static final Vector position = new Vector((Game.INNER_WIDTH - size.getWidth()) / 2, 120);
     private static final Font font = new Font("Arial", Font.BOLD, 16);
 
+    private ConfirmationPopup confirmationPopup;
+    private ListItem toDeleteListItem;
+    private Button.OnClickListener callback;
     private int listItemCount;
 
-    public LevelEditorSelectionLevelList(){
+    public LevelEditorSelectionLevelList(ConfirmationPopup confirmationPopup){
         super(position, size, 3);
 
+        this.confirmationPopup = confirmationPopup;
         color = Color.GRAY;
+        callback = button -> deleteListItem();
+
         buildList();
         build();
     }
@@ -50,20 +57,20 @@ public class LevelEditorSelectionLevelList extends ScrollPanel {
     }
 
     private void deleteLevel(Path path, ListItem item){
-        try {
-            Files.delete(path);
-            int index = components.indexOf(item);
+        confirmationPopup.prompt(path);
+        toDeleteListItem = item;
+    }
 
-            for(int i = index; i < listItemCount - 1; i++){
-                ((ListItem)components.get(i)).replace((ListItem)components.get(i + 1));
-            }
+    private void deleteListItem(){
+        int index = components.indexOf(toDeleteListItem);
 
-            components.get(listItemCount - 1).setVisible(false);
-            listItemCount--;
-            maxScrollY -= ListItem.height;
-        } catch (IOException e) {
-            e.printStackTrace();
+        for(int i = index; i < listItemCount - 1; i++){
+            ((ListItem)components.get(i)).replace((ListItem)components.get(i + 1));
         }
+
+        components.get(listItemCount - 1).setVisible(false);
+        listItemCount--;
+        maxScrollY -= ListItem.height;
     }
 
     private class ListItem extends Panel {
@@ -118,6 +125,10 @@ public class LevelEditorSelectionLevelList extends ScrollPanel {
             g2d.drawLine(getX(), getY() + getHeight() - 1, getX() + getWidth(), getY() + getHeight() - 1);
         }
 
+    }
+
+    public Button.OnClickListener getCallback(){
+        return callback;
     }
 
 }
