@@ -1,23 +1,17 @@
 package de.thu.gpro.gugusto.game.object.blocks;
 
-import de.thu.gpro.gugusto.game.Camera;
+import de.thu.gpro.gugusto.graphic.Texture;
+import de.thu.gpro.gugusto.graphic.TextureLoader;
 import de.thu.gpro.gugusto.util.Vector;
 
-import java.awt.*;
+import java.awt.image.BufferedImage;
 
-public class GoalBlock extends Block {
+public class GoalBlock extends TextureBlock {
+
+    public static final BufferedImage TEXTURE = TextureLoader.get(Texture.BLOCK_GOAL);
 
     public GoalBlock(Vector position) {
-        super(BlockType.GOAL, position, false);
-    }
-
-    @Override
-    public void draw(Graphics2D g2d, Camera camera) {
-        super.draw(g2d, camera);
-
-        g2d.setColor(Color.GRAY);
-        g2d.drawRect(getX(), getY(), getWidth(), getHeight());
-        // Todo nur vorrübergehend zum Testen sichtbar
+        super(BlockType.GOAL, position, TEXTURE, false);
     }
 
 }

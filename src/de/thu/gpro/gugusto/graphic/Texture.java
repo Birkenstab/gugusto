@@ -7,6 +7,7 @@ public enum Texture {
     BLOCK_CHEST,
     BLOCK_JUMP_PAD,
     BLOCK_DIRT,
+    BLOCK_GOAL,
 
     ENEMY_SAW,
 

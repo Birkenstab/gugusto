@@ -31,7 +31,6 @@ public class Main {
             }
             try {
                 URI uri = Main.class.getResource("/levels").toURI();
-                System.out.println(uri);
                 Path myPath;
                 if (uri.getScheme().equals("jar")) {
                     FileSystem fileSystem = FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap());

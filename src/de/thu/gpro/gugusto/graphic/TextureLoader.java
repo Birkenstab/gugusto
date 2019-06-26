@@ -21,6 +21,7 @@ public final class TextureLoader {
         map.put(Texture.BLOCK_CHEST, "/textures/blocks/chest.png");
         map.put(Texture.BLOCK_JUMP_PAD, "/textures/blocks/jumpPad.png"); // TODO
         map.put(Texture.BLOCK_DIRT, "/textures/blocks/dirt.png");
+        map.put(Texture.BLOCK_GOAL, "/textures/blocks/goal.png");
 
         map.put(Texture.ENEMY_SAW, "/textures/enemies/saw.png");
         map.put(Texture.ENEMY_GUSTAV_WALK, "/textures/enemies/gustav.png");
