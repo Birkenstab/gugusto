@@ -15,8 +15,9 @@ import java.awt.geom.Rectangle2D;
 
 public class TextField extends Panel {
 
-    private static final Font font = new Font("Arial", Font.BOLD, 16);
+    private static final Font font = new Font("Arial", Font.PLAIN, 16);
     private static final int padding = 5;
+    private static final Color placeholderColor = new Color(160, 160, 160);
 
     private Label label;
     private String placeholder;
@@ -32,6 +33,7 @@ public class TextField extends Panel {
 
         LabelFactory lf = new LabelFactory(200, new Vector(padding, padding), font, Label.Alignment.LEFT);
         label = lf.create(position, placeholder);
+        label.setColor(placeholderColor);
         addUIComponent(label);
 
         addListener(InputEventType.KEY_DOWN, this::onKeyDown);
@@ -57,6 +59,7 @@ public class TextField extends Panel {
             }
 
             label.setText(value.equals("") ? placeholder : value);
+            label.setColor(value.equals("") ? placeholderColor : Color.BLACK);
             return true;
         }
 
