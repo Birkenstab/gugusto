@@ -90,12 +90,7 @@ public class LevelEditorMode {
     }
 
     public boolean onMouseMove(MouseEvent event){
-        if(mode == Mode.SINGLE){
-            if(MouseState.isDown(MouseEvent.BUTTON1)) handleNormalMode(event.asVector(), MouseEvent.BUTTON1);
-            else if(MouseState.isDown(MouseEvent.BUTTON3)) handleNormalMode(event.asVector(), MouseEvent.BUTTON3);
-        } else if(mode == Mode.AREA){
-            if(areaActive) updateDrawMetrics();
-        }
+        if(mode == Mode.AREA) if(areaActive) updateDrawMetrics();
 
         return false;
     }
