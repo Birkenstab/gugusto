@@ -38,6 +38,7 @@ public class LevelLogic {
     private int updateTimeCount = 0;
     private List<DynamicGameObject> inactiveDynamicGameObjects = new ArrayList<>();
     private List<DynamicGameObject> activeDynamicGameObjects = new ArrayList<>();
+    private List<Chunk> visibleChunks = new ArrayList<>();
     private boolean showBoundingBoxes = false;
     private boolean aiMode;
 
@@ -62,18 +63,21 @@ public class LevelLogic {
     }
 
     public void update(double delta) {
+        visibleChunks = getVisibleChunks();
+        DebugInfo.visibleChunks = visibleChunks.size();
+
         if (KeyState.isDown('y')) // TODO Nur zum Debugging
             delta /= 10;
         double time = System.nanoTime();
         if (running) {
             handleActivations();
 
-            for (List<Chunk> chunks : level.getChunkList().getChunks()) {
-                for (Chunk chunk : chunks)
-                    for (Block block : chunk.getBlocks()) {
-                        doUpdate(delta, block);
-                    }
+            for (Chunk chunk : visibleChunks) {
+                for (Block block : chunk.getBlocks()) {
+                    doUpdate(delta, block);
+                }
             }
+
             for (GameObject object : activeDynamicGameObjects) {
                 doUpdate(delta, object);
             }
@@ -121,9 +125,6 @@ public class LevelLogic {
         for(GameObject object : activeDynamicGameObjects){
             doDraw(g2d, object);
         }
-
-        List<Chunk> visibleChunks = getVisibleChunks();
-        DebugInfo.visibleChunks = visibleChunks.size();
 
         for(Chunk chunk : visibleChunks){
             for (Block block : chunk.getBlocks()) {
