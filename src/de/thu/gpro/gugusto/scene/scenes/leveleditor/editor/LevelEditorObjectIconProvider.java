@@ -26,7 +26,7 @@ class LevelEditorObjectIconProvider {
         enemyMap.put(EnemyType.MOVING_PLATFORM, MovingPlatform.TEXTURE);
 
         blockMap.put(BlockType.GRASS, GrassBlock.TEXTURE);
-        blockMap.put(BlockType.GOAL, TextureLoader.get(Texture.BUTTON_SECTIONS));
+        blockMap.put(BlockType.GOAL, TextureLoader.get(Texture.BLOCK_GOAL));
         blockMap.put(BlockType.COIN, Coin.TEXTURE);
         blockMap.put(BlockType.CHEST, Chest.TEXTURE);
         blockMap.put(BlockType.JUMP_PAD, JumpPad.TEXTURE);
