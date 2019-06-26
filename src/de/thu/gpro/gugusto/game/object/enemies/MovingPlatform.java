@@ -44,13 +44,15 @@ public class MovingPlatform extends Enemy {
         double increment = speed * delta;
         double newOffset = offset + increment;
 
+        System.out.println(String.format("Before if increment: %f", increment));
         if(newOffset >= range){
-            increment = newOffset - range;
+            increment = range - newOffset;
             speed *= -1;
         } else if(newOffset <= 0){
             increment = -newOffset;
             speed *= -1;
         }
+        System.out.println(String.format("After if increment: %f", increment));
 
         offset += increment;
 
