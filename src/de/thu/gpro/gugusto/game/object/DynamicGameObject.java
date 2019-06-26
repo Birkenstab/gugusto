@@ -21,9 +21,11 @@ public abstract class DynamicGameObject extends GameObject {
     @Override
     public void update(double delta) {
         if (gravity) {
-            velocity.add(new Vector(0, GRAVITY * delta));
-            boundingBox.getPosition().add(velocity.clone().multiply(delta));
+            if (velocity.getY() < 30) {
+                velocity.add(new Vector(0, GRAVITY * delta));
+            }
         }
+        boundingBox.getPosition().add(velocity.clone().multiply(delta));
     }
 
     @Override
