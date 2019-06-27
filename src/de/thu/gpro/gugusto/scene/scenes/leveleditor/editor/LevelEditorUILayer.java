@@ -17,7 +17,7 @@ class LevelEditorUILayer extends UILayer {
 
     LevelEditorUILayer(LevelEditorAction levelEditorAction){
         this.levelEditorAction = levelEditorAction;
-        objectPlacementSelector = new ObjectPlacementSelector(new Vector(100, 100), levelEditorAction);
+        objectPlacementSelector = new ObjectPlacementSelector(new Vector(80, Game.INNER_HEIGHT - 300), levelEditorAction);
 
         int ids = Icon.DEFAULT_DRAW_SIZE;
         LabelFactory lf = new LabelFactory(new Vector(0, 0), 16);

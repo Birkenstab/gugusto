@@ -4,7 +4,6 @@ import de.thu.gpro.gugusto.collision.BoundingBox;
 import de.thu.gpro.gugusto.util.Size;
 import de.thu.gpro.gugusto.util.Vector;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class TabPanel extends Panel {
     * The TabPanel size will be: header.getBoundingBox().getSize().add(new Size(0, height));
     * */
     public TabPanel(Vector position, int height) {
-        super(position, new Size(0, height), Color.CYAN);
+        super(position, new Size(0, height));
 
         pages = new ArrayList<>();
     }

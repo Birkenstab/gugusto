@@ -26,6 +26,8 @@ public class ObjectPlacementSelector extends TabPanel {
         super(position, 200);
 
         this.levelEditorAction = levelEditorAction;
+        rounded = true;
+        color = Color.YELLOW;
 
         LabelFactory lf = new LabelFactory(100, new Vector(0, 6), 16);
         TextButton tab1 = new TextButton(lf.create(new Vector(), "Blocks"));
@@ -48,6 +50,8 @@ public class ObjectPlacementSelector extends TabPanel {
             if(e.getKeyCode() == KeyEvent.VK_ESCAPE && isVisible()){
                 setVisible(false);
                 return true;
+            } else if(e.getKeyCode() == KeyEvent.VK_TAB){
+                setVisible(!isVisible());
             }
             return false;
         });

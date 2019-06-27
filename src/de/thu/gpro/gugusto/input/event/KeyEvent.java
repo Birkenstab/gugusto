@@ -15,6 +15,7 @@ public class KeyEvent implements InputEvent {
     public static final int VK_PLUS = java.awt.event.KeyEvent.VK_PLUS;
     public static final int VK_MINUS= java.awt.event.KeyEvent.VK_MINUS;
     public static final int VK_BACK_SPACE = java.awt.event.KeyEvent.VK_BACK_SPACE;
+    public static final int VK_TAB = java.awt.event.KeyEvent.VK_TAB;
 
     private char key;
     private int keyCode;

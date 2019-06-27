@@ -45,10 +45,10 @@ public class Window extends JFrame implements KeyListener, MouseListener, MouseM
         addMouseMotionListener(this);
         addKeyListener(this);
         addMouseWheelListener(this);
+        setFocusTraversalKeysEnabled(false);
         setResizable(true);
-        if (presenterMode) {
-            device.setFullScreenWindow(this);
-        }
+
+        if(presenterMode) device.setFullScreenWindow(this);
 
         createBufferStrategy(2);
 
