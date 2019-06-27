@@ -23,8 +23,18 @@ public class Window extends JFrame implements KeyListener, MouseListener, MouseM
     private int iX; //inset x
     private int iY; //inset y
 
+    private static boolean presenterMode;
+    private static GraphicsDevice device;
+
     public Window(int width, int height){
         super("Game");
+
+        if (presenterMode) {
+            device = GraphicsEnvironment
+                    .getLocalGraphicsEnvironment().getScreenDevices()[1];
+            setUndecorated(true);
+        }
+
 
         setSize(width, height);
         setBackground(Color.WHITE);
@@ -35,7 +45,10 @@ public class Window extends JFrame implements KeyListener, MouseListener, MouseM
         addMouseMotionListener(this);
         addKeyListener(this);
         addMouseWheelListener(this);
-        setResizable(false);
+        setResizable(true);
+        if (presenterMode) {
+            device.setFullScreenWindow(this);
+        }
 
         createBufferStrategy(2);
 
@@ -128,4 +141,7 @@ public class Window extends JFrame implements KeyListener, MouseListener, MouseM
         return TOTAL_INSETS;
     }
 
+    public static void setPresenterMode(boolean presenterMode) {
+        Window.presenterMode = presenterMode;
+    }
 }
