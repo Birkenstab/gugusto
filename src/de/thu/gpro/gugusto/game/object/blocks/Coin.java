@@ -14,7 +14,7 @@ public class Coin extends AnimationBlock {
     private static final BufferedImage[] ANIMATION_FRAMES = SpriteSheet.extract(TextureLoader.get(Texture.BLOCK_COIN), 16, 1, 128, 128);
     public static final BufferedImage TEXTURE = ANIMATION_FRAMES[0];
 
-    private static SpriteAnimation createAnimation(){
+    public static SpriteAnimation createAnimation(){
         return new SpriteAnimation(ANIMATION_FRAMES, 1000);
     }
 

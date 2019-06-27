@@ -35,6 +35,7 @@ public class LevelLayer extends Layer {
 
     public void restartLevel() {
         loadLevel();
+        levelAction.getCoinLabel().setCoins(0);
     }
 
     public void pause() {

@@ -8,6 +8,7 @@ import de.thu.gpro.gugusto.scene.scenes.leveleditor.editor.LevelEditorConfig;
 import de.thu.gpro.gugusto.scene.scenes.leveleditor.editor.LevelEditorScene;
 import de.thu.gpro.gugusto.scene.scenes.levelselection.LevelSelectionScene;
 import de.thu.gpro.gugusto.scene.scenes.startmenu.StartMenuScene;
+import de.thu.gpro.gugusto.ui.components.CoinLabel;
 
 import java.nio.file.Path;
 
@@ -16,6 +17,7 @@ public class LevelAction {
     private LevelLayer levelLayer;
     private LevelUILayer uiLayer;
     private LevelEditorConfig config;
+    private CoinLabel coinLabel;
     private Path levelPath;
 
     public LevelAction(Path levelPath){
@@ -50,6 +52,14 @@ public class LevelAction {
 
     public void resume() {
         if(levelLayer != null) levelLayer.resume();
+    }
+
+    public void setCoinLabel(CoinLabel coinLabel){
+        this.coinLabel = coinLabel;
+    }
+
+    public CoinLabel getCoinLabel(){
+        return coinLabel;
     }
 
     public void setLevelLayer(LevelLayer levelLayer) {

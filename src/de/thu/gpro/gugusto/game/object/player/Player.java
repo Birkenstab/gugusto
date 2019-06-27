@@ -1,8 +1,11 @@
 package de.thu.gpro.gugusto.game.object.player;
 
 import de.thu.gpro.gugusto.collision.BoundingBox;
+import de.thu.gpro.gugusto.game.Game;
 import de.thu.gpro.gugusto.game.object.blocks.Chest;
 import de.thu.gpro.gugusto.input.event.KeyEvent;
+import de.thu.gpro.gugusto.scene.Scene;
+import de.thu.gpro.gugusto.scene.scenes.level.LevelScene;
 import de.thu.gpro.gugusto.util.Vector;
 import de.thu.gpro.gugusto.game.Camera;
 import de.thu.gpro.gugusto.game.object.Direction;
@@ -109,6 +112,12 @@ public class Player extends DynamicGameObject {
             winState = WinState.WALKING;
         } else if(other instanceof Coin) {
             other.remove();
+
+            Scene scene = Game.getInstance().getSceneManager().getScene();
+            if(scene instanceof LevelScene){
+                LevelScene lscene = (LevelScene) scene;
+                lscene.getLevelAction().getCoinLabel().addCoins(1);
+            }
         }
 
         if (winState == WinState.WALKING) {

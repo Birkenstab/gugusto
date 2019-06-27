@@ -14,9 +14,12 @@ public class WinScreen extends Panel {
     private FadingLabel deathLabel = new FadingLabel("Level Completed", new Color(0, 135, 44));
     private double elapsedTime;
     private Panel buttonsPanel;
+    private LevelAction levelAction;
 
     public WinScreen(LevelAction levelAction) {
         super(new Vector(), new Size(Game.INNER_WIDTH, Game.INNER_HEIGHT));
+
+        this.levelAction = levelAction;
 
         addUIComponent(deathLabel);
 
@@ -49,11 +52,12 @@ public class WinScreen extends Panel {
     public void update(double delta) {
         super.update(delta);
         elapsedTime += delta;
-        if (elapsedTime >= 0.7 && isVisible())
+        if (elapsedTime >= 0.7 && isVisible() && !buttonsPanel.isVisible())
             showButtons();
     }
 
     private void showButtons() {
         buttonsPanel.setVisible(true);
+        levelAction.getCoinLabel().animateCoins(100);
     }
 }

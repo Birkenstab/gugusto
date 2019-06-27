@@ -31,4 +31,9 @@ public class LevelScene extends Scene {
         addLayer(levelLayer);
         addLayer(uiLayer);
     }
+
+    public LevelAction getLevelAction(){
+        return levelAction;
+    }
+
 }
