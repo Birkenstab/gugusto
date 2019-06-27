@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferStrategy;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import static java.awt.event.MouseWheelEvent.WHEEL_UNIT_SCROLL;
 
@@ -24,16 +26,9 @@ public class Window extends JFrame implements KeyListener, MouseListener, MouseM
     private int iY; //inset y
 
     private static boolean presenterMode;
-    private static GraphicsDevice device;
 
     public Window(int width, int height){
         super("Game");
-
-        if (presenterMode) {
-            device = GraphicsEnvironment
-                    .getLocalGraphicsEnvironment().getScreenDevices()[1];
-            setUndecorated(true);
-        }
 
 
         setSize(width, height);
@@ -45,18 +40,21 @@ public class Window extends JFrame implements KeyListener, MouseListener, MouseM
         addMouseMotionListener(this);
         addKeyListener(this);
         addMouseWheelListener(this);
-        setFocusTraversalKeysEnabled(false);
-        setResizable(true);
 
-        if(presenterMode) device.setFullScreenWindow(this);
+        if (presenterMode)
+            setResizable(true);
+        else
+            setResizable(false);
 
         createBufferStrategy(2);
 
-        Insets is = getInsets();
-        iX = is.left;
-        iY = is.top;
-        INSETS.set(iX, iY);
-        TOTAL_INSETS.set(is.left + is.right, is.top + is.bottom);
+        if (!presenterMode) {
+            Insets is = getInsets();
+            iX = is.left;
+            iY = is.top;
+            INSETS.set(iX, iY);
+            TOTAL_INSETS.set(is.left + is.right, is.top + is.bottom);
+        }
     }
 
     public BufferStrategy getBufferStrategy(){
