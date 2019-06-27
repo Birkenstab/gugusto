@@ -74,6 +74,7 @@ public class LevelEditorMode {
             for(int x = 0; x < diff.getX() + 1; x++){
                 Vector position = new Vector(x, y).add(origin);
                 Vector chunkPosition = position.clone().divide(Chunk.SIZE);
+                if(position.getX() < 0 || position.getY() < 0) continue;
                 action.placeObject(new Vector(x, y).add(origin), chunkPosition, gameObjects);
             }
         }
