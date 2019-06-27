@@ -108,9 +108,13 @@ public class Player extends DynamicGameObject {
     @Override
     public void collision(GameObject other) {
         super.collision(other);
-        if (other instanceof GoalBlock) {
-            winState = WinState.WALKING;
-        } else if(other instanceof Coin) {
+        if (winState == WinState.NONE) {
+            if (other instanceof GoalBlock) {
+                winState = WinState.WALKING;
+            }
+        }
+        
+        if(other instanceof Coin) {
             other.remove();
 
             Scene scene = Game.getInstance().getSceneManager().getScene();
