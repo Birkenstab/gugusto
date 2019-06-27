@@ -32,7 +32,14 @@ public class CreditsLayer extends UILayer {
             "Free Platform Game Assets\n" +
             "by BAYAT GAMES on Unity Asset Store\n\n" +
             "Modified and adapted by\n" +
-            "David Janoschka\n\n\n\n" +
+            "David Janoschka\n\n" +
+            "Goal block texture from\n" +
+            "SuperTux\n\n\n\n" +
+            "LEVEL DESIGN\n\n" +
+            "David Janoschka\n\n" +
+            "Moritz Beck\n\n\n\n" +
+            "BETA TESTER\n\n" +
+            "Jochen Schmidt\n\n\n\n" +
             "SPECIAL THANKS TO\n\n" +
             "Thorsten Hasbargen\n\n" +
             "Technische Hochschule Ulm\n\n\n\n" +
@@ -53,7 +60,7 @@ public class CreditsLayer extends UILayer {
             "FEEDBACK BUGREPORTS ISSUES\n\n" +
             "gugusto@ultron.dev\n\n\n\n" +
             "THANKS FOR PLAYING!\n\n\n\n\n\n" +
-            "Copyright 2019 Moritz Beck, Marvin Geier, Luca Nimmrichter, David Janoschka"; // TODO leveldesign, Sounds
+            "Copyright 2019 Moritz Beck, Marvin Geier, Luca Nimmrichter, David Janoschka"; // TODO leveldesign, Sounds, Betatests
     private double position;
     private MultilineLabel label;
     private MultilineLabel labelShadow;
