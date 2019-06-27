@@ -1,6 +1,7 @@
 package de.thu.gpro.gugusto.game.object.player;
 
 import de.thu.gpro.gugusto.game.object.Direction;
+import de.thu.gpro.gugusto.util.DebugInfo;
 
 class PlayerState {
 
@@ -13,6 +14,7 @@ class PlayerState {
 
     void setState(Player.State state){
         this.state = state;
+        DebugInfo.playerState = state;
     }
 
     Player.State getState(){
