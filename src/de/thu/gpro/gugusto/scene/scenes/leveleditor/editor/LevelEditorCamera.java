@@ -61,12 +61,18 @@ class LevelEditorCamera extends Camera {
     }
 
     private boolean zoom(int units){
+        if(Math.abs(units) > 6) units = 6 * Integer.signum(units);
         if(units > 0 && scaling > 5 || units < 0 && scaling < 35){
             Vector from = MouseState.getPosition().clone().divide(scaling);
             scaling -= units;
+
+            if(scaling < 6) scaling = 6;
+            else if(scaling > 35) scaling = 35;
+
             Vector to = MouseState.getPosition().clone().divide(scaling);
             Vector offset = from.subtract(to);
             position.add(offset);
+
             return true;
         }
 
