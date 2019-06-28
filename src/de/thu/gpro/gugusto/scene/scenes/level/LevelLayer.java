@@ -50,6 +50,11 @@ public class LevelLayer extends Layer {
         Level level;
         if (aiMode) {
             List<Path> levels = LevelUtil.getPlayableLevels();
+            levels.removeIf(path -> path.endsWith("level98.gug"));
+            levels.removeIf(path -> path.endsWith("level999.gug"));
+            levels.removeIf(path -> path.endsWith("Tutorial.gug"));
+            levels.removeIf(path -> path.endsWith("Doodle_hard.gug"));
+            levels.removeIf(path -> path.endsWith("saegig.gug"));
             level = LevelLoader.load(levels.get((int)(Math.random() * levels.size())));
         } else {
             level = LevelLoader.load(currentLevelPath);
