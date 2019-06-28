@@ -38,6 +38,7 @@ public class CreditsLayer extends UILayer {
             "LEVEL DESIGN\n\n" +
             "David Janoschka\n\n" +
             "Moritz Beck\n\n" +
+            "Luca Nimmrichter\n\n" +
             "Tobias Schröder\n\n\n\n" +
             "BETA TESTER\n\n" +
             "Jochen Schmidt\n\n" +
