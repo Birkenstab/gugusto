@@ -40,6 +40,7 @@ public class Window extends JFrame implements KeyListener, MouseListener, MouseM
         addMouseMotionListener(this);
         addKeyListener(this);
         addMouseWheelListener(this);
+        setFocusTraversalKeysEnabled(false);
 
         if (presenterMode)
             setResizable(true);
