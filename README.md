@@ -9,6 +9,6 @@ This project was created as part of the game programming lecture of Computer Sci
 * Free Platform Game Assets by BAYAT GAMES on Unity Asset Store (modified)
 * Goal block texture from SuperTux
 
-See credits for more informations
+See credits for more information
 
 Copyright 2019 Moritz Beck, Marvin Geier, Luca Nimmrichter, David Janoschka
