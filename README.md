@@ -11,4 +11,4 @@ This project was created as part of the game programming lecture of Computer Sci
 
 See credits for more information
 
-Copyright 2019 Moritz Beck, Marvin Geier, Luca Nimmrichter, David Janoschka
+Copyright 2019 Moritz Beck, Marvin Geier, Luca Nimmrichter, David Janoschka, Markus Stephanides
